@@ -20,6 +20,7 @@
 		private var _edgeWalkedDistance:Number;
 		private var _vehicle: Vehicle;
 		private var _stage:Stage;
+		private var _active:Boolean = false;
 
 		public function PathWalker(stageRef:Stage, path:Path, vehicle: Vehicle) {
 			_stage = stageRef;
@@ -37,16 +38,10 @@
 			}
 		}
 
-		public function start():void{
-			_stage.addEventListener(Event.ENTER_FRAME, walk, false, 0, true);
-		}
-
-		public function stop():void {
-			_stage.removeEventListener(Event.ENTER_FRAME, walk, false);
-		}
-		
-		private function walk(e:Event) {
-			step();
+		public function update():void {
+			if (_active) {
+				step();
+			}
 		}
 		
 		public function step(): void {
@@ -99,9 +94,19 @@
 			dispatchEvent(_event);
 		}
 	
-		internal function edgeAhead(edge:Edge):Boolean {
+		public function edgeAhead(edge:Edge):Boolean {
 			var index:int = _path.edges.indexOf(edge);
 			return (index > _currentEdgeIndex);
+		}
+		
+		public function start():void 
+		{
+			_active = true;
+		}
+		
+		public function stop():void 
+		{
+			_active = false;
 		}
 	}
 	
