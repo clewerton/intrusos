@@ -6,74 +6,83 @@
 	import flash.events.Event;
 	import grafo.Map;
 	import entidade.Convoy;
+	import grafo.DirectedGraph;
+	import grafo.Path;
+	import grafo.PathWalker;
+	import grafo.Edge;
+	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 
 	/**
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class GameWorld {
+	public class GameWorld extends Sprite {
 		
 		private var _stage:Stage;
-		private var _map:Map;
 		private var _towers:Vector.<Tower> = new Vector.<Tower>;
 		private var _convoy:Convoy;
 		private var _bullets:Vector.<Bullet> = new Vector.<Bullet>;
+
+		private var _graph:DirectedGraph;
 		
-		public function GameWorld(stageRef:Stage, map:Map) {
+		// Para o jogo, 1 caminho só basta
+		private var _path:Path;
+		private var _pathWalkers:Vector.<PathWalker> = new Vector.<PathWalker>();
+		
+		
+		public function GameWorld(stageRef:Stage, graph:DirectedGraph, path:Path) {
 			_stage = stageRef;
-			_map = map;
-		}
-
-		public function start():void {
-			_stage.addEventListener(Event.ENTER_FRAME, update, false, 0, true);
-		}
-
-		public function stop():void {
-			_stage.removeEventListener(Event.ENTER_FRAME, update, false);
+			_graph = graph;
+			_path = path;
+			_graph.forEachEdge(handleClick);
+			addChild(_graph);
 		}
 
 		public function addTower(tower:Tower):void {
 			_towers.push(tower);
-			_map.addChild(tower);
+			addChild(tower);
 		}
 
 		public function removeTower(tower:Tower):void {
 			_towers.splice(_towers.indexOf(tower), 1);
-			_map.removeChild(tower);
+			removeChild(tower);
 		}
 		
 		public function addVehicle(vehicle:Vehicle):void {
 			_convoy.addVehicle(vehicle);
-			_map.addChild(vehicle);
+			addChild(vehicle);
 		}
 
 		public function removeVehicle(vehicle:Vehicle):void {
 			_convoy.removeVehicle(vehicle);
-			_map.removeChild(vehicle);
+			removeChild(vehicle);
 		}
 		
 		public function addBullet(bullet:Bullet):void {
 			_bullets.push(bullet);
-			_map.addChild(bullet);
+			addChild(bullet);
 		}
 		
 		public function removeBullet(bullet:Bullet):void {
 			_bullets.splice(_bullets.indexOf(bullet), 1);
-			_map.removeChild(bullet);
+			removeChild(bullet);
 		}
 
-		public function update(e:Event):void {
+		public function update():void {
 			checkColision();
 			convoy.update();
+			for each(var pathWalker:PathWalker in _pathWalkers) {
+				pathWalker.update();
+			}
 			for each(var tower:Tower in _towers) {
 				tower.update();
 			}
 			for each(var bullet:Bullet in _bullets) {
 				bullet.update();
 			}
-			
 		}
-		
+
 		private function checkColision():void {
 			for (var indexTowers:uint = 0; indexTowers < _towers.length; indexTowers++) {
 				for (var indexVehicles:uint = 0; indexVehicles < convoy.vehicles.length; indexVehicles++) {
@@ -94,9 +103,55 @@
 		public function set convoy(value:Convoy):void {
 			_convoy = value;
 			for each(var vehicle:Vehicle in _convoy.vehicles) {
-				_map.addChild(vehicle);
+				addChild(vehicle);
 			}
 		}
+		
+		public function get path():Path {
+			return _path;
+		}
+		
+		public function set path(val:Path):void {
+				_path = val;
+		}
+		
+		public function get pathWalkers():Vector.<PathWalker> 
+		{
+			return _pathWalkers;
+		}
+
+		public function addPathWalker(pathWalker:PathWalker):void {
+			_pathWalkers.push(pathWalker);
+		}
+		
+		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
+			item.addEventListener(MouseEvent.CLICK, configurePath, false, 0, true);
+		}
+		
+		private function configurePath(e:Event):void {
+			var theEdge:Edge = e.target as Edge;
+			if (!_path.inPath(theEdge)) {
+				_path.addEdge(theEdge);
+			}
+			else {
+				if (isRemovable(theEdge)) {
+					_path.separate(theEdge);
+				}
+			}
+		}
+		
+		private function isRemovable(edge:Edge):Boolean {
+			var resultado:Boolean = true;
+			var walkersIndex:uint = 0;
+			
+			while (resultado && (walkersIndex < _pathWalkers.length)) {
+				if (!_pathWalkers[walkersIndex++].edgeAhead(edge)) {
+					resultado = false;
+				}
+			}
+			return resultado;
+		}
+		
 		
 	}
 

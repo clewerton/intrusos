@@ -67,7 +67,7 @@
 			return _range;
 		}
 		
-		public function update():void {
+		public override function update():void {
 			if (!active || _enemy == null) {
 				return;
 			}

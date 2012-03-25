@@ -5,10 +5,11 @@
 	import evento.DestroyableEvent;
 	import evento.EventChannel;
 	import flash.display.Shape;
+	import flash.events.Event;
 	
 	public class GameObject extends MovieClip {
 
-		private var _engine:Engine;
+		private var _engine:EngineImpl;
 		private var _health:int;
 		protected var _hitRegion:Shape;
 		private var _active:Boolean = true;
@@ -70,14 +71,16 @@
 			_active = val;
 		}
 		
-		public function get engine():Engine 
-		{
+		public function get engine():EngineImpl {
 			return _engine;
 		}
 		
-		public function set engine(value:Engine):void 
-		{
+		public function set engine(value:EngineImpl):void {
 			_engine = value;
+		}
+		
+		public function update():void {
+			
 		}
 		
 	}

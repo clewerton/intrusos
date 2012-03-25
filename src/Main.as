@@ -9,7 +9,7 @@
 	import flash.geom.ColorTransform;
 	import flash.ui.Keyboard;
 	import grafo.*;
-	import entidade.Engine;
+	import EngineImpl;
 	import terrain.Soil2;
 	
 	/**
@@ -18,7 +18,7 @@
 	 */
 	public class Main extends Sprite
 	{
-		private var _engine:Engine;
+		private var _engine:EngineImpl;
 
 		public function Main():void
 		{
