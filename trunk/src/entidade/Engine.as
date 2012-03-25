@@ -10,6 +10,7 @@
 	import grafo.PathWalker;
 	import evento.DestroyableEvent;
 	import evento.EventChannel;
+	import entidade.Convoy;
 
 	/**
 	 * ...
@@ -21,8 +22,10 @@
 		private var _map:Map;
 		private var _path:Path;
 		private var _graph:DirectedGraph;
-		private	var _truck:Vehicle;
-		private	var _pathWalker:PathWalker;
+		private var _convoy:Convoy;
+		private var _pathWalkers:Vector.<PathWalker> = new Vector.<PathWalker>();
+		//private var _inputManager:InputManager;
+		//private var _soundManager:SoundManager;
 		
 		public function Engine(stageRef:Stage) {
 			_stage = stageRef;
@@ -66,16 +69,6 @@
 			}
 		}
 		
-		public function get truck():Vehicle {
-			return _truck;
-		}
-		
-		public function set truck(val:Vehicle):void  {
-			if (val != null) {
-				_truck = val;
-			}
-		}
-		
 		public function get path():Path {
 			return _path;
 		}
@@ -88,7 +81,7 @@
 		
 		protected function addVehicle(val:Vehicle):void {
 			if (val != null) {
-				_world.addVehicle(val);
+				_convoy.addVehicle(val);
 			}
 		}
 		
@@ -96,21 +89,25 @@
 			_world.addTower(tower);
 		}
 		
-		/*protected function addPathWalker(pathWalker:PathWalker):void {
+		protected function addPathWalker(pathWalker:PathWalker):void {
+			_pathWalkers.push(pathWalker);
 			_map.addPathWalker(pathWalker);
-		}*/
+		}
 
-		protected function set pathWalker(pW:PathWalker):void {
-			_map.addPathWalker(pW);
-			_pathWalker = pW;
+		public function get convoy():Convoy {
+			return _convoy;
 		}
 		
-		protected function get pathWalker():PathWalker {
-			return _pathWalker;
+		public function set convoy(value:Convoy):void {
+			_convoy = value;
 		}
 		
-		public function getBullet(bulletType:String, sender:GameObject, receiver:GameObject):void {
-			var bullet:Bullet = BulletFactory.getInstance().getBullet(bulletType);
+		public function get pathWalkers():Vector.<PathWalker> {
+			return _pathWalkers;
+		}
+		
+		public function getBullet(bulletClass:Class, sender:GameObject, receiver:GameObject):void {
+			var bullet:Bullet = new bulletClass();
 			bullet.enemy = receiver;
 			bullet.x = sender.x;
 			bullet.y = sender.y;

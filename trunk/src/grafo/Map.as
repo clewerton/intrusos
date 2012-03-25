@@ -23,9 +23,8 @@
 		
 		public function Map(stageRef:Stage, graph:DirectedGraph, path:Path) {
 			_stage = stageRef;
-			_path = path;
-
 			_graph = graph;
+			_path = path;
 			_graph.forEachEdge(handleClick);
 			addChild(_graph);
 		}
