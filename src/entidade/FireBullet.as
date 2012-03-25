@@ -5,9 +5,8 @@
 	
 	public class FireBullet extends Bullet {
 		
-		
-		public function FireBullet(enemy:GameObject, health:uint, speed:uint) {
-			super(enemy, 2, 10);
+		public function FireBullet() {
+			super(2, 5, 20);
 		}
 	}
 	

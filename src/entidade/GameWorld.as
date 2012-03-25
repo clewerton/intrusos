@@ -55,11 +55,12 @@
 		
 		public function addBullet(bullet:Bullet):void {
 			_bullets.push(bullet);
+			_map.addChild(bullet);
 		}
 		
 		public function removeBullet(bullet:Bullet):void {
 			_bullets.splice(_bullets.indexOf(bullet), 1);
-			_bullets.push(bullet);
+			_map.removeChild(bullet);
 		}
 
 		public function update(e:Event):void {
@@ -70,6 +71,10 @@
 			for each(var vehicle:Vehicle in _vehicles) {
 				vehicle.update();
 			}
+			for each(var bullet:Bullet in _bullets) {
+				bullet.update();
+			}
+			
 		}
 		
 		private function checkColision():void {

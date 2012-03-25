@@ -1,20 +1,14 @@
 ﻿package {
-	import entidade.Engine;
-	import evento.PathEvent;
-	import evento.DestroyableEvent;
+	
+	import entidade.*;
+	import evento.*;
 	import flash.display.Stage;
-	import grafo.Path;
-	import evento.EventChannel;
-	import grafo.Edge;
+	import grafo.*;
 	import flash.geom.ColorTransform;
-	import entidade.StandardTruck;
-	import entidade.Tower;
-	import entidade.StandardTower;
-	import entidade.Vehicle;
-	import grafo.PathWalker;
-	import grafo.Map;
 	import flash.events.KeyboardEvent;
-	import entidade.GameWorld;
+	import flash.ui.Keyboard;
+	import flash.display.Bitmap;
+	import terrain.Soil2;
 	
 	/**
 	 * ...
@@ -36,6 +30,31 @@
 			createWorld();
 			createTowers();
 			setHUD();
+			
+			stageRef.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyboard, false, 0, true);
+			
+		}
+
+		private function handleKeyboard(event:KeyboardEvent):void {
+			switch (event.keyCode) {
+				case Keyboard.E:
+					if (path.edges.length > 0) {
+						truck.visible = true;
+						EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0 , true);
+						pathWalker.start();
+					}
+				break;
+				case Keyboard.R:
+					pathWalker.reset();
+				break;
+				case Keyboard.Q:
+					pathWalker.stop();
+				break;
+			}
+		}
+
+		private function showEdge(event:EdgeEvent):void {
+			trace("Edge: " + event.edge.name);
 		}
 
 		private function setHUD():void {
@@ -79,6 +98,7 @@
 		
 		private function createVehicles():void {
 			truck = new StandardTruck();
+			truck.engine = this;
 			truck.x = 500;
 			truck.y = 500;
 			truck.visible = false;
@@ -88,12 +108,14 @@
 		
 		private function createTowers():void {
 			var torre:Tower = new StandardTower();
+			torre.engine = this;
 			torre.x = 75;
 			torre.y = 75;
 			world.addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
 			
 			torre = new StandardTower();
+			torre.engine = this;
 			torre.x = 225;
 			torre.y = 225;
 			world.addTower(torre);
@@ -116,22 +138,27 @@
 		private function adjustHealthHUD(e:DestroyableEvent):void  {
 			var vehicle:Vehicle = e.gameObject as Vehicle;
 			_vehicleHealthHUD.score = truck.health;
-
 		}
 		
 		private function createMap(): void {
 			map = new Map(stageRef, graph, path);
-			map.addPathWalker(new PathWalker(stageRef, path, truck));
+			pathWalker = new PathWalker(stageRef, path, truck);
+			map.addPathWalker(pathWalker);
 			stageRef.addChild(map);
-			map.scaleX = 1.5;
-			map.scaleY = 1.5;
+			map.scaleX = 2;
+			map.scaleY = 2;
 		}
 
 		private function createWorld():void {
 			world = new GameWorld(stageRef, map);
 			world.addVehicle(truck);
 		}
-
+		
+		private function createTerreno():void {
+			var terreno:Bitmap = new Bitmap(new Soil2());
+			stageRef.addChild(terreno);
+		}
+		
 	}
 
 }

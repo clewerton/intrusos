@@ -2,6 +2,8 @@
 	import evento.DestroyableEvent;
 	import evento.EventChannel;
 	import flash.display.Shape;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	public class Vehicle extends GameObject {
 
@@ -11,6 +13,8 @@
 		private var _enemy:Tower;
 		private var _states:Array;
 		private var _range:Shape;
+		private var _timer:Timer;
+		private var _canShoot:Boolean = false;
 
 		public function Vehicle(health:uint, linearSpeed:uint, radius:uint) {
 			super(health);
@@ -21,6 +25,8 @@
 			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
 			_range.graphics.drawCircle(x, y, _radius);
 			addChild(_range);
+			_timer = new Timer(300);
+			_timer.addEventListener(TimerEvent.TIMER, enableShooting, false, 0, true);
 		}
 
 		public function move():void {
@@ -62,20 +68,34 @@
 		}
 		
 		public function update():void {
-			if (!active || !_enemy) {
+			if (!active || _enemy == null) {
 				return;
 			}
 			if (_range.hitTestObject(_enemy.hitRegion)) {
-				_enemy.decreaseHealth(1);
-				trace("Vehicle " + this.name + ":" + health);
+				if(!_timer.running) {
+					_timer.start();
+				}
+				if (_canShoot) {
+					getNewBullet();
+				}
 				if(!_enemy.isAlive()) {
 					_enemy = null;
 				}
+				_canShoot = false;
 			} 
 			else {
 				_enemy = null;
 			}
 		}
+		
+		private function enableShooting(e:TimerEvent):void {
+			_canShoot = true;
+		}
+		
+		protected function getNewBullet():void {
+			throw new Error("Metodo Abstrato!");
+		}
+		
 		
 	}
 	

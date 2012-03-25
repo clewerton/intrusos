@@ -8,24 +8,28 @@
 	
 	public class GameObject extends MovieClip {
 
+		private var _engine:Engine;
 		private var _health:int;
 		protected var _hitRegion:Shape;
 		private var _active:Boolean = true;
 		
 		public function GameObject(health:int):void {
+			_engine = engine;
 			_health = health;
 			_hitRegion = new Shape();
 			addChild(_hitRegion);
 		}
 
+		public function destroy():void {
+			_health = 0;
+			notifyDestroy();
+		}
+		
 		public function decreaseHealth(valor:int):void {
-			if(!_active || !isAlive()) {
+			if (!_active || !isAlive()) {
 				return;
 			}
-			
 			_health -= valor;
-			//trace(_health);
-			
 			if (isAlive()) {
 				notifyHit();
 			}
@@ -64,6 +68,16 @@
 
 		public function set active(val:Boolean):void {
 			_active = val;
+		}
+		
+		public function get engine():Engine 
+		{
+			return _engine;
+		}
+		
+		public function set engine(value:Engine):void 
+		{
+			_engine = value;
 		}
 		
 	}
