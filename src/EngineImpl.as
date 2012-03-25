@@ -8,6 +8,7 @@
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.display.Bitmap;
+	import entidade.Convoy;
 	import terrain.Soil2;
 	
 	/**
@@ -25,7 +26,7 @@
 			//createTerreno();
 			createGraph();
 			createPath();
-			createVehicles();
+			createConvoy();
 			createMap();
 			createWorld();
 			createTowers();
@@ -39,16 +40,22 @@
 			switch (event.keyCode) {
 				case Keyboard.E:
 					if (path.edges.length > 0) {
-						truck.visible = true;
+						convoy.visible = true;
 						EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0 , true);
-						pathWalker.start();
+						for each(var pW:PathWalker in pathWalkers) {
+							pW.start();
+						}
 					}
 				break;
 				case Keyboard.R:
-					pathWalker.reset();
+						for each(pW in pathWalkers) {
+							pW.reset();
+						}
 				break;
 				case Keyboard.Q:
-					pathWalker.stop();
+						for each(pW in pathWalkers) {
+							pW.stop();
+						}
 				break;
 			}
 		}
@@ -64,7 +71,7 @@
 			_vehicleScoreHUD.y = 570;
 			stageRef.addChild(_vehicleScoreHUD);
 			
-			_vehicleHealthHUD = new HudValue(truck.health);
+			_vehicleHealthHUD = new HudValue(convoy.vehicles[0].health);
 			_vehicleHealthHUD.x = 760;
 			_vehicleHealthHUD.y = 570;
 			stageRef.addChild(_vehicleHealthHUD);
@@ -96,14 +103,17 @@
 			//trace(theEdge.name);
 		}
 		
-		private function createVehicles():void {
-			truck = new StandardTruck();
+		private function createConvoy():void {
+			convoy = new Convoy();
+			
+			var truck:Vehicle = new StandardTruck();
 			truck.engine = this;
-			truck.x = 500;
-			truck.y = 500;
+			truck.x = 1000;
+			truck.y = 1000;
 			truck.visible = false;
 			truck.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
 			truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
+			convoy.addVehicle(truck);
 		}
 		
 		private function createTowers():void {
@@ -137,13 +147,17 @@
 
 		private function adjustHealthHUD(e:DestroyableEvent):void  {
 			var vehicle:Vehicle = e.gameObject as Vehicle;
-			_vehicleHealthHUD.score = truck.health;
+			_vehicleHealthHUD.score = convoy.vehicles[0].health;
 		}
 		
 		private function createMap(): void {
 			map = new Map(stageRef, graph, path);
-			pathWalker = new PathWalker(stageRef, path, truck);
-			map.addPathWalker(pathWalker);
+			var pathWalker:PathWalker = null;
+			
+			for each(var vehicle:Vehicle in convoy.vehicles) {
+				pathWalker = new PathWalker(stageRef, path, vehicle);
+				addPathWalker(pathWalker);
+			}
 			stageRef.addChild(map);
 			map.scaleX = 2;
 			map.scaleY = 2;
@@ -151,7 +165,7 @@
 
 		private function createWorld():void {
 			world = new GameWorld(stageRef, map);
-			world.addVehicle(truck);
+			world.convoy = convoy;
 		}
 		
 		private function createTerreno():void {

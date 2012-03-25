@@ -5,6 +5,7 @@
 	import flash.display.Stage;
 	import flash.events.Event;
 	import grafo.Map;
+	import entidade.Convoy;
 
 	/**
 	 * ...
@@ -15,10 +16,8 @@
 		private var _stage:Stage;
 		private var _map:Map;
 		private var _towers:Vector.<Tower> = new Vector.<Tower>;
-		private var _vehicles:Vector.<Vehicle> = new Vector.<Vehicle>;
+		private var _convoy:Convoy;
 		private var _bullets:Vector.<Bullet> = new Vector.<Bullet>;
-		//private var _inputManager:InputManager;
-		//private var _soundManager:SoundManager;
 		
 		public function GameWorld(stageRef:Stage, map:Map) {
 			_stage = stageRef;
@@ -44,12 +43,12 @@
 		}
 		
 		public function addVehicle(vehicle:Vehicle):void {
-			_vehicles.push(vehicle);
+			_convoy.addVehicle(vehicle);
 			_map.addChild(vehicle);
 		}
 
 		public function removeVehicle(vehicle:Vehicle):void {
-			_vehicles.splice(_vehicles.indexOf(vehicle), 1);
+			_convoy.removeVehicle(vehicle);
 			_map.removeChild(vehicle);
 		}
 		
@@ -65,11 +64,9 @@
 
 		public function update(e:Event):void {
 			checkColision();
+			convoy.update();
 			for each(var tower:Tower in _towers) {
 				tower.update();
-			}
-			for each(var vehicle:Vehicle in _vehicles) {
-				vehicle.update();
 			}
 			for each(var bullet:Bullet in _bullets) {
 				bullet.update();
@@ -79,14 +76,25 @@
 		
 		private function checkColision():void {
 			for (var indexTowers:uint = 0; indexTowers < _towers.length; indexTowers++) {
-				for (var indexVehicles:uint = 0; indexVehicles < _vehicles.length; indexVehicles++) {
-					if (_vehicles[indexVehicles].range.hitTestObject(_towers[indexTowers].hitRegion) && _vehicles[indexVehicles].enemy == null) {
-						_vehicles[indexVehicles].enemy = _towers[indexTowers];
+				for (var indexVehicles:uint = 0; indexVehicles < convoy.vehicles.length; indexVehicles++) {
+					if (convoy.vehicles[indexVehicles].range.hitTestObject(_towers[indexTowers].hitRegion) && convoy.vehicles[indexVehicles].enemy == null) {
+						convoy.vehicles[indexVehicles].enemy = _towers[indexTowers];
 					}
-					if (_towers[indexTowers].range.hitTestObject(_vehicles[indexVehicles].hitRegion) && _towers[indexTowers].enemy == null) {
-						_towers[indexTowers].enemy = _vehicles[indexVehicles];
+					if (_towers[indexTowers].range.hitTestObject(convoy.vehicles[indexVehicles].hitRegion) && _towers[indexTowers].enemy == null) {
+						_towers[indexTowers].enemy = convoy.vehicles[indexVehicles];
 					}
 				}
+			}
+		}
+		
+		public function get convoy():Convoy {
+			return _convoy;
+		}
+		
+		public function set convoy(value:Convoy):void {
+			_convoy = value;
+			for each(var vehicle:Vehicle in _convoy.vehicles) {
+				_map.addChild(vehicle);
 			}
 		}
 		

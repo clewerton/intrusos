@@ -13,7 +13,7 @@
 		}
 		
 		protected override function getNewBullet():void {
-			engine.getBullet(BulletFactory.FIRE_BULLET, this, enemy);
+			engine.getBullet(FireBullet, this, enemy);
 		}
 		
 	}

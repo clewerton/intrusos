@@ -17,7 +17,7 @@
 		}
 		
 		protected override function getNewBullet():void {
-			engine.getBullet(BulletFactory.NEON_LASER, this, enemy);
+			engine.getBullet(NeonLaser, this, enemy);
 		}
 	}
 	
