@@ -26,7 +26,7 @@
 			_range.graphics.drawCircle(x, y, _radius);
 			_range.graphics.endFill();
 			addChild(_range);
-			_timer = new Timer(2000);
+			_timer = new Timer(500);
 			_timer.addEventListener(TimerEvent.TIMER, enableShooting, false, 0, true);
 		}
 		
@@ -51,20 +51,21 @@
 		}
 
 		public function update():void {
-			if (!active || !_enemy) {
+			if (!active || _enemy == null) {
 				return;
 			}
 			if (_range.hitTestObject(_enemy.hitRegion)) {
-				if (_canShoot) {
-					
-					//EventChannel.getInstance().dispatchEvent(new BulletEvent(EventChannel.CREATE_BULLET, this));
+				if(!_timer.running) {
+					_timer.start();
 				}
-				_enemy.decreaseHealth(1);
-				trace("Tower " + this.name + ":" + health);
+				if (_canShoot) {
+					getNewBullet();
+				}
 				if(!_enemy.isAlive()) {
 					_enemy = null;
 				}
-			} 
+				_canShoot = false;
+			}
 			else {
 				_enemy = null;
 			}
@@ -76,6 +77,10 @@
 		
 		private function enableShooting(e:TimerEvent):void {
 			_canShoot = true;
+		}
+		
+		protected function getNewBullet():void {
+			throw new Error("Metodo Abstrato!");
 		}
 		
 	}

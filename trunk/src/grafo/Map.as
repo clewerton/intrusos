@@ -27,7 +27,6 @@
 
 			_graph = graph;
 			_graph.forEachEdge(handleClick);
-			
 			addChild(_graph);
 		}
 

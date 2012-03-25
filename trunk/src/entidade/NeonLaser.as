@@ -5,8 +5,8 @@
 	
 	public class NeonLaser extends Bullet {
 		
-		public function NeonLaser(enemy:GameObject, health:uint, speed:uint) {
-			super(enemy, 1, 15);
+		public function NeonLaser() {
+			super(1, 7, 30);
 		}
 	}
 	
