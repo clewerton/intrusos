@@ -9,16 +9,13 @@
 
 		private var _edge:Edge;
 		
-		public function EdgeEvent(type:String, bubbles:Boolean=false, cancelable:Boolean=false) {
+		public function EdgeEvent(type:String, theEdge:Edge, bubbles:Boolean=false, cancelable:Boolean=false) {
 			super(type, bubbles, cancelable);
+			_edge = theEdge;
 		}
 
 		public function get edge():Edge {
 			return _edge;
-		}
-
-		public function set edge(theEdge:Edge):void {
-			_edge = theEdge;
 		}
 
 	}

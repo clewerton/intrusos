@@ -40,15 +40,11 @@
 		}
 
 		public function notifyHit():void {
-			var ev:DestroyableEvent = new DestroyableEvent(EventChannel.OBJECT_HIT);
-			ev.gameObject = this;
-			dispatchEvent(ev);
+			dispatchEvent(new DestroyableEvent(EventChannel.OBJECT_HIT, this));
 		}
 
 		protected function notifyDestroy():void {
-			var ev:DestroyableEvent = new DestroyableEvent(EventChannel.OBJECT_DESTROYED);
-			ev.gameObject = this;
-			dispatchEvent(ev);
+			dispatchEvent(new DestroyableEvent(EventChannel.OBJECT_DESTROYED, this));
 		}
 		
 		public function isAlive():Boolean {

@@ -4,7 +4,6 @@
 	import entidade.Vehicle;
 	import flash.display.Stage;
 	import flash.events.Event;
-	import grafo.Map;
 	import entidade.Convoy;
 	import grafo.DirectedGraph;
 	import grafo.Path;
@@ -28,14 +27,14 @@
 		
 		// Para o jogo, 1 caminho só basta
 		private var _path:Path;
-		private var _pathWalkers:Vector.<PathWalker> = new Vector.<PathWalker>();
+		//private var _pathWalkers:Vector.<PathWalker> = new Vector.<PathWalker>();
 		
 		
 		public function GameWorld(stageRef:Stage, graph:DirectedGraph, path:Path) {
 			_stage = stageRef;
 			_graph = graph;
 			_path = path;
-			_graph.forEachEdge(handleClick);
+			//_graph.forEachEdge(handleClick);
 			addChild(_graph);
 		}
 
@@ -72,9 +71,10 @@
 		public function update():void {
 			checkColision();
 			convoy.update();
-			for each(var pathWalker:PathWalker in _pathWalkers) {
+			_path.update();
+			/*for each(var pathWalker:PathWalker in _pathWalkers) {
 				pathWalker.update();
-			}
+			}*/
 			for each(var tower:Tower in _towers) {
 				tower.update();
 			}
@@ -107,51 +107,34 @@
 			}
 		}
 		
-		public function get path():Path {
+		public function start():void {
+			_path.start();
+		}
+
+		public function reset():void {
+			_path.reset();
+		}
+		
+		public function stop():void {
+			_path.reset();
+		}
+		
+		/*public function get path():Path {
 			return _path;
 		}
 		
 		public function set path(val:Path):void {
 				_path = val;
-		}
+		}*/
 		
-		public function get pathWalkers():Vector.<PathWalker> 
+		/*public function get pathWalkers():Vector.<PathWalker> 
 		{
 			return _pathWalkers;
 		}
 
-		public function addPathWalker(pathWalker:PathWalker):void {
-			_pathWalkers.push(pathWalker);
-		}
-		
 		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
 			item.addEventListener(MouseEvent.CLICK, configurePath, false, 0, true);
-		}
-		
-		private function configurePath(e:Event):void {
-			var theEdge:Edge = e.target as Edge;
-			if (!_path.inPath(theEdge)) {
-				_path.addEdge(theEdge);
-			}
-			else {
-				if (isRemovable(theEdge)) {
-					_path.separate(theEdge);
-				}
-			}
-		}
-		
-		private function isRemovable(edge:Edge):Boolean {
-			var resultado:Boolean = true;
-			var walkersIndex:uint = 0;
-			
-			while (resultado && (walkersIndex < _pathWalkers.length)) {
-				if (!_pathWalkers[walkersIndex++].edgeAhead(edge)) {
-					resultado = false;
-				}
-			}
-			return resultado;
-		}
-		
+		}*/
 		
 	}
 

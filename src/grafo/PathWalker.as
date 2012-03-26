@@ -25,6 +25,7 @@
 		public function PathWalker(stageRef:Stage, path:Path, vehicle: Vehicle) {
 			_stage = stageRef;
 			_path = path;
+			_path.addPathWalker(this);
 			_vehicle = vehicle;
 			reset();
 		}
@@ -89,9 +90,7 @@
 		}
 		
 		private function dispatchEdgeVisited(edge:Edge):void {
-			var _event:EdgeEvent = new EdgeEvent(EventChannel.EDGE_VISITED);
-			_event.edge = edge;
-			dispatchEvent(_event);
+			dispatchEvent(new EdgeEvent(EventChannel.EDGE_VISITED, edge));
 		}
 	
 		public function edgeAhead(edge:Edge):Boolean {

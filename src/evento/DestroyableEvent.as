@@ -9,16 +9,14 @@
 		
 		private var _gameObject:GameObject;
 		
-		public function DestroyableEvent(type:String, bubbles:Boolean = false, cancelable:Boolean = false) {
+		public function DestroyableEvent(type:String, obj:GameObject, bubbles:Boolean = false, cancelable:Boolean = false) {
 			super(type, bubbles, cancelable);
+			_gameObject = obj;
 		}
 		
 		public function get gameObject():GameObject {
 			return _gameObject;
 		}
 		
-		public function set gameObject(val:GameObject):void {
-			_gameObject = val;
-		}
 	}
 }
