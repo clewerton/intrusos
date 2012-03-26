@@ -10,7 +10,10 @@
 	import flash.ui.Keyboard;
 	import grafo.*;
 	import EngineImpl;
+	import tela.TelaJogo;
 	import terrain.Soil2;
+	import tela.TelaBase;
+	import tela.TelaInicial;
 	
 	/**
 	 * ...
@@ -18,7 +21,6 @@
 	 */
 	public class Main extends Sprite
 	{
-		private var _engine:EngineImpl;
 
 		public function Main():void
 		{
@@ -32,8 +34,9 @@
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_engine = new EngineImpl(stage);
-			_engine.start();
+			var tela1:TelaBase = new TelaJogo();
+			
+			stage.addChild(tela1);
 		}
 
 	}

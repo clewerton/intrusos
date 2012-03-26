@@ -52,22 +52,13 @@
 						_convoy.visible = true;
 						EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
 						_world.start();
-						/*for each (var pW:PathWalker in _world.pathWalkers) {
-							pW.start();
-						}*/
 					}
 					break;
 				case Keyboard.R:
 					_world.reset();
-					/*for each (pW in _world.pathWalkers) {
-						pW.reset();
-					}*/
 					break;
 				case Keyboard.Q:
 					_world.stop();
-					/*for each (pW in _world.pathWalkers) {
-						pW.stop();
-					}*/
 					break;
 			}
 		}
