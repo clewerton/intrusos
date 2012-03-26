@@ -1,10 +1,13 @@
 ﻿package grafo {
 	
+	import evento.EdgeEvent;
+	import evento.EventChannel;
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.display.Sprite;
+	import evento.PathEvent;
 	
 	// A connection between 2 nodes.
 	public class Edge extends Sprite {
@@ -14,6 +17,15 @@
 		private var _modulus:Number;
 		private var _angle:Number;
 		private var _marked:Boolean = false;
+		
+		public function Edge() {
+			addEventListener(MouseEvent.CLICK, notifyEdgeCliked, false, 0, true);
+		}
+		
+		private function notifyEdgeCliked(e:MouseEvent):void 
+		{
+			dispatchEvent(new Event(EventChannel.EDGE_CLICKED));
+		}
 		
 		internal function get modulus():Number {
 			return _modulus;

@@ -12,6 +12,7 @@
 	import entidade.Convoy;
 	import terrain.Soil2;
 	import entidade.Engine;
+	import flash.events.Event;
 	
 	/**
 	 * ...
@@ -50,20 +51,23 @@
 					if (_path.edges.length > 0) {
 						_convoy.visible = true;
 						EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
-						for each (var pW:PathWalker in _world.pathWalkers) {
+						_world.start();
+						/*for each (var pW:PathWalker in _world.pathWalkers) {
 							pW.start();
-						}
+						}*/
 					}
 					break;
-				case Keyboard.R: 
-					for each (pW in _world.pathWalkers) {
+				case Keyboard.R:
+					_world.reset();
+					/*for each (pW in _world.pathWalkers) {
 						pW.reset();
-					}
+					}*/
 					break;
-				case Keyboard.Q: 
-					for each (pW in _world.pathWalkers) {
+				case Keyboard.Q:
+					_world.stop();
+					/*for each (pW in _world.pathWalkers) {
 						pW.stop();
-					}
+					}*/
 					break;
 			}
 		}
@@ -124,11 +128,11 @@
 		
 		private function createPath():void
 		{
-			_path = new Path(_graph.getNodeAt(0), true, true);
+			_path = new Path(_graph, _graph.getNodeAt(0), true, true);
 			_path.addEventListener(EventChannel.EDGE_ADDED, edgeAdded, false, 0, true);
 			_path.addEventListener(EventChannel.EDGE_REMOVED, edgeRemoved, false, 0, true);
 		}
-		
+
 		private function edgeAdded(e:PathEvent):void
 		{
 			var theEdge:Edge = e.edge;
@@ -159,6 +163,12 @@
 			truck.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
 			truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
 			_convoy.addVehicle(truck);
+
+			var pathWalker:PathWalker = null;
+			for each (var vehicle:Vehicle in _convoy.vehicles) {
+				pathWalker = new PathWalker(_stage, _path, vehicle);
+			}
+
 		}
 		
 		private function createTowers():void
@@ -189,6 +199,7 @@
 		private function destroyVehicle(e:DestroyableEvent):void
 		{
 			var vehicle:Vehicle = e.gameObject as Vehicle;
+			adjustHealthHUD(e);
 			_world.removeVehicle(vehicle);
 			vehicle.active = false;
 		}
@@ -204,13 +215,13 @@
 			_world = new GameWorld(_stage, _graph, _path);
 			_world.convoy = _convoy;
 			
-			var pathWalker:PathWalker = null;
+			/*(var pathWalker:PathWalker = null;
 			
 			for each (var vehicle:Vehicle in _convoy.vehicles)
 			{
 				pathWalker = new PathWalker(_stage, _path, vehicle);
 				_world.addPathWalker(pathWalker);
-			}
+			}*/
 			_stage.addChild(_world);
 			_world.scaleX = 2;
 			_world.scaleY = 2;

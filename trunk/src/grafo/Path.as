@@ -7,18 +7,50 @@
 	
 	public class Path extends Edge {
 
+		private var _graph:DirectedGraph;
 		private var _edges:Vector.<Edge>;
 		private var _continuousPath:Boolean;
 		private var _canModify:Boolean;
 		private var _firstNode:Node;
+		private var _pathWalkers:Vector.<PathWalker> = new Vector.<PathWalker>();
 		
-		public function Path(firstNode:Node, canModify:Boolean = true, continuousPath:Boolean = false) {
+		public function Path(graph:DirectedGraph, firstNode:Node, canModify:Boolean = true, continuousPath:Boolean = false) {
+			_graph = graph;
 			_edges = new Vector.<Edge>();
 			_continuousPath = continuousPath;
 			_firstNode = firstNode;
 			_canModify = canModify;
+			_graph.forEachEdge(handleClick);
 		}
 
+		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
+			item.addEventListener(MouseEvent.CLICK, configurePath, false, 0, true);
+		}
+
+		private function configurePath(e:Event):void {
+			var theEdge:Edge = e.target as Edge;
+			if (!inPath(theEdge)) {
+				addEdge(theEdge);
+			}
+			else {
+				if (isRemovable(theEdge)) {
+					separate(theEdge);
+				}
+			}
+		}
+		
+		private function isRemovable(edge:Edge):Boolean {
+			var resultado:Boolean = true;
+			var walkersIndex:uint = 0;
+			
+			while (resultado && (walkersIndex < _pathWalkers.length)) {
+				if (!_pathWalkers[walkersIndex++].edgeAhead(edge)) {
+					resultado = false;
+				}
+			}
+			return resultado;
+		}
+		
 		public function addEdge(edge:Edge):Path {
 			if(_edges.length == 0) {
 				if(edge.sourceNode == _firstNode) {
@@ -59,11 +91,7 @@
 				_target = edge.targetNode;
 			}
 			_edges.push(edge);
-			
-			// Notificar listeners
-			var ev:PathEvent = new PathEvent(EventChannel.EDGE_ADDED);
-			ev.edge = edge;
-			dispatchEvent(ev);
+			dispatchEvent(new PathEvent(EventChannel.EDGE_ADDED, edge));
 
 			return this;
 		}
@@ -73,11 +101,7 @@
 				var curEdge:Edge = null;
 				do {
 					curEdge = _edges.pop();
-					
-					// Notificar listeners
-					var ev:PathEvent = new PathEvent(EventChannel.EDGE_REMOVED);
-					ev.edge = curEdge;
-					dispatchEvent(ev);
+					dispatchEvent(new PathEvent(EventChannel.EDGE_REMOVED, curEdge));
 					
 				} while(curEdge != edge);
 				adjustNodes();
@@ -118,6 +142,38 @@
 
 		public function inPath(edge:Edge):Boolean {
 			return _edges.indexOf(edge) >= 0;
+		}
+		
+		public function addPathWalker(pathWalker:PathWalker):void {
+			_pathWalkers.push(pathWalker);
+		}
+
+		public function removePathWalker(pathWalker:PathWalker):void {
+			_pathWalkers.splice(_pathWalkers.indexOf(pathWalker), 1);
+		}
+		
+		public function update():void {
+			for each(var pathWalker:PathWalker in _pathWalkers) {
+				pathWalker.update();
+			}
+		}
+
+		public function start():void {
+			for each(var pathWalker:PathWalker in _pathWalkers) {
+				pathWalker.start();
+			}
+		}
+
+		public function reset():void {
+			for each(var pathWalker:PathWalker in _pathWalkers) {
+				pathWalker.reset();
+			}
+		}
+		
+		public function stop():void {
+			for each(var pathWalker:PathWalker in _pathWalkers) {
+				pathWalker.stop();
+			}
 		}
 		
 	}
