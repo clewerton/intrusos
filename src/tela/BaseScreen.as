@@ -9,11 +9,11 @@
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class TelaBase extends MovieClip
+	public class BaseScreen extends MovieClip
 	{
 		//private var _stage:Stage;
 		
-		public function TelaBase() 
+		public function BaseScreen() 
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
