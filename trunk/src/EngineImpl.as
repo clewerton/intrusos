@@ -10,6 +10,7 @@
 	import flash.ui.Keyboard;
 	import flash.display.Bitmap;
 	import entidade.Convoy;
+	import tela.MenuItem;
 	import terrain.Soil2;
 	import entidade.Engine;
 	import flash.events.Event;

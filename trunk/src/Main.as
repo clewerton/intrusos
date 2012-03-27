@@ -10,9 +10,9 @@
 	import flash.ui.Keyboard;
 	import grafo.*;
 	import EngineImpl;
+	import tela.BaseScreen;
 	import tela.TelaJogo;
 	import terrain.Soil2;
-	import tela.TelaBase;
 	import tela.TelaInicial;
 	
 	/**
@@ -34,7 +34,7 @@
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			var tela1:TelaBase = new TelaJogo();
+			var tela1:BaseScreen = new TelaInicial();
 			
 			stage.addChild(tela1);
 		}
