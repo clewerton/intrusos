@@ -4,8 +4,9 @@
 	import flash.display.Shape;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import flash.events.Event;
 	
-	public class Vehicle extends GameObject {
+	public class Vehicle extends DestroyableObject {
 
 		private var _radius:uint;
 		private var _linearSpeed:uint;
@@ -20,13 +21,22 @@
 			super(health);
 			_linearSpeed = linearSpeed;
 			_radius = radius;
-			
 			_range = new Shape();
 			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
 			_range.graphics.drawCircle(x, y, _radius);
-			addChild(_range);
+			
 			_timer = new Timer(300);
 			_timer.addEventListener(TimerEvent.TIMER, enableShooting, false, 0, true);
+		}
+
+		public override function init():void
+		{
+			super.init();
+			addChild(_range);
+		}
+		
+		public override function dispose():void 
+		{			
 		}
 
 		public function move():void {
@@ -68,6 +78,7 @@
 		}
 		
 		public override function update():void {
+			super.update();
 			if (!active || _enemy == null) {
 				return;
 			}

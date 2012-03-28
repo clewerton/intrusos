@@ -18,10 +18,8 @@
 	public class Level1GraphCreator
 	{
 		private var _grafo:DirectedGraph;
-		private var _stage:Stage;
 		
-		public function Level1GraphCreator(stage:Stage) {
-			_stage = stage;
+		public function Level1GraphCreator() {
 			_grafo = new DirectedGraph();
 			creatGraph();
 		}

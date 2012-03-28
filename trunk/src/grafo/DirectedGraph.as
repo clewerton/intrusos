@@ -1,8 +1,9 @@
 ﻿package grafo {
 	
+	import engine.GameObject;
 	import flash.display.Sprite;
 	
-	public class DirectedGraph extends Sprite {
+	public class DirectedGraph extends GameObject {
 
 		private var _nodes: Vector.<Node>;
 		private var _edges:Vector.<Edge>;
@@ -12,6 +13,11 @@
 			_edges = new Vector.<Edge>;
 		}
 
+		public override function dispose():void {
+			_nodes = null;
+			_edges = null;
+		}
+		
 		public function getNodeAt(index:uint):Node {
 			return _nodes[index];
 		}

@@ -11,14 +11,14 @@
 	import grafo.Edge;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import engine.GameWorld;
 
 	/**
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class GameWorld extends Sprite {
+	public class InstrusosWorld extends GameWorld {
 		
-		private var _stage:Stage;
 		private var _towers:Vector.<Tower> = new Vector.<Tower>;
 		private var _convoy:Convoy;
 		private var _bullets:Vector.<Bullet> = new Vector.<Bullet>;
@@ -27,63 +27,50 @@
 		
 		// Para o jogo, 1 caminho só basta
 		private var _path:Path;
-		//private var _pathWalkers:Vector.<PathWalker> = new Vector.<PathWalker>();
 		
 		
-		public function GameWorld(stageRef:Stage, graph:DirectedGraph, path:Path) {
-			_stage = stageRef;
+		public function InstrusosWorld(graph:DirectedGraph, path:Path) {
 			_graph = graph;
 			_path = path;
-			//_graph.forEachEdge(handleClick);
-			addChild(_graph);
 		}
 
+		public override function init():void {
+			super.init();
+			addGameObject(_graph);
+			addGameObject(_path);
+		}
+		
 		public function addTower(tower:Tower):void {
 			_towers.push(tower);
-			addChild(tower);
+			addGameObject(tower);
 		}
 
 		public function removeTower(tower:Tower):void {
 			_towers.splice(_towers.indexOf(tower), 1);
-			removeChild(tower);
+			removeGameObject(tower);
 		}
 		
 		public function addVehicle(vehicle:Vehicle):void {
 			_convoy.addVehicle(vehicle);
-			addChild(vehicle);
+			addGameObject(vehicle);
 		}
 
 		public function removeVehicle(vehicle:Vehicle):void {
 			_convoy.removeVehicle(vehicle);
-			removeChild(vehicle);
+			removeGameObject(vehicle);
 		}
 		
 		public function addBullet(bullet:Bullet):void {
 			_bullets.push(bullet);
-			addChild(bullet);
+			addGameObject(bullet);
 		}
 		
 		public function removeBullet(bullet:Bullet):void {
 			_bullets.splice(_bullets.indexOf(bullet), 1);
-			removeChild(bullet);
+			removeGameObject(bullet);
 		}
 
-		public function update():void {
-			checkColision();
-			convoy.update();
-			_path.update();
-			/*for each(var pathWalker:PathWalker in _pathWalkers) {
-				pathWalker.update();
-			}*/
-			for each(var tower:Tower in _towers) {
-				tower.update();
-			}
-			for each(var bullet:Bullet in _bullets) {
-				bullet.update();
-			}
-		}
-
-		private function checkColision():void {
+		protected override function checkColisions():void {
 			for (var indexTowers:uint = 0; indexTowers < _towers.length; indexTowers++) {
 				for (var indexVehicles:uint = 0; indexVehicles < convoy.vehicles.length; indexVehicles++) {
 					if (convoy.vehicles[indexVehicles].range.hitTestObject(_towers[indexTowers].hitRegion) && convoy.vehicles[indexVehicles].enemy == null) {
@@ -103,38 +90,21 @@
 		public function set convoy(value:Convoy):void {
 			_convoy = value;
 			for each(var vehicle:Vehicle in _convoy.vehicles) {
-				addChild(vehicle);
+				addGameObject(vehicle);
 			}
 		}
 		
-		public function start():void {
-			_path.start();
+		public function startWalking():void {
+			_path.startWalking();
 		}
 
-		public function reset():void {
-			_path.reset();
+		public function resetWalking():void {
+			_path.resetWalking();
 		}
 		
-		public function stop():void {
-			_path.reset();
+		public function stopWalking():void {
+			_path.stopWalking();
 		}
-		
-		/*public function get path():Path {
-			return _path;
-		}
-		
-		public function set path(val:Path):void {
-				_path = val;
-		}*/
-		
-		/*public function get pathWalkers():Vector.<PathWalker> 
-		{
-			return _pathWalkers;
-		}
-
-		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
-			item.addEventListener(MouseEvent.CLICK, configurePath, false, 0, true);
-		}*/
 		
 	}
 

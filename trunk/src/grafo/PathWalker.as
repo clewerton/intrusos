@@ -19,18 +19,16 @@
 		private var _currentEdgeIndex:int;
 		private var _edgeWalkedDistance:Number;
 		private var _vehicle: Vehicle;
-		private var _stage:Stage;
 		private var _active:Boolean = false;
 
-		public function PathWalker(stageRef:Stage, path:Path, vehicle: Vehicle) {
-			_stage = stageRef;
+		public function PathWalker(path:Path, vehicle: Vehicle) {
 			_path = path;
 			_path.addPathWalker(this);
 			_vehicle = vehicle;
-			reset();
+			resetWalking();
 		}
 
-		public function reset():void {
+		public function resetWalking():void {
 			_currentEdgeIndex = -1;
 			_edgeWalkedDistance = 0.0;
 			if (_path.edges.length >= 1) {
@@ -66,7 +64,7 @@
 					if(_currentEdgeIndex == -1) {
 						_currentEdgeIndex = _path.edges.length;
 						dispatchEvent(new Event(EventChannel.PATH_FINISHED));
-						stop();
+						stopWalking();
 						return;
 					}
 				}
@@ -98,12 +96,12 @@
 			return (index > _currentEdgeIndex);
 		}
 		
-		public function start():void 
+		public function startWalking():void 
 		{
 			_active = true;
 		}
 		
-		public function stop():void 
+		public function stopWalking():void 
 		{
 			_active = false;
 		}

@@ -1,26 +1,36 @@
 ﻿package entidade {
-	
-	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
+	import engine.GameObject;
+	import flash.display.Shape;
 	import evento.DestroyableEvent;
 	import evento.EventChannel;
-	import flash.display.Shape;
 	import flash.events.Event;
 	
-	public class GameObject extends MovieClip {
+	public class DestroyableObject extends GameObject {
 
 		private var _engine:EngineImpl;
 		private var _health:int;
 		protected var _hitRegion:Shape;
 		private var _active:Boolean = true;
 		
-		public function GameObject(health:int):void {
+		public function DestroyableObject(health:int):void {
 			_engine = engine;
 			_health = health;
 			_hitRegion = new Shape();
-			addChild(_hitRegion);
 		}
 
+		public override function init():void
+		{
+			addChild(_hitRegion);
+		}
+		
+		public override function update():void 
+		{			
+		}
+		
+		public override function dispose():void 
+		{			
+		}
+		
 		public function destroy():void {
 			_health = 0;
 			notifyDestroy();
@@ -73,10 +83,6 @@
 		
 		public function set engine(value:EngineImpl):void {
 			_engine = value;
-		}
-		
-		public function update():void {
-			
 		}
 		
 	}

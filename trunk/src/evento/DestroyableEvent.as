@@ -1,20 +1,20 @@
 ﻿package evento {
 
 	import flash.events.Event;
-	import entidade.GameObject;
+	import entidade.DestroyableObject;
 	
 	public class DestroyableEvent extends Event {
 
 		//public const DESTROIED:String = "DestructableEvent:DESTROIED";
 		
-		private var _gameObject:GameObject;
+		private var _gameObject:DestroyableObject;
 		
-		public function DestroyableEvent(type:String, obj:GameObject, bubbles:Boolean = false, cancelable:Boolean = false) {
+		public function DestroyableEvent(type:String, obj:DestroyableObject, bubbles:Boolean = false, cancelable:Boolean = false) {
 			super(type, bubbles, cancelable);
 			_gameObject = obj;
 		}
 		
-		public function get gameObject():GameObject {
+		public function get gameObject():DestroyableObject {
 			return _gameObject;
 		}
 		

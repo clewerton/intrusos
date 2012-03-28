@@ -23,6 +23,14 @@
 			_graph.forEachEdge(handleClick);
 		}
 
+		public override function dispose():void {
+			_graph = null;
+			_edges = null;
+			_firstNode = null;
+			_pathWalkers = null;
+			super.dispose();
+		}
+
 		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
 			item.addEventListener(MouseEvent.CLICK, configurePath, false, 0, true);
 		}
@@ -152,27 +160,27 @@
 			_pathWalkers.splice(_pathWalkers.indexOf(pathWalker), 1);
 		}
 		
-		public function update():void {
+		public override function update():void {
 			for each(var pathWalker:PathWalker in _pathWalkers) {
 				pathWalker.update();
 			}
 		}
 
-		public function start():void {
+		public function startWalking():void {
 			for each(var pathWalker:PathWalker in _pathWalkers) {
-				pathWalker.start();
+				pathWalker.startWalking();
 			}
 		}
 
-		public function reset():void {
+		public function resetWalking():void {
 			for each(var pathWalker:PathWalker in _pathWalkers) {
-				pathWalker.reset();
+				pathWalker.resetWalking();
 			}
 		}
 		
-		public function stop():void {
+		public function stopWalking():void {
 			for each(var pathWalker:PathWalker in _pathWalkers) {
-				pathWalker.stop();
+				pathWalker.stopWalking();
 			}
 		}
 		
