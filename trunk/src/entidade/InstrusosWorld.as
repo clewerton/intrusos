@@ -28,11 +28,39 @@
 		// Para o jogo, 1 caminho só basta
 		private var _path:Path;
 		
+		// Gerenciador de Input
+		private var _inputManager:InputManager;
 		
 		public function InstrusosWorld(graph:DirectedGraph, path:Path) {
 			_graph = graph;
 			_path = path;
+			_inputManager = new InputManager();
+			_inputManager.addCommand(handleKeyboard.E, "START_WALKING");
+			_inputManager.addCommand(handleKeyboard.R, "RESET_WALKING");
+			_inputManager.addCommand(handleKeyboard.Q, "STOP_WALKING");
+			
 		}
+		
+				private function handleKeyboard(event:KeyboardEvent):void
+		{
+			switch (event.keyCode)
+			{
+				case Keyboard.E: 
+					if (_path.edges.length > 0) {
+						_convoy.visible = true;
+						EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
+						world.startWalking();
+					}
+					break;
+				case Keyboard.R:
+					world.resetWalking();
+					break;
+				case Keyboard.Q:
+					world.stopWalking();
+					break;
+			}
+		}
+
 
 		public override function init():void {
 			super.init();

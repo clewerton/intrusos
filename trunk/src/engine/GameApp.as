@@ -1,8 +1,7 @@
-package engine 
+﻿package engine 
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import entidade.InstrusosWorld;
 	
 	/**
 	 * ...
@@ -11,13 +10,16 @@ package engine
 	public class GameApp extends GameObject 
 	{
 		// Gerenciador de GameObjects
-		private var _world:InstrusosWorld;
+		private var _world:GameWorld;
 		
 		// Gerenciador de Som
 		private var _soundManager:SoundManager;
 		
 		// Gerenciador de telas
 		private var _screenManager:ScreenManager;
+
+		// Gerenciador de Input
+		private var _inputManager:InputManager;
 		
 		// Método padrão a ser chamado para inicializar os filhos
 		public override function init():void
@@ -57,12 +59,12 @@ package engine
 		}
 		
 		// Getters and Setters
-		protected function get world():InstrusosWorld 
+		protected function get world():GameWorld
 		{
 			return _world;
 		}
 		
-		protected function set world(value:InstrusosWorld):void 
+		protected function set world(value:GameWorld):void 
 		{
 			_world = value;
 		}
@@ -75,6 +77,16 @@ package engine
 		public function get screenManager():ScreenManager 
 		{
 			return _screenManager;
+		}
+		
+		public function get inputManager():InputManager 
+		{
+			return _inputManager;
+		}
+		
+		public function set inputManager(value:InputManager):void 
+		{
+			_inputManager = value;
 		}
 		
 	}
