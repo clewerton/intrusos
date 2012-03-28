@@ -8,9 +8,10 @@
 	import flash.events.Event;
 	import flash.display.Sprite;
 	import evento.PathEvent;
+	import engine.GameObject;
 	
 	// A connection between 2 nodes.
-	public class Edge extends Sprite {
+	public class Edge extends GameObject {
 
 		protected var _target: Node;
 		protected var _source: Node;
@@ -20,6 +21,15 @@
 		
 		public function Edge() {
 			addEventListener(MouseEvent.CLICK, notifyEdgeCliked, false, 0, true);
+		}
+		
+		public override function init():void {
+		}
+		
+		public override function update():void {
+		}
+		
+		public override function dispose():void {
 		}
 		
 		private function notifyEdgeCliked(e:MouseEvent):void 

@@ -1,5 +1,6 @@
-﻿package tela 
+﻿package engine 
 {
+	import engine.GameObject;
 	import flash.display.MovieClip;
 	import evento.TelaEvent;
 	import flash.display.Stage;
@@ -9,18 +10,10 @@
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class BaseScreen extends MovieClip
+	public class GameScreen extends GameObject
 	{
-		//private var _stage:Stage;
-		
-		public function BaseScreen() 
+		public override function init():void
 		{
-			addEventListener(Event.ADDED_TO_STAGE, init);
-		}
-		
-		protected function init(e:Event = null):void
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
 			width = stage.stageWidth;
 			height = stage.stageHeight;
 		}

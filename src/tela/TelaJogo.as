@@ -1,20 +1,22 @@
 ﻿package tela 
 {
 	import flash.events.Event;
+	import engine.GameScreen;
 	
 	/**
 	 * ...
 	 * @author Humberto Anjos
 	 */
-	public class TelaJogo extends BaseScreen
+	public class TelaJogo extends GameScreen
 	{
 		private var _engine:EngineImpl;
 		
-		protected override function init(e:Event = null):void
+		public override function init():void
 		{
-			super.init(e);
-			_engine = new EngineImpl(stage);
-			_engine.start();
+			super.init();
+			_engine = new EngineImpl();
+			addChild(_engine);
+			_engine.runApp();
 		}
 		
 	}

@@ -4,17 +4,18 @@
 	import flash.display.MovieClip;
 	import flash.display.Stage;
 	import flash.events.Event;
-	import tela.MenuItem;
+	import engine.GameScreen;
+	import engine.GameMenuItem;
 	
-	public class TelaInicial extends BaseScreen
+	public class TelaInicial extends GameScreen
 	{
-			var menuVar:MenuItem;
+			var menuVar:GameMenuItem;
 	
-			protected override function init(e:Event = null):void
+			public override function init():void
 			{
-				super.init(e);
-				menuVar = new MenuItem("Teste", action);
-				addChild(menuVar);
+				super.init();
+				menuVar = new GameMenuItem("Teste", action);
+				//addChild(menuVar);
 			}
 			
 			public function action(e:Event):void

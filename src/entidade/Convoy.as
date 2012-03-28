@@ -1,15 +1,25 @@
 ﻿package entidade 
 {
 	import entidade.Vehicle;
+	import engine.GameObject;
+
 	/**
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class Convoy {
+	public class Convoy extends GameObject {
 
 		private var _vehicles:Vector.<Vehicle> = new Vector.<Vehicle>;
 		
 		public function Convoy() {
+		}
+		
+		public override function init():void {
+			
+		}
+		
+		public override function dispose():void {
+			
 		}
 		
 		public function addVehicle(vehicle:Vehicle):void {
@@ -25,13 +35,13 @@
 			return _vehicles;
 		}
 		
-		public function set visible(val:Boolean):void {
+		public function set isVisible(val:Boolean):void {
 			for each(var item:Vehicle in _vehicles) {
 				item.visible = val;
 			}
 		}
 		
-		public function update():void {
+		public override function update():void {
 			for each(var item:Vehicle in _vehicles) {
 				item.update();
 			}

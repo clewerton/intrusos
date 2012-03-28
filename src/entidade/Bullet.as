@@ -2,11 +2,11 @@
 	import flash.events.Event;
 	import utils.Utils;
 	
-	public class Bullet extends GameObject {
+	public class Bullet extends DestroyableObject {
 
 		private var _speed:uint;
 		private var _damage:int;
-		private var _enemy:GameObject;
+		private var _enemy:DestroyableObject;
 		
 		public function Bullet(health:uint, speed:uint, damage:uint) {
 			super(health);
@@ -23,11 +23,11 @@
 			_speed = val;
 		}
 		
-		public function get enemy():GameObject {
+		public function get enemy():DestroyableObject {
 			return _enemy;
 		}
 		
-		public function set enemy(value:GameObject):void {
+		public function set enemy(value:DestroyableObject):void {
 			_enemy = value;
 		}
 		

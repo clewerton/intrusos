@@ -8,7 +8,7 @@
 	import flash.utils.Timer;
 	import evento.BulletEvent;
 	
-	public class Tower extends GameObject {
+	public class Tower extends DestroyableObject {
 
 		private var _radius:uint;
 		private var _enemy:Vehicle;
