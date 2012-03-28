@@ -41,7 +41,7 @@
 			createTowers();
 			setHUD();
 			
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyboard, false, 0, true);
+			//stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyboard, false, 0, true);
 		}
 		
 		public override function update():void {
@@ -161,12 +161,13 @@
 			
 			var truck:Vehicle = new StandardTruck();
 			truck.engine = this;
-			truck.x = 50;
-			truck.y = 250;
-			truck.visible = true;
+			truck.x = 500;
+			truck.y = 500;
+			//truck.visible = true;
 			truck.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
 			truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
 			_convoy.addVehicle(truck);
+			_convoy.isVisible = true;
 
 			var pathWalker:PathWalker = null;
 			for each (var vehicle:Vehicle in _convoy.vehicles) {

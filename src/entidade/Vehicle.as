@@ -45,6 +45,7 @@
 			}
 			
 			rotation += _angularSpeed;
+			rotation %= (Math.PI * 2);
 			x += (_linearSpeed * Math.cos(rotation));
 			y += (_linearSpeed * Math.sin(rotation));
 		}
