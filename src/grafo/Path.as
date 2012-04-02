@@ -24,11 +24,11 @@
 		}
 
 		public override function dispose():void {
+			super.dispose();
 			_graph = null;
 			_edges = null;
 			_firstNode = null;
 			_pathWalkers = null;
-			super.dispose();
 		}
 
 		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {

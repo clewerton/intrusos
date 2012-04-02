@@ -2,6 +2,7 @@
 {
 	import engine.CommandProcessor;
 	import engine.GameApp;
+	import engine.GameContainer;
 	import engine.GameContext;
 	import engine.InputManager;
 	import entidade.Convoy;
@@ -32,50 +33,65 @@
 		private var _vehicleScoreHUD:HudValue;
 		private var _vehicleHealthHUD:HudValue;
 		
-		private var _towers:Vector.<Tower> = new Vector.<Tower>;
+		private var _towers:Vector.<Tower>;
 		private var _convoy:Convoy;
-		private var _bullets:Vector.<Bullet> = new Vector.<Bullet>;
+		private var _bullets:Vector.<Bullet>;
 		
 		private var _graph:DirectedGraph;
 		
 		// Para o jogo, 1 caminho só basta
 		private var _path:Path;
 		
-		// Processador de comandos
-		private var _commandProcessor:CommandProcessor;
+		// Layers
+		private var _mapLayer:GameContainer;
+		private var _hudLayer:GameContainer;
 		
-		public function GameWorld(gameApp:GameApp, id:String)
+		public function GameWorld(gameApp:GameApp)
 		{
-			super(gameApp, id);
+			super(gameApp);
+			
+			_towers = new Vector.<Tower>;
+			_bullets = new Vector.<Bullet>;
+			_mapLayer = new GameContainer();
+			_hudLayer = new GameContainer();
+
+			addGameObject(_mapLayer);
+			addGameObject(_hudLayer);
+			
+			_mapLayer.scaleX = 2;
+			_mapLayer.scaleY = 2;
 			
 			// Create graph:
 			_graph = _graph = new Level1GraphCreator().getGraph();
-			addGameObject(_graph);
+			_mapLayer.addGameObject(_graph);
 			
 			// Create path:
 			_path = new Path(_graph, _graph.getNodeAt(0), true, true);
 			_path.addEventListener(EventChannel.EDGE_ADDED, edgeAdded, false, 0, true);
 			_path.addEventListener(EventChannel.EDGE_REMOVED, edgeRemoved, false, 0, true);
-			addGameObject(_path);
+			_mapLayer.addGameObject(_path);
 			
 			// Create inputManager:
 			inputManager.addCommandMapping(Keyboard.E, "START_WALKING");
 			inputManager.addCommandMapping(Keyboard.R, "RESET_WALKING");
 			inputManager.addCommandMapping(Keyboard.Q, "STOP_WALKING");
+			inputManager.addCommandMapping(Keyboard.V, "GO_MENU");
+			inputManager.addCommandMapping(Keyboard.Z, "GAME_OVER");
 
-			
-			// Create commandProcessor
-			_commandProcessor = new CommandProcessor();
-			
-			_commandProcessor.addCommand("START_WALKING", function() {
+			commandProcessor.addCommand("START_WALKING", function() {
 				if (_path.edges.length > 0) {
 					_convoy.active = true;
 					_convoy.visible = true;
 					EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
 					_path.startWalking();
-				}});
-			_commandProcessor.addCommand("RESET_WALKING", function() {_path.resetWalking();});
-			_commandProcessor.addCommand("STOP_WALKING", function() {_path.stopWalking();});
+				}
+			});
+			commandProcessor.addCommand("RESET_WALKING", function() {_path.resetWalking();});
+			commandProcessor.addCommand("STOP_WALKING", function() {_path.stopWalking();});
+			commandProcessor.addCommand("GO_MENU", function() {gameApp.switchContext("MENU");});
+			commandProcessor.addCommand("GAME_OVER", function() {
+				gameApp.switchContext("MENU", true);
+			});
 
 			// Create convoy:
 			_convoy = new Convoy();
@@ -88,7 +104,7 @@
 			_convoy.addVehicle(truck);
 			_convoy.active = false;
 			_convoy.visible = false;
-			addGameObject(truck);
+			_mapLayer.addGameObject(truck);
 			
 			var pathWalker:PathWalker = null;
 			for each (var vehicle:Vehicle in _convoy.vehicles)
@@ -99,48 +115,50 @@
 			createTowers();
 			setHUD();
 		}
-
+		
 		public override function update():void
 		{
-			_commandProcessor.process(inputManager.commands);
-			checkColisions();
 			super.update();
+			if(!active) {
+				return;
+			}
+			checkColisions();
 		}
 		
 		public function addTower(tower:Tower):void
 		{
 			_towers.push(tower);
-			addGameObject(tower);
+			_mapLayer.addGameObject(tower);
 		}
 		
 		public function removeTower(tower:Tower):void
 		{
 			_towers.splice(_towers.indexOf(tower), 1);
-			removeGameObject(tower);
+			_mapLayer.removeGameObject(tower);
 		}
 		
 		public function addVehicle(vehicle:Vehicle):void
 		{
 			_convoy.addVehicle(vehicle);
-			addGameObject(vehicle);
+			_mapLayer.addGameObject(vehicle);
 		}
 		
 		public function removeVehicle(vehicle:Vehicle):void
 		{
 			_convoy.removeVehicle(vehicle);
-			removeGameObject(vehicle);
+			_mapLayer.removeGameObject(vehicle);
 		}
 		
 		public function addBullet(bullet:Bullet):void
 		{
 			_bullets.push(bullet);
-			addGameObject(bullet);
+			_mapLayer.addGameObject(bullet);
 		}
 		
 		public function removeBullet(bullet:Bullet):void
 		{
 			_bullets.splice(_bullets.indexOf(bullet), 1);
-			removeGameObject(bullet);
+			_mapLayer.removeGameObject(bullet);
 		}
 		
 		protected function checkColisions():void
@@ -171,12 +189,13 @@
 			_convoy = value;
 			for each (var vehicle:Vehicle in _convoy.vehicles)
 			{
-				addGameObject(vehicle);
+				_mapLayer.addGameObject(vehicle);
 			}
 		}
 		
 		public override function dispose():void
 		{
+			super.dispose();
 			_path = null;
 			_graph = null;
 			_convoy = null;
@@ -194,12 +213,12 @@
 			_vehicleScoreHUD = new HudValue();
 			_vehicleScoreHUD.x = 40;
 			_vehicleScoreHUD.y = 570;
-			addGameObject(_vehicleScoreHUD);
+			_hudLayer.addGameObject(_vehicleScoreHUD);
 			
 			_vehicleHealthHUD = new HudValue(_convoy.vehicles[0].health);
 			_vehicleHealthHUD.x = 760;
 			_vehicleHealthHUD.y = 570;
-			addGameObject(_vehicleHealthHUD);
+			_hudLayer.addGameObject(_vehicleHealthHUD);
 		}
 		
 		public function getBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):void

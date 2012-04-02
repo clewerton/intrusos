@@ -17,17 +17,19 @@
 		public function Main():void
 		{
 			super();
-			addEventListener(Event.ADDED_TO_STAGE, init);
+			addEventListener(Event.ADDED_TO_STAGE, initGame);
 		}
 		
-		private function init(e:Event = null):void
+		private function initGame(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 
-			var world:GameContext = new GameWorld(this, "Hostile");
-			var telaInicial:TelaInicial = new TelaInicial(this, "Menu");
+			//var world:GameContext = new GameWorld(this, "HOSTILE");
+			//var telaInicial:TelaInicial = new TelaInicial(this, "MENU");
+			registerContext(GameWorld, "HOSTILE");
+			registerContext(TelaInicial, "MENU");
 			
-			this.activeContext = "Hostile";
+			this.switchContext("MENU");
 
 			runApp();
 			

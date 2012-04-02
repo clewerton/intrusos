@@ -7,14 +7,23 @@
 	import flash.events.Event;
 	import engine.GameMenuItem;
 	import engine.GameContext;
+	import flash.ui.Keyboard;
+	import engine.CommandProcessor;
 	
 	public class TelaInicial extends GameContext
 	{
 			var menuVar:GameMenuItem;
 
-			public function TelaInicial(gameApp:GameApp, id:String)
+			public function TelaInicial(gameApp:GameApp)
 			{
-				super(gameApp, id);
+				super(gameApp);
+				
+			// Create inputManager:
+			inputManager.addCommandMapping(Keyboard.E, "BEGIN_GAME");
+			
+			commandProcessor.addCommand("BEGIN_GAME", function() {
+				gameApp.switchContext("HOSTILE");
+				});
 			}
 			
 		protected override function onAddedToStage(e:Event = null):void
