@@ -11,9 +11,9 @@
 	{
 		private var _active:Boolean;
 		
-		public function GameObject(enabled = true) 
+		public function GameObject() 
 		{
-			_active = enabled;
+			_active = true;
 			//addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
@@ -30,6 +30,7 @@
 
 		// Libera recursos da classe
 		public function dispose():void {
+			_active = false;
 		}
 		
 		public function get active():Boolean 

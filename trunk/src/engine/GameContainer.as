@@ -9,14 +9,14 @@
 	 */
 	public class GameContainer extends GameObject
 	{
-		private var _gameObjects:Vector.<GameObject> = new Vector.<GameObject>;
+		private var _gameObjects:Vector.<GameObject>;
 		
 		public function GameContainer()
 		{
 			_gameObjects = new Vector.<GameObject>;
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
-		
+
 		protected function onAddedToStage(e:Event = null):void
 		{
 			for each(var obj:GameObject in _gameObjects) {
@@ -27,16 +27,27 @@
 		public override function update():void
 		{
 			super.update();
-			for each (var item:GameObject in _gameObjects)
-			{
+			for each (var item:GameObject in _gameObjects) {
 				item.update();
 			}
 		}
 		
 		public override function dispose():void
 		{
-			_gameObjects = null;
 			super.dispose();
+			for each (var item:GameObject in _gameObjects) {
+				item.dispose();
+			}
+			_gameObjects = null;
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		}
+		
+		public override function set active(value:Boolean):void 
+		{
+			super.active = value;
+			for each (var item:GameObject in _gameObjects) {
+				item.active = value;
+			}
 		}
 		
 		public function addGameObject(obj:GameObject):void

@@ -20,7 +20,7 @@
 		public function GameApp()
 		{
 			_soundManager = new SoundManager();
-			_contextRepository = new GameContextRepository();
+			_contextRepository = new GameContextRepository(this);
 		}
 		
 		// Coloca a engine em estado de execução
@@ -65,14 +65,19 @@
 			return _soundManager;
 		}
 		
-		public function get inputManager():InputManager
+		internal function get inputManager():InputManager 
 		{
 			return _inputManager;
 		}
 		
-		public function registerContext(context:GameContext, id:String)
+		internal function set inputManager(value:InputManager):void 
 		{
-			_contextRepository.registerContext(context, id);
+			_inputManager = value;
+		}
+		
+		public function registerContext(contextClass:Class, id:String)
+		{
+			_contextRepository.registerContext(contextClass, id);
 		}
 
 		public function unregisterContext(id:String)
@@ -80,17 +85,9 @@
 			_contextRepository.unregisterContext(id);
 		}
 		
-		public function set activeContext(contextId:String)
+		public function switchContext(contextId:String, disposePrevious:Boolean=false)
 		{
-			if ((stage != null) && _contextRepository.existsContext(contextId)) {
-				if (_contextRepository.activeContext != null)
-				{
-					removeChild(_contextRepository.activeContext);
-				}
-				_contextRepository.activateContextById(contextId);
-				_inputManager = _contextRepository.activeContext.inputManager;
-				addChild(_contextRepository.activeContext);
-			}
+			_contextRepository.switchContext(contextId, disposePrevious);
 		}
 		
 	}

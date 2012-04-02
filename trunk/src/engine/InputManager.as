@@ -13,18 +13,30 @@
 		private var _gameApp:GameApp;
 		
 		// Mapeamentos (key:uint -> command:String)
-		protected var _mappings:Dictionary = new Dictionary();
+		protected var _mappings:Dictionary;
 
 		// Comandos no buffer de input (Array<String>)
-		protected var _commands:Vector.<String> = new Vector.<String>();
+		protected var _commands:Vector.<String>;
+		//protected var _commands:Array = new Array();
 		
 		private var _enabled:Boolean = false;
 		
 		public function InputManager(gameApp:GameApp) 
 		{
+			init();
 			_gameApp = gameApp;
 		}
 
+		public function init():void {
+			_mappings = new Dictionary();
+			_commands = new Vector.<String>();
+		}
+
+		public function dispose():void {
+			_mappings = null;
+			_commands = null;
+		}
+		
 		public function addCommandMapping(key:uint, command:String) {
 			_mappings[key] = command;
 		}
@@ -61,12 +73,23 @@
 		}
 		
 		private function handleKeyboardDown(event:KeyboardEvent):void {
-			_commands.push(_mappings[event.keyCode]);
+			var command:String = _mappings[event.keyCode];
+			if (command != null && (_commands.indexOf(command) == -1)) {
+				_commands.push(_mappings[event.keyCode]);
+			}
 		}
 
 		private function handleKeyboardUp(event:KeyboardEvent):void {
-			_commands.pop();
+			_commands.splice(_commands.indexOf(_mappings[event.keyCode]), 1);
 		}
+		
+		/*private function printBuffer(str:String):void {
+			trace(str);
+			for each(var com:String in _commands) {
+				trace(com);
+			}
+			trace(str);
+		}*/
 		
 	}
 

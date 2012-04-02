@@ -13,7 +13,15 @@
 		
 		public function CommandProcessor()
 		{
+			init();
+		}
+		
+		public function init():void {
 			_commandHandlers = new Dictionary();
+		}
+		
+		public function dispose():void {
+			_commandHandlers = null;
 		}
 		
 		public function addCommand(command:String, handler:Function):void {
@@ -26,6 +34,8 @@
 		
 		public function process(commands:Vector.<String>):void {
 			for each(var command:String in commands) {
+				trace("-> " + command);
+				commands.pop();
 				_commandHandlers[command]();
 			}
 		}
