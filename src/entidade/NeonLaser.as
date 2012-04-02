@@ -1,7 +1,6 @@
 ﻿package entidade {
 	
 	import flash.display.MovieClip;
-	import context.GameWorld;
 	
 	
 	public class NeonLaser extends Bullet {
