@@ -1,11 +1,11 @@
 ﻿package
 {
+	import context.MainMenuContext;
 	import engine.GameApp;
 	import engine.GameContext;
 	import evento.TelaEvent;
 	import flash.events.Event;
-	import context.GameWorld;
-	import context.TelaInicial;
+	import context.GamePlayContext;
 	
 	/**
 	 * ...
@@ -13,7 +13,12 @@
 	 */
 	public class Main extends GameApp
 	{
-
+		// Estados do jogo
+		public static const INIT_GAME = 1;
+		public static const GAME_OVER = 2;
+		public static const PAUSE_GAME = 3;
+		public static const GOTO_MENU = 4;
+		
 		public function Main():void
 		{
 			super();
@@ -23,18 +28,21 @@
 		private function initGame(e:Event = null):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-
-			//var world:GameContext = new GameWorld(this, "HOSTILE");
-			//var telaInicial:TelaInicial = new TelaInicial(this, "MENU");
-			registerContext(GameWorld, "HOSTILE");
-			registerContext(TelaInicial, "MENU");
+			
+			// Registrando contextos
+			registerContext(GamePlayContext, "HOSTILE");
+			registerContext(MainMenuContext, "MENU");
+			
+			// Criando estados
+			addState(INIT_GAME, function() { switchContext("HOSTILE") } );
+			addState(GAME_OVER, function() { switchContext("MENU", true) } );
+			addState(GOTO_MENU, function() { switchContext("MENU") } );
 			
 			this.switchContext("MENU");
-
-			runApp();
 			
+			runApp();
 		}
-		
+	
 	}
 
 }

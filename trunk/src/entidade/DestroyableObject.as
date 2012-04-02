@@ -1,6 +1,5 @@
 ﻿package entidade {
 	
-	import context.GameWorld;
 	import engine.GameObject;
 	import evento.DestroyableEvent;
 	import evento.EventChannel;

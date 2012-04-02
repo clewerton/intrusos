@@ -1,5 +1,4 @@
 ﻿package entidade {
-	import context.GameWorld;
 	
 	public class StandardTower extends Tower {
 		

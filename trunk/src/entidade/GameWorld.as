@@ -1,11 +1,11 @@
-﻿package context
+﻿package entidade
 {
-	import engine.CommandProcessor;
-	import engine.GameApp;
 	import engine.GameContainer;
-	import engine.GameContext;
-	import engine.InputManager;
+	import entidade.Bullet;
 	import entidade.Convoy;
+	import entidade.DestroyableObject;
+	import entidade.StandardTower;
+	import entidade.StandardTruck;
 	import entidade.Tower;
 	import entidade.Vehicle;
 	import evento.DestroyableEvent;
@@ -13,21 +13,16 @@
 	import evento.EventChannel;
 	import evento.PathEvent;
 	import flash.geom.ColorTransform;
-	import flash.ui.Keyboard;
 	import grafo.DirectedGraph;
 	import grafo.Edge;
 	import grafo.Path;
 	import grafo.PathWalker;
-	import entidade.Bullet;
-	import entidade.DestroyableObject;
-	import entidade.StandardTruck;
-	import entidade.StandardTower;
 	
 	/**
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class GameWorld extends GameContext
+	public class GameWorld extends GameContainer
 	{
 		
 		private var _vehicleScoreHUD:HudValue;
@@ -46,9 +41,9 @@
 		private var _mapLayer:GameContainer;
 		private var _hudLayer:GameContainer;
 		
-		public function GameWorld(gameApp:GameApp)
+		public function GameWorld()
 		{
-			super(gameApp);
+			super();
 			
 			_towers = new Vector.<Tower>;
 			_bullets = new Vector.<Bullet>;
@@ -71,28 +66,6 @@
 			_path.addEventListener(EventChannel.EDGE_REMOVED, edgeRemoved, false, 0, true);
 			_mapLayer.addGameObject(_path);
 			
-			// Create inputManager:
-			inputManager.addCommandMapping(Keyboard.E, "START_WALKING");
-			inputManager.addCommandMapping(Keyboard.R, "RESET_WALKING");
-			inputManager.addCommandMapping(Keyboard.Q, "STOP_WALKING");
-			inputManager.addCommandMapping(Keyboard.V, "GO_MENU");
-			inputManager.addCommandMapping(Keyboard.Z, "GAME_OVER");
-
-			commandProcessor.addCommand("START_WALKING", function() {
-				if (_path.edges.length > 0) {
-					_convoy.active = true;
-					_convoy.visible = true;
-					EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
-					_path.startWalking();
-				}
-			});
-			commandProcessor.addCommand("RESET_WALKING", function() {_path.resetWalking();});
-			commandProcessor.addCommand("STOP_WALKING", function() {_path.stopWalking();});
-			commandProcessor.addCommand("GO_MENU", function() {gameApp.switchContext("MENU");});
-			commandProcessor.addCommand("GAME_OVER", function() {
-				gameApp.switchContext("MENU", true);
-			});
-
 			// Create convoy:
 			_convoy = new Convoy();
 			
@@ -119,10 +92,32 @@
 		public override function update():void
 		{
 			super.update();
-			if(!active) {
+			/*if(!active) {
 				return;
-			}
+			}*/
 			checkColisions();
+		}
+		
+		public function startWalkingPath():void {
+			if (_path.edges.length > 0) {
+				_convoy.active = true;
+				_convoy.visible = true;
+				EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
+				_path.startWalking();
+			}
+		}
+
+		public function resetWalkingPath():void {
+			_path.resetWalking();
+		}
+
+		public function stopWalkingPath():void {
+			_path.stopWalking();
+		}
+
+		private function showEdge(event:EdgeEvent):void
+		{
+			trace("Edge: " + event.edge.name);
 		}
 		
 		public function addTower(tower:Tower):void
@@ -201,11 +196,6 @@
 			_convoy = null;
 			_vehicleScoreHUD = null;
 			_vehicleHealthHUD = null;
-		}
-		
-		private function showEdge(event:EdgeEvent):void
-		{
-			trace("Edge: " + event.edge.name);
 		}
 		
 		private function setHUD():void

@@ -3,7 +3,6 @@
 	import flash.display.Shape;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
-	import context.GameWorld;
 	
 	public class Vehicle extends DestroyableObject {
 

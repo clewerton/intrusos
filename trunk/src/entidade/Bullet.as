@@ -1,6 +1,5 @@
 ﻿package entidade {
 	import utils.Utils;
-	import context.GameWorld;
 	
 	public class Bullet extends DestroyableObject {
 

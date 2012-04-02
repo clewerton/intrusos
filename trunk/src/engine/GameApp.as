@@ -17,10 +17,14 @@
 		// Gerenciador de Input
 		private var _inputManager:InputManager;
 		
+		// Estado corrente do jogo
+		private var _stateManager:StateManager;
+		
 		public function GameApp()
 		{
 			_soundManager = new SoundManager();
 			_contextRepository = new GameContextRepository(this);
+			_stateManager = new StateManager();
 		}
 		
 		// Coloca a engine em estado de execução
@@ -75,6 +79,20 @@
 			_inputManager = value;
 		}
 		
+		public function addState(stateId:uint, action:Function):void 
+		{
+			_stateManager.addState(stateId, action);
+		}
+		
+		public function get activeState():uint {
+			return _stateManager._activeStateId;
+		}
+
+		public function set activeState(value:uint):void 
+		{
+			_stateManager.activeStateId = value;
+		}
+
 		public function registerContext(contextClass:Class, id:String)
 		{
 			_contextRepository.registerContext(contextClass, id);
