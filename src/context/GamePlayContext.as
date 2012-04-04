@@ -2,9 +2,10 @@
 {
 	import engine.GameApp;
 	import engine.GameContext;
-	import entidade.GameWorld;
 	import evento.EventChannel;
 	import flash.ui.Keyboard;
+	import entidade.BaseWorld;
+	import level.level1.World1;
 	
 	/**
 	 * ...
@@ -13,13 +14,13 @@
 	public class GamePlayContext extends GameContext
 	{
 		// Layers
-		private var _world:GameWorld;
+		private var _world:BaseWorld;
 		
 		public function GamePlayContext(gameApp:GameApp)
 		{
 			super(gameApp);
 			
-			_world = new GameWorld(gameApp);
+			_world = new World1(gameApp);
 			addGameObject(_world);
 			
 			// Create inputManager:

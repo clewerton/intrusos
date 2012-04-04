@@ -15,7 +15,7 @@
 		private var _timer:Timer;
 		private var _canShoot:Boolean = false;
 
-		public function Vehicle(world:GameWorld, health:uint, linearSpeed:uint, radius:uint) {
+		public function Vehicle(world:BaseWorld, health:uint, linearSpeed:uint, radius:uint) {
 			super(world, health);
 			_linearSpeed = linearSpeed;
 			_radius = radius;

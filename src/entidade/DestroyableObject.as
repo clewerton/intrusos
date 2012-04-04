@@ -7,11 +7,11 @@
 	
 	public class DestroyableObject extends GameObject {
 
-		private var _world:GameWorld;
+		private var _world:BaseWorld;
 		private var _health:int;
 		protected var _hitRegion:Shape;
 		
-		public function DestroyableObject(world:GameWorld, health:int):void {
+		public function DestroyableObject(world:BaseWorld, health:int):void {
 			_world = world;
 			_health = health;
 			_hitRegion = new Shape();
@@ -56,7 +56,7 @@
 				return _hitRegion;
 		}
 		
-		public function get gameWorld():GameWorld
+		public function get gameWorld():BaseWorld
 		{
 			return _world;
 		}
