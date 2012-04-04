@@ -61,6 +61,10 @@
 			var result:Vector.<GameObject> = _gameObjects.filter(predicate, obj);
 			return result;
 		}
+		
+		public function get size():int {
+			return _gameObjects.length;
+		}
 	
 	}
 

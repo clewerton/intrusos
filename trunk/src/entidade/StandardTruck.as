@@ -2,7 +2,7 @@
 	
 	public class StandardTruck extends Vehicle {
 		
-		public function StandardTruck(world:GameWorld) {
+		public function StandardTruck(world:BaseWorld) {
 			super(world, 500, 2, 50);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
@@ -10,7 +10,7 @@
 		}
 		
 		protected override function getNewBullet():void {
-			gameWorld.getBullet(FireBullet, this, enemy);
+			gameWorld.newBullet(FireBullet, this, enemy);
 		}
 		
 	}

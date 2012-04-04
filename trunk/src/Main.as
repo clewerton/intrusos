@@ -15,9 +15,10 @@
 	{
 		// Estados do jogo
 		public static const INIT_GAME = 1;
-		public static const GAME_OVER = 2;
-		public static const PAUSE_GAME = 3;
-		public static const GOTO_MENU = 4;
+		public static const LEVEL_COMPLETE = 2;
+		public static const GAME_OVER = 3;
+		public static const PAUSE_GAME = 4;
+		public static const GOTO_MENU = 5;
 		
 		public function Main():void
 		{
@@ -35,6 +36,7 @@
 			
 			// Criando estados
 			addState(INIT_GAME, function() { switchContext("HOSTILE") } );
+			addState(LEVEL_COMPLETE, function() { switchContext("MENU") } );
 			addState(GAME_OVER, function() { switchContext("MENU", true) } );
 			addState(GOTO_MENU, function() { switchContext("MENU") } );
 			

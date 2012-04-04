@@ -2,7 +2,7 @@
 	
 	public class StandardTower extends Tower {
 		
-		public function StandardTower(world:GameWorld) {
+		public function StandardTower(world:BaseWorld) {
 			super(world, 350, 40);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
@@ -14,7 +14,7 @@
 		}
 		
 		protected override function getNewBullet():void {
-			gameWorld.getBullet(NeonLaser, this, enemy);
+			gameWorld.newBullet(NeonLaser, this, enemy);
 		}
 	}
 	

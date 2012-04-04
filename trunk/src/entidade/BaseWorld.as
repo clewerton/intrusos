@@ -1,5 +1,6 @@
 ﻿package entidade
 {
+	import engine.GameApp;
 	import engine.GameContainer;
 	import entidade.Bullet;
 	import entidade.Convoy;
@@ -9,21 +10,15 @@
 	import entidade.Tower;
 	import entidade.Vehicle;
 	import evento.DestroyableEvent;
-	import evento.EdgeEvent;
 	import evento.EventChannel;
-	import evento.PathEvent;
-	import flash.geom.ColorTransform;
 	import grafo.DirectedGraph;
-	import grafo.Edge;
-	import grafo.Path;
-	import grafo.PathWalker;
-	import engine.GameApp;
+	import grafo.Node;
 	
 	/**
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class GameWorld extends GameContainer
+	public class BaseWorld extends GameContainer
 	{
 		private var _vehicleScoreHUD:HudValue;
 		private var _vehicleHealthHUD:HudValue;
@@ -38,13 +33,12 @@
 		private var _mapLayer:GameContainer;
 		private var _hudLayer:GameContainer;
 		
-		private var _gameApp:GameApp;
+		private var _gameApp;
 		
-		public function GameWorld(gameApp:GameApp)
+		public function BaseWorld()
 		{
 			super();
 			
-			_gameApp = gameApp;
 			_towers = new Vector.<Tower>;
 			//_bullets = new Vector.<Bullet>;
 			_mapLayer = new GameContainer();
@@ -52,32 +46,6 @@
 
 			addGameObject(_mapLayer);
 			addGameObject(_hudLayer);
-			
-			_mapLayer.scaleX = 2;
-			_mapLayer.scaleY = 2;
-			
-			// Create graph:
-			_graph = _graph = new Level1GraphCreator().getGraph();
-			_mapLayer.addGameObject(_graph);
-			
-			// Create convoy:
-			_convoy = new Convoy(_graph, _graph.getNodeAt(0), true, true);
-			_mapLayer.addGameObject(_convoy);
-			
-			var truck:Vehicle = new StandardTruck(this);
-			truck.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
-			//truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
-			_convoy.addVehicle(truck);
-
-			truck = new StandardTruck(this);
-			truck.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
-			//truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
-			_convoy.addVehicle(truck);
-			
-			_convoy.active = false;
-			_convoy.visible = false;
-		
-			createTowers();
 			setHUD();
 		}
 		
@@ -99,6 +67,15 @@
 			_convoy.stopWalking();
 		}
 
+		public function addGraph(graph:DirectedGraph, sourceNode:Node):void {
+			_graph = graph;
+			_mapLayer.addGameObject(_graph);
+			
+			// Create convoy:
+			_convoy = new Convoy(_graph, sourceNode, true, true);
+			_mapLayer.addGameObject(_convoy);
+		}
+		
 		public function addTower(tower:Tower):void
 		{
 			_towers.push(tower);
@@ -111,6 +88,10 @@
 			_mapLayer.removeGameObject(tower);
 		}
 		
+		protected function get numberOfTowers():int {
+			return _towers.length;
+		}
+		
 		public function addVehicle(vehicle:Vehicle):void
 		{
 			_convoy.addVehicle(vehicle);
@@ -121,7 +102,7 @@
 			_convoy.removeVehicle(vehicle);
 		}
 		
-		public function addBullet(bullet:Bullet):void
+		private function addBullet(bullet:Bullet):void
 		{
 			//_bullets.push(bullet);
 			_mapLayer.addGameObject(bullet);
@@ -147,9 +128,26 @@
 			}
 		}
 		
-		public function get convoy():Convoy
-		{
+		public function get convoy():Convoy {
 			return _convoy;
+		}
+		
+		protected function get mapLayer():GameContainer {
+			return _mapLayer;
+		}
+		
+		public function get hudLayer():GameContainer {
+			return _hudLayer;
+		}
+		
+		public function get vehicleScoreHUD():HudValue 
+		{
+			return _vehicleScoreHUD;
+		}
+		
+		public function get vehicleHealthHUD():HudValue 
+		{
+			return _vehicleHealthHUD;
 		}
 		
 		private function setHUD():void
@@ -165,7 +163,7 @@
 			_hudLayer.addGameObject(_vehicleHealthHUD);
 		}
 		
-		public function getBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):void
+		public function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet
 		{
 			var bullet:Bullet = new bulletClass(this);
 			if (!bullet is Bullet) {
@@ -175,55 +173,7 @@
 			bullet.x = sender.x;
 			bullet.y = sender.y;
 			addBullet(bullet);
-			bullet.addEventListener(EventChannel.OBJECT_DESTROYED, destroyBullet, false, 0, true);
-		}
-		
-		private function destroyBullet(e:DestroyableEvent):void
-		{
-			var bullet:Bullet = e.gameObject as Bullet;
-			bullet.active = false;
-			removeBullet(bullet);
-			bullet = null;
-		}
-		
-		private function createTowers():void
-		{
-			var torre:Tower = new StandardTower(this);
-			torre.x = 75;
-			torre.y = 75;
-			addTower(torre);
-			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
-			
-			torre = new StandardTower(this);
-			torre.x = 225;
-			torre.y = 225;
-			addTower(torre);
-			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
-		}
-		
-		private function destroyTower(e:DestroyableEvent):void
-		{
-			var tower:Tower = e.gameObject as Tower;
-			tower.active = false;
-			removeTower(tower);
-			_vehicleScoreHUD.score += tower.scoreValue();
-			tower = null;
-		}
-		
-		private function destroyVehicle(e:DestroyableEvent):void
-		{
-			var vehicle:Vehicle = e.gameObject as Vehicle;
-			adjustHealthHUD(e);
-			removeVehicle(vehicle);
-			vehicle.active = false;
-			_gameApp.activeState = Main.GAME_OVER;
-			
-		}
-		
-		private function adjustHealthHUD(e:DestroyableEvent):void
-		{
-			var vehicle:Vehicle = e.gameObject as Vehicle;
-			_vehicleHealthHUD.score = _convoy.vehicles[0].health;
+			return bullet;
 		}
 		
 	}

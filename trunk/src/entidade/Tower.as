@@ -13,7 +13,7 @@
 		private var _timer:Timer;
 		private var _canShoot:Boolean = false;
 
-		public function Tower(world:GameWorld, health:uint, radius:uint) {
+		public function Tower(world:BaseWorld, health:uint, radius:uint) {
 			super(world, health);
 			_radius = radius;
 			
