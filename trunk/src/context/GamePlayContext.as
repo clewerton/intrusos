@@ -42,13 +42,6 @@
 			super.update();
 		}
 		
-		
-		public override function dispose():void
-		{
-			super.dispose();
-			_world = null;
-		}
-		
 	}
 
 }

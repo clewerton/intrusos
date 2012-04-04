@@ -30,7 +30,7 @@
 		
 		private var _towers:Vector.<Tower>;
 		private var _convoy:Convoy;
-		private var _bullets:Vector.<Bullet>;
+		//private var _bullets:Vector.<Bullet>;
 		
 		private var _graph:DirectedGraph;
 		
@@ -46,7 +46,7 @@
 			
 			_gameApp = gameApp;
 			_towers = new Vector.<Tower>;
-			_bullets = new Vector.<Bullet>;
+			//_bullets = new Vector.<Bullet>;
 			_mapLayer = new GameContainer();
 			_hudLayer = new GameContainer();
 
@@ -66,8 +66,14 @@
 			
 			var truck:Vehicle = new StandardTruck(this);
 			truck.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
-			truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
+			//truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
 			_convoy.addVehicle(truck);
+
+			truck = new StandardTruck(this);
+			truck.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
+			//truck.addEventListener(EventChannel.OBJECT_HIT, adjustHealthHUD, false, 0, true);
+			_convoy.addVehicle(truck);
+			
 			_convoy.active = false;
 			_convoy.visible = false;
 		
@@ -117,13 +123,13 @@
 		
 		public function addBullet(bullet:Bullet):void
 		{
-			_bullets.push(bullet);
+			//_bullets.push(bullet);
 			_mapLayer.addGameObject(bullet);
 		}
 		
 		public function removeBullet(bullet:Bullet):void
 		{
-			_bullets.splice(_bullets.indexOf(bullet), 1);
+			//_bullets.splice(_bullets.indexOf(bullet), 1);
 			_mapLayer.removeGameObject(bullet);
 		}
 		
@@ -144,18 +150,6 @@
 		public function get convoy():Convoy
 		{
 			return _convoy;
-		}
-		
-		public override function dispose():void
-		{
-			active = false;
-			super.dispose();
-			_graph = null;
-			_convoy = null;
-			_vehicleScoreHUD = null;
-			_vehicleHealthHUD = null;
-			_mapLayer = null;
-			_hudLayer = null;
 		}
 		
 		private function setHUD():void
@@ -187,8 +181,9 @@
 		private function destroyBullet(e:DestroyableEvent):void
 		{
 			var bullet:Bullet = e.gameObject as Bullet;
-			removeBullet(bullet);
 			bullet.active = false;
+			removeBullet(bullet);
+			bullet = null;
 		}
 		
 		private function createTowers():void
@@ -209,9 +204,10 @@
 		private function destroyTower(e:DestroyableEvent):void
 		{
 			var tower:Tower = e.gameObject as Tower;
-			removeTower(tower);
 			tower.active = false;
+			removeTower(tower);
 			_vehicleScoreHUD.score += tower.scoreValue();
+			tower = null;
 		}
 		
 		private function destroyVehicle(e:DestroyableEvent):void
@@ -220,7 +216,6 @@
 			adjustHealthHUD(e);
 			removeVehicle(vehicle);
 			vehicle.active = false;
-			//dispose();
 			_gameApp.activeState = Main.GAME_OVER;
 			
 		}

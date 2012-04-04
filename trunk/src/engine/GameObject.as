@@ -28,11 +28,6 @@
 			}
 		}
 
-		// Libera recursos da classe
-		public function dispose():void {
-			_active = false;
-		}
-		
 		public function get active():Boolean 
 		{
 			return _active;

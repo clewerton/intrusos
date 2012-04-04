@@ -30,11 +30,6 @@
 			_contextMap = new Dictionary();
 		}
 
-		public function dispose():void {
-			_contextMap = null;
-			_contextClassMap = null;
-		}
-		
 		function registerContext(contextClass:Class, id:String):void 
 		{
 			_contextClassMap[id] = contextClass;
@@ -72,7 +67,6 @@
 					_gameApp.removeChild(_contextMap[_activeId]);
 					_contextMap[_activeId].inputManager.disable();
 					if (deletePrevious) {
-						_contextMap[_activeId].dispose();
 						delete _contextMap[_activeId];
 					}
 				}

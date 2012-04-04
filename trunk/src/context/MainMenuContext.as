@@ -28,10 +28,8 @@
 		{
 			super.onAddedToStage(e);
 			menuVar = new GameMenuItem("Teste", action);
-			width = stage.stageWidth / 2;
-			x = stage.stageWidth / 4;
-			height = stage.stageHeight / 2;
-			y = stage.stageHeight / 4;
+			width = stage.stageWidth;
+			height = stage.stageHeight;
 			//addChild(menuVar);
 		}
 			

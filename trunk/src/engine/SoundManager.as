@@ -9,15 +9,7 @@ package engine
 		
 		public function SoundManager() 
 		{
-			init();
 		}
-		
-		public function init():void {
-		}
-
-		public function dispose():void {
-		}
-		
 		
 	}
 

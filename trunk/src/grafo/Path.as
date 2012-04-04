@@ -19,12 +19,6 @@
 			_canModify = canModify;
 		}
 
-		public override function dispose():void {
-			super.dispose();
-			_edges = null;
-			_firstNode = null;
-		}
-
 		public function addEdge(edge:Edge):Path {
 			if(_edges.length == 0) {
 				if(edge.sourceNode == _firstNode) {

@@ -32,11 +32,6 @@
 			_commands = new Vector.<String>();
 		}
 
-		public function dispose():void {
-			_mappings = null;
-			_commands = null;
-		}
-		
 		public function addCommandMapping(key:uint, command:String) {
 			_mappings[key] = command;
 		}
