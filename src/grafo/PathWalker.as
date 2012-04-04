@@ -20,15 +20,16 @@
 		private var _edgeWalkedDistance:Number;
 		private var _vehicle: Vehicle;
 		private var _active:Boolean = false;
-
-		public function PathWalker(path:Path, vehicle: Vehicle) {
+		private var _offset:uint;
+		
+		public function PathWalker(path:Path, vehicle: Vehicle, offset:uint = 0) {
 			_path = path;
-			_path.addPathWalker(this);
 			_vehicle = vehicle;
-			resetWalking();
+			reset();
+			_offset = offset;
 		}
 
-		public function resetWalking():void {
+		public function reset():void {
 			_currentEdgeIndex = -1;
 			_edgeWalkedDistance = 0.0;
 			if (_path.edges.length >= 1) {
@@ -39,20 +40,22 @@
 
 		public function update():void {
 			if (_active) {
-				step();
+				step(_vehicle.speed);
 			}
 		}
 		
-		public function step(): void {
-			if((_path.edges.length <= 0) || finished()) {
+		public function step(delta:uint): void {
+			if((_path.edges.length <= 0) || finished() || (delta == 0)) {
 				return;
 			}
 			if (_currentEdgeIndex < 0) {
 				dispatchEdgeVisited(_path.edges[++_currentEdgeIndex]);
 			}
 			var newEdgeVisited:Boolean = false;
-			var distanceToWalk:Number = _vehicle.speed;
+			var distanceToWalk:Number = delta;
 			var ramainingInEdge:Number = _path.edges[_currentEdgeIndex].modulus - _edgeWalkedDistance;
+			
+			// Enquanto a distancia a ser percorrida ultrapassar o fim do segmento...
 			while(distanceToWalk > ramainingInEdge){
 				distanceToWalk -= ramainingInEdge;
 				_edgeWalkedDistance = 0;
@@ -71,12 +74,10 @@
 				ramainingInEdge = _path.edges[_currentEdgeIndex].modulus;
 				newEdgeVisited = true;
 			}
+			// Nesse ponto a distancia a ser percorrida não ultrapassa o fim do segmento
 			var currentEdge:Edge = _path.edges[_currentEdgeIndex];
 			_edgeWalkedDistance += distanceToWalk;
-			ramainingInEdge -= distanceToWalk;
-			_vehicle.x = currentEdge.x + _edgeWalkedDistance * Math.cos(currentEdge.angle);
-			_vehicle.y = currentEdge.y + _edgeWalkedDistance * Math.sin(currentEdge.angle);
-			_vehicle.rotation = Utils.getDegree(currentEdge.angle);
+			currentEdge.walk(_vehicle, _edgeWalkedDistance);
 			
 			if(newEdgeVisited) {
 				dispatchEdgeVisited(currentEdge);
@@ -96,15 +97,18 @@
 			return (index > _currentEdgeIndex);
 		}
 		
-		public function startWalking():void 
-		{
-			_active = true;
+		public function startWalking():void {
+			if(!_active) {
+				_active = true;
+				step(_offset);
+				_offset = 0;
+			}
 		}
 		
-		public function stopWalking():void 
-		{
+		public function stopWalking():void {
 			_active = false;
 		}
+		
 	}
 	
 }
