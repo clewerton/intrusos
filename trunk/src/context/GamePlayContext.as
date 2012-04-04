@@ -19,7 +19,7 @@
 		{
 			super(gameApp);
 			
-			_world = new GameWorld();
+			_world = new GameWorld(gameApp);
 			addGameObject(_world);
 			
 			// Create inputManager:
@@ -33,7 +33,8 @@
 			commandProcessor.addCommand("RESET_WALKING", function() {_world.resetWalkingPath();});
 			commandProcessor.addCommand("STOP_WALKING", function() {_world.stopWalkingPath();});
 			commandProcessor.addCommand("GO_MENU", function() {gameApp.activeState = Main.GOTO_MENU;});
-			commandProcessor.addCommand("GAME_OVER", function() {gameApp.activeState = Main.GAME_OVER;});
+			commandProcessor.addCommand("GAME_OVER", function() { gameApp.activeState = Main.GAME_OVER; } );
+			
 		}
 		
 		public override function update():void

@@ -61,7 +61,7 @@
 			return _contextMap[id] != null;
 		}
 		
-		function switchContext(id:String, disposePrevious:Boolean=false) 
+		function switchContext(id:String, deletePrevious:Boolean=false) 
 		{
 			var nextContextClass:Class = _contextClassMap[id];
 			var nextContext:GameContext = _contextMap[id];
@@ -71,7 +71,7 @@
 					// limpar a configuração do contexto antigo:
 					_gameApp.removeChild(_contextMap[_activeId]);
 					_contextMap[_activeId].inputManager.disable();
-					if (disposePrevious) {
+					if (deletePrevious) {
 						_contextMap[_activeId].dispose();
 						delete _contextMap[_activeId];
 					}

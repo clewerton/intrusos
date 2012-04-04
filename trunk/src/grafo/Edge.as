@@ -2,6 +2,7 @@
 	
 	import evento.EdgeEvent;
 	import evento.EventChannel;
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Shape;
 	import flash.events.MouseEvent;
@@ -9,6 +10,7 @@
 	import flash.display.Sprite;
 	import evento.PathEvent;
 	import engine.GameObject;
+	import utils.Utils;
 	
 	// A connection between 2 nodes.
 	public class Edge extends GameObject {
@@ -23,8 +25,7 @@
 			addEventListener(MouseEvent.CLICK, notifyEdgeCliked, false, 0, true);
 		}
 		
-		private function notifyEdgeCliked(e:MouseEvent):void 
-		{
+		private function notifyEdgeCliked(e:MouseEvent):void {
 			dispatchEvent(new Event(EventChannel.EDGE_CLICKED));
 		}
 		
@@ -32,7 +33,7 @@
 			return _modulus;
 		}
 
-		internal function get angle():Number {
+		internal function getAngle(x:Number, y:Number):Number {
 			return _angle;
 		}
 
@@ -83,6 +84,12 @@
 		
 		public function set marked(val: Boolean):void {
 			_marked = val;
+		}
+		
+		public function walk(node:DisplayObject, delta:uint) {
+			node.x = x + delta * Math.cos(getAngle(node.x, node.y));
+			node.y = y + delta * Math.sin(getAngle(node.x, node.y));
+			node.rotation = Utils.getDegree(getAngle(node.x, node.y));
 		}
 		
 	}
