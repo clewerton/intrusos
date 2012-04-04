@@ -37,8 +37,9 @@
 		
 		public override function update():void {
 			// Se o inimigo foi destruído no ciclo anterior, sua existência perdeu sentido...
-			if (!enemy.active) {
+			if ((enemy == null) || (!enemy.active)) {
 				destroy();
+				return;
 			}
 			var deltaX:int = _enemy.x - this.x;
 			var deltaY:int = _enemy.y - this.y;

@@ -13,11 +13,6 @@
 			_edges = new Vector.<Edge>;
 		}
 
-		public override function dispose():void {
-			_nodes = null;
-			_edges = null;
-		}
-		
 		public function getNodeAt(index:uint):Node {
 			return _nodes[index];
 		}

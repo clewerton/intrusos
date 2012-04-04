@@ -14,7 +14,7 @@
 		public function GameContainer()
 		{
 			_gameObjects = new Vector.<GameObject>;
-			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage, false, 0, true);
 		}
 
 		protected function onAddedToStage(e:Event = null):void
@@ -32,16 +32,6 @@
 			}
 		}
 		
-		public override function dispose():void
-		{
-			super.dispose();
-			for each (var item:GameObject in _gameObjects) {
-				item.dispose();
-			}
-			_gameObjects = null;
-			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-		}
-		
 		public override function set active(value:Boolean):void 
 		{
 			super.active = value;
@@ -52,7 +42,7 @@
 		
 		public function addGameObject(obj:GameObject):void
 		{
-			if (stage != null) {
+			if (stage != null && !contains(obj)) {
 				addChild(obj);
 			}
 			_gameObjects.push(obj);
@@ -60,7 +50,7 @@
 		
 		public function removeGameObject(obj:GameObject):void
 		{
-			if (stage != null) {
+			if (stage != null && contains(obj)) {
 				removeChild(obj);
 			}
 			_gameObjects.splice(_gameObjects.indexOf(obj), 1);

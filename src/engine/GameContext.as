@@ -31,13 +31,6 @@
 			super.update();
 		}
 		
-		public override function dispose():void
-		{
-			super.dispose();
-			_inputManager = null;
-			_commandProcessor = null;
-		}
-		
 		public function get inputManager():InputManager
 		{
 			return _inputManager;

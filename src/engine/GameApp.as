@@ -53,14 +53,13 @@
 			}
 		}
 		
-		public override function dispose():void
+		public function dispose():void
 		{
 			stage.removeEventListener(Event.ENTER_FRAME, updateFrameHandler, false);
 			if (_contextRepository.activeContext != null)
 			{
 				removeChild(_contextRepository.activeContext);
 			}
-			super.dispose();
 		}
 		
 		// Getters and Setters
