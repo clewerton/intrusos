@@ -18,6 +18,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Mundo da fase 1
 	 */
 	public class World1 extends BaseWorld
 	{
@@ -83,6 +84,7 @@
 			vehicleScoreHUD.score += tower.scoreValue();
 			tower = null;
 			if (numberOfTowers == 0) {
+				trace("VICTORY");
 				_gameApp.activeState = Main.LEVEL_COMPLETE;
 			}
 		}
@@ -90,19 +92,20 @@
 		private function destroyVehicle(e:DestroyableEvent):void
 		{
 			var vehicle:Vehicle = e.gameObject as Vehicle;
-			adjustHealthHUD(e);
+			//adjustHealthHUD(e);
 			removeVehicle(vehicle);
 			vehicle.active = false;
 			if (convoy.size == 0) {
+				trace("FAILURE");
 				_gameApp.activeState = Main.GAME_OVER;
 			}
 		}
 		
-		private function adjustHealthHUD(e:DestroyableEvent):void
+		/*private function adjustHealthHUD(e:DestroyableEvent):void
 		{
 			var vehicle:Vehicle = e.gameObject as Vehicle;
 			vehicleHealthHUD.score = convoy.vehicles[0].health;
-		}
+		}*/
 		
 	}
 

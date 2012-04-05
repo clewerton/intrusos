@@ -36,7 +36,7 @@
 			
 			// Criando estados
 			addState(INIT_GAME, function() { switchContext("HOSTILE") } );
-			addState(LEVEL_COMPLETE, function() { switchContext("MENU") } );
+			addState(LEVEL_COMPLETE, function() { switchContext("MENU", true) } );
 			addState(GAME_OVER, function() { switchContext("MENU", true) } );
 			addState(GOTO_MENU, function() { switchContext("MENU") } );
 			
