@@ -21,18 +21,22 @@
 	public class BaseWorld extends GameContainer
 	{
 		private var _vehicleScoreHUD:HudValue;
-		private var _vehicleHealthHUD:HudValue;
+		//private var _vehicleHealthHUD:HudValue;
 		
 		private var _towers:Vector.<Tower>;
 		private var _convoy:Convoy;
 		//private var _bullets:Vector.<Bullet>;
 		
+		//Grafo com os possíveis caminhos a serem percorridos
 		private var _graph:DirectedGraph;
 		
-		// Layers
+		// Layer do ambiente do jogo
 		private var _mapLayer:GameContainer;
+		// Layer do HUD do jogo
 		private var _hudLayer:GameContainer;
 		
+		
+		// Referência à engine
 		private var _gameApp;
 		
 		public function BaseWorld()
@@ -145,10 +149,10 @@
 			return _vehicleScoreHUD;
 		}
 		
-		public function get vehicleHealthHUD():HudValue 
+		/*public function get vehicleHealthHUD():HudValue 
 		{
 			return _vehicleHealthHUD;
-		}
+		}*/
 		
 		private function setHUD():void
 		{
@@ -157,10 +161,10 @@
 			_vehicleScoreHUD.y = 570;
 			_hudLayer.addGameObject(_vehicleScoreHUD);
 			
-			_vehicleHealthHUD = new HudValue(_convoy.vehicles[0].health);
-			_vehicleHealthHUD.x = 760;
-			_vehicleHealthHUD.y = 570;
-			_hudLayer.addGameObject(_vehicleHealthHUD);
+			//_vehicleHealthHUD = new HudValue(_convoy.vehicles[0].health);
+			//_vehicleHealthHUD.x = 760;
+			//_vehicleHealthHUD.y = 570;
+			//_hudLayer.addGameObject(_vehicleHealthHUD);
 		}
 		
 		public function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet
