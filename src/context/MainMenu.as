@@ -10,11 +10,11 @@
 	import flash.ui.Keyboard;
 	import engine.CommandProcessor;
 	
-	public class MainMenuContext extends GameContext
+	public class MainMenu extends GameContext
 	{
 			var menuVar:GameMenuItem;
 
-			public function MainMenuContext(gameApp:GameApp)
+			public function MainMenu(gameApp:GameApp)
 			{
 				super(gameApp);
 				

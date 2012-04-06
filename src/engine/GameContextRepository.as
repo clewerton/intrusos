@@ -1,6 +1,8 @@
-﻿package engine 
+﻿package engine
 {
 	import flash.utils.Dictionary;
+	import level.GameContextFactory;
+	
 	/**
 	 * ...
 	 * @author Clewerton Coelho
@@ -10,14 +12,9 @@
 	{
 		private var _gameApp:GameApp;
 		
-		// Mapa de classes de contextos <String, Class<GameContext>>.
-		private var _contextClassMap:Dictionary;
-
-		// Mapa de contextos instanciados <String, GameContext>.
+		// <id:uint, context:GameContext> - Nao usar Vector, pois a matriz deve ser indexada !
 		private var _contextMap:Dictionary;
-		
-		// Id do contexto ativo
-		private var _activeId:String = null;
+		private var _activeContextId:uint;
 		
 		public function GameContextRepository(gameApp:GameApp)
 		{
@@ -25,63 +22,57 @@
 			_gameApp = gameApp;
 		}
 		
-		public function init():void {
-			_contextClassMap = new Dictionary();
+		public function init():void
+		{
 			_contextMap = new Dictionary();
 		}
-
-		function registerContext(contextClass:Class, id:String):void 
+		
+		function addContext(context:GameContext, id:uint):void
 		{
-			_contextClassMap[id] = contextClass;
+			if (_contextMap[id] == null) {
+				_contextMap[id] = context;
+			}
 		}
-
-		function unregisterContext(id:String):void 
+		
+		function removeContext(id:uint):void
 		{
-			if(_activeId != id) {
+			if (id != _activeContextId && existsContext(id)) {
 				delete _contextMap[id];
 			}
-			delete _contextClassMap[id];
 		}
 		
-		function get activeContext():GameContext 
+		function get activeContext():GameContext
 		{
-			return _contextMap[_activeId];
+			return _contextMap[_activeContextId];
 		}
 		
-		function existsContextClass(id:String) {
-			return _contextClassMap[id] != null;
-		}
-
-		function existsContext(id:String) {
+		function existsContext(id:uint)
+		{
 			return _contextMap[id] != null;
 		}
 		
-		function switchContext(id:String, deletePrevious:Boolean=false) 
+		function switchContext(id:uint, deletePrevious:Boolean = false)
 		{
-			var nextContextClass:Class = _contextClassMap[id];
 			var nextContext:GameContext = _contextMap[id];
 			
-			if ((nextContextClass != null) && (id != _activeId)) {
-				if (_contextMap[_activeId] != null) {
+			if (id != _activeContextId && nextContext != null) {
+				if (_contextMap[_activeContextId] != null) {
 					// limpar a configuração do contexto antigo:
-					_gameApp.removeChild(_contextMap[_activeId]);
-					_contextMap[_activeId].inputManager.disable();
+					_gameApp.removeChild(_contextMap[_activeContextId]);
+					_contextMap[_activeContextId].inputManager.disable();
 					if (deletePrevious) {
-						delete _contextMap[_activeId];
+						delete _contextMap[_activeContextId];
 					}
 				}
 				
 				// configurar o novo contexto:
-				_activeId = id;
-				if (_contextMap[_activeId] == null) {
-					_contextMap[_activeId] = new _contextClassMap[id](_gameApp);
-				}
-				_gameApp.inputManager = _contextMap[_activeId].inputManager;
-				_contextMap[_activeId].inputManager.enable();
-				_gameApp.addChild(_contextMap[_activeId]);
+				_activeContextId = id;
+				_gameApp.inputManager = _contextMap[_activeContextId].inputManager;
+				_contextMap[_activeContextId].inputManager.enable();
+				_gameApp.addChild(_contextMap[_activeContextId]);
 			}
 		}
-		
+	
 	}
 
 }

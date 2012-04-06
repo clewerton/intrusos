@@ -78,7 +78,7 @@
 			_inputManager = value;
 		}
 		
-		public function addState(stateId:uint, action:Function):void 
+		protected function addState(stateId:uint, action:Function):void 
 		{
 			_stateManager.addState(stateId, action);
 		}
@@ -92,17 +92,17 @@
 			_stateManager.activeStateId = value;
 		}
 
-		public function registerContext(contextClass:Class, id:String)
+		protected function addContext(context:GameContext, id:uint)
 		{
-			_contextRepository.registerContext(contextClass, id);
+			_contextRepository.addContext(context, id);
 		}
 
-		public function unregisterContext(id:String)
+		protected function removeContext(id:uint)
 		{
-			_contextRepository.unregisterContext(id);
+			_contextRepository.removeContext(id);
 		}
 		
-		public function switchContext(contextId:String, disposePrevious:Boolean=false)
+		protected function switchContext(contextId:uint, disposePrevious:Boolean=false)
 		{
 			_contextRepository.switchContext(contextId, disposePrevious);
 		}

@@ -89,7 +89,7 @@
 		public function addVehicle(vehicle:Vehicle):void {
 			_vehicles.push(vehicle);
 			addGameObject(vehicle);
-			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, 50 * (_vehicles.length - 1));
+			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, 40 * (_vehicles.length - 1));
 			newPathWalker.addEventListener(EventChannel.PATH_FINISHED, stopConvoyMoving, false, 0, true);
 			_mapping[vehicle] = newPathWalker;
 		}
@@ -118,8 +118,7 @@
 		}
 		
 		public override function set active(val:Boolean):void {
-			for each (var item:Vehicle in _vehicles)
-			{
+			for each (var item:Vehicle in _vehicles) {
 				item.active = val;
 			}
 		}
