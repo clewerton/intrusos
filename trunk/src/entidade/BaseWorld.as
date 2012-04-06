@@ -36,9 +36,6 @@
 		private var _hudLayer:GameContainer;
 		
 		
-		// Referência à engine
-		private var _gameApp;
-		
 		public function BaseWorld()
 		{
 			super();

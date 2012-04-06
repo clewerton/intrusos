@@ -21,8 +21,7 @@
 		
 		private var _enabled:Boolean = false;
 		
-		public function InputManager(gameApp:GameApp) 
-		{
+		public function InputManager(gameApp:GameApp) {
 			init();
 			_gameApp = gameApp;
 		}

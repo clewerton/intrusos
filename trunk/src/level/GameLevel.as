@@ -1,4 +1,4 @@
-﻿package context
+﻿package level
 {
 	import engine.GameApp;
 	import engine.GameContext;
@@ -11,16 +11,19 @@
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class GamePlayContext extends GameContext
+	public class GameLevel extends GameContext
 	{
 		// Layers
 		private var _world:BaseWorld;
 		
-		public function GamePlayContext(gameApp:GameApp)
+		// objetivo = function():Boolean
+		private var _objective:Function;
+		
+		public function GameLevel(gameApp:GameApp, world:BaseWorld)
 		{
 			super(gameApp);
 			
-			_world = new World1(gameApp);
+			_world = world;
 			addGameObject(_world);
 			
 			// Create inputManager:
@@ -38,9 +41,14 @@
 			
 		}
 		
-		public override function update():void
+		protected function get objective():Function 
 		{
-			super.update();
+			return _objective;
+		}
+		
+		protected function set objective(value:Function):void 
+		{
+			_objective = value;
 		}
 		
 	}
