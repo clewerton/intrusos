@@ -2,9 +2,11 @@
 {
 	import engine.GameApp;
 	import engine.GameContext;
+	import evento.EventChannel;
+	import evento.StateEvent;
 	import evento.TelaEvent;
 	import flash.events.Event;
-	import level.GameContextFactory;
+	import context.GameContextFactory;
 	
 	/**
 	 * ...
@@ -12,16 +14,12 @@
 	 */
 	public class Main extends GameApp
 	{
-		// Estados do jogo
-		public static const INIT_GAME = 1;
-		public static const LEVEL_COMPLETE = 2;
-		public static const GAME_OVER = 3;
-		public static const PAUSE_GAME = 4;
-		public static const GOTO_MENU = 5;
-
-		// Contextos
-		public static const FASE_1 = 1;
-		public static const MAIN_MENU = 1000;
+		// Estados possíveis da engine
+		public static const MENU:int = 1;					// menu
+		public static const GAME_PLAY:int = 2;		// jogando
+		public static const PAUSED:int = 3;				// jogo em pausa
+		public static const NEXT_LEVEL:int = 4;		// jogo perdido
+		public static const GAME_OVER:int = 5;		// jogo perdido
 		
 		public function Main():void
 		{
@@ -34,25 +32,26 @@
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
 			// Adicionando contextos
-			addGameContext(MAIN_MENU);
+			addGameContext(GameContextFactory.MAIN_MENU);
+			addGameContext(levelIndex);
 			
-			// Criando estados
-			addState(INIT_GAME, 
-				function() { 
-					addGameContext(FASE_1); 
-					switchContext(FASE_1) 
-				} 
-			);
-			addState(LEVEL_COMPLETE, function() { switchContext(MAIN_MENU, true) } );
-			addState(GAME_OVER, function() { switchContext(MAIN_MENU, true) } );
-			addState(GOTO_MENU, function() { switchContext(MAIN_MENU) } );
+			// Adicionando estados
+			addState(MENU, function() { switchContext(GameContextFactory.MAIN_MENU); });
+			addState(GAME_PLAY, function() { 
+				switchContext(levelIndex); 
+			});
+			addState(PAUSED, function() { });
+			addState(NEXT_LEVEL, function() { addGameContext(levelIndex++); switchContext(levelIndex, true); });
+			addState(GAME_OVER, function() { 
+				switchContext(GameContextFactory.MAIN_MENU, true);
+				addGameContext(levelIndex); 
+			});
 			
-			this.switchContext(MAIN_MENU);
-			
+			switchContext(GameContextFactory.MAIN_MENU);			
 			runApp();
 		}
-		
-		private function addGameContext(indexId:uint):void {
+
+		private function addGameContext(indexId:int):void {
 			addContext(GameContextFactory.createContext(this, indexId), indexId);
 		}
 	

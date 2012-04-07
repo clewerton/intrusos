@@ -10,18 +10,18 @@
 	import flash.ui.Keyboard;
 	import engine.CommandProcessor;
 	
-	public class MainMenu extends GameContext
+	public class MainMenuContext extends GameContext
 	{
 			var menuVar:GameMenuItem;
 
-			public function MainMenu(gameApp:GameApp)
+			public function MainMenuContext(gameApp:GameApp)
 			{
 				super(gameApp);
 				
 			// Create inputManager:
 			inputManager.addCommandMapping(Keyboard.E, "BEGIN_GAME");
 			
-			commandProcessor.addCommand("BEGIN_GAME", function() {gameApp.activeState = Main.INIT_GAME;});
+			commandProcessor.addCommand("BEGIN_GAME", function() {gameApp.activeState = Main.GAME_PLAY;});
 			}
 			
 		protected override function onAddedToStage(e:Event = null):void

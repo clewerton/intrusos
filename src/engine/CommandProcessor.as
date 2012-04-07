@@ -32,11 +32,15 @@
 			delete _commandHandlers[command];
 		}
 		
-		public function process(commands:Vector.<String>):void {
+		public function process(commandId:String):void {
+			trace("-> " + commandId);
+			_commandHandlers[commandId]();
+		}
+
+		public function processAll(commands:Vector.<String>):void {
 			for each(var command:String in commands) {
-				trace("-> " + command);
 				commands.pop();
-				_commandHandlers[command]();
+				process(command);
 			}
 		}
 		

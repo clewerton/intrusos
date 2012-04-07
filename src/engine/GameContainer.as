@@ -27,6 +27,9 @@
 		public override function update():void
 		{
 			super.update();
+			if (!active) {
+				return;
+			}
 			for each (var item:GameObject in _gameObjects) {
 				item.update();
 			}

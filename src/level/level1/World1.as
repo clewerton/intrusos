@@ -1,6 +1,5 @@
 ﻿package level.level1
 {
-	import engine.GameApp;
 	import engine.GameContainer;
 	import entidade.BaseWorld;
 	import entidade.Bullet;
@@ -14,6 +13,7 @@
 	import evento.EventChannel;
 	import grafo.DirectedGraph;
 	import grafo.Node;
+	import context.GameLevel;
 	
 	/**
 	 * ...
@@ -22,13 +22,12 @@
 	 */
 	public class World1 extends BaseWorld
 	{
-		private var _gameApp;
-		
-		public function World1(gameApp:GameApp)
+		private var _gameLevel:GameLevel;
+
+		public function World1(gameLevel:GameLevel)
 		{
 			super();
-
-			_gameApp = gameApp;
+			_gameLevel = gameLevel;
 			
 			mapLayer.scaleX = 2;
 			mapLayer.scaleY = 2;
@@ -44,6 +43,10 @@
 			convoy.visible = false;
 		
 			createTowers();
+		}
+		
+		public override function restart():void {
+			
 		}
 		
 		public override function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet
@@ -85,7 +88,7 @@
 			tower = null;
 			if (numberOfTowers == 0) {
 				trace("VICTORY");
-				_gameApp.activeState = Main.LEVEL_COMPLETE;
+				_gameLevel.activeState = GameLevel.SUCCEDED;
 			}
 		}
 		
@@ -97,7 +100,7 @@
 			vehicle.active = false;
 			if (convoy.size == 0) {
 				trace("FAILURE");
-				_gameApp.activeState = Main.GAME_OVER;
+				_gameLevel.activeState = GameLevel.FAILED;
 			}
 		}
 		
