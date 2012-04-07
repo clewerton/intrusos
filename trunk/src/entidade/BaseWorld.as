@@ -1,5 +1,7 @@
 ﻿package entidade
 {
+	import context.GameContextFactory;
+	import context.GameLevel;
 	import engine.GameApp;
 	import engine.GameContainer;
 	import entidade.Bullet;
@@ -13,6 +15,7 @@
 	import evento.EventChannel;
 	import grafo.DirectedGraph;
 	import grafo.Node;
+	import engine.StateManager;
 	
 	/**
 	 * ...
@@ -20,6 +23,7 @@
 	 */
 	public class BaseWorld extends GameContainer
 	{
+		
 		private var _vehicleScoreHUD:HudValue;
 		//private var _vehicleHealthHUD:HudValue;
 		
@@ -35,7 +39,6 @@
 		// Layer do HUD do jogo
 		private var _hudLayer:GameContainer;
 		
-		
 		public function BaseWorld()
 		{
 			super();
@@ -48,6 +51,10 @@
 			addGameObject(_mapLayer);
 			addGameObject(_hudLayer);
 			setHUD();
+		}
+		
+		public function restart():void {
+			
 		}
 		
 		public override function update():void

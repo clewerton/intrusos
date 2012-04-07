@@ -1,22 +1,21 @@
 ﻿package engine
 {
 	import flash.utils.Dictionary;
-	import level.GameContextFactory;
 	
 	/**
 	 * ...
 	 * @author Clewerton Coelho
 	 * Classe interna reponsável por gerenciar os contextos.
 	 */
-	internal class GameContextRepository
+	internal class GameContextManager
 	{
 		private var _gameApp:GameApp;
 		
 		// <id:uint, context:GameContext> - Nao usar Vector, pois a matriz deve ser indexada !
 		private var _contextMap:Dictionary;
-		private var _activeContextId:uint;
+		private var _activeContextId:int;
 		
-		public function GameContextRepository(gameApp:GameApp)
+		public function GameContextManager(gameApp:GameApp)
 		{
 			init();
 			_gameApp = gameApp;
@@ -27,14 +26,14 @@
 			_contextMap = new Dictionary();
 		}
 		
-		function addContext(context:GameContext, id:uint):void
+		function addContext(context:GameContext, id:int):void
 		{
 			if (_contextMap[id] == null) {
 				_contextMap[id] = context;
 			}
 		}
 		
-		function removeContext(id:uint):void
+		function removeContext(id:int):void
 		{
 			if (id != _activeContextId && existsContext(id)) {
 				delete _contextMap[id];
@@ -46,12 +45,12 @@
 			return _contextMap[_activeContextId];
 		}
 		
-		function existsContext(id:uint)
+		function existsContext(id:int)
 		{
 			return _contextMap[id] != null;
 		}
 		
-		function switchContext(id:uint, deletePrevious:Boolean = false)
+		function switchContext(id:int, deletePrevious:Boolean = false)
 		{
 			var nextContext:GameContext = _contextMap[id];
 			

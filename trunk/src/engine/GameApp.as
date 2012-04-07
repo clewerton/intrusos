@@ -9,21 +9,23 @@
 	public class GameApp extends GameObject
 	{
 		// Container de telas
-		private var _contextRepository:GameContextRepository;
+		private var _contextManager:GameContextManager;
 		
 		// Gerenciador de Som
 		private var _soundManager:SoundManager;
 		
 		// Gerenciador de Input
 		private var _inputManager:InputManager;
-		
-		// Estado corrente do jogo
+
+		// Gerenciador de estados
 		private var _stateManager:StateManager;
+		
+		private var _levelIndex:uint = 1;
 		
 		public function GameApp()
 		{
 			_soundManager = new SoundManager();
-			_contextRepository = new GameContextRepository(this);
+			_contextManager = new GameContextManager(this);
 			_stateManager = new StateManager();
 		}
 		
@@ -47,19 +49,50 @@
 		public override function update():void
 		{
 			super.update();
-			if (_contextRepository.activeContext != null)
+			if (_contextManager.activeContext != null)
 			{
-				_contextRepository.activeContext.update();
+				_contextManager.activeContext.update();
 			}
 		}
 		
 		public function dispose():void
 		{
 			stage.removeEventListener(Event.ENTER_FRAME, updateFrameHandler, false);
-			if (_contextRepository.activeContext != null)
+			if (_contextManager.activeContext != null)
 			{
-				removeChild(_contextRepository.activeContext);
+				removeChild(_contextManager.activeContext);
 			}
+		}
+		
+		// Métodos relativos à estado
+		protected function addState(stateId:uint, action:Function):void 
+		{
+			_stateManager.addState(stateId, action);
+		}
+		
+		public function get activeState():uint {
+			return _stateManager._activeStateId;
+		}
+
+		public function set activeState(value:uint):void 
+		{
+			_stateManager.activeStateId = value;
+		}
+		
+		// Métodos relativos à contexto
+		protected function addContext(context:GameContext, id:int)
+		{
+			_contextManager.addContext(context, id);
+		}
+
+		protected function removeContext(id:int)
+		{
+			_contextManager.removeContext(id);
+		}
+		
+		public function switchContext(contextId:int, disposePrevious:Boolean=false)
+		{
+			_contextManager.switchContext(contextId, disposePrevious);
 		}
 		
 		// Getters and Setters
@@ -78,33 +111,14 @@
 			_inputManager = value;
 		}
 		
-		protected function addState(stateId:uint, action:Function):void 
+		public function get levelIndex():uint 
 		{
-			_stateManager.addState(stateId, action);
+			return _levelIndex;
 		}
 		
-		public function get activeState():uint {
-			return _stateManager._activeStateId;
-		}
-
-		public function set activeState(value:uint):void 
+		public function set levelIndex(value:uint):void 
 		{
-			_stateManager.activeStateId = value;
-		}
-
-		protected function addContext(context:GameContext, id:uint)
-		{
-			_contextRepository.addContext(context, id);
-		}
-
-		protected function removeContext(id:uint)
-		{
-			_contextRepository.removeContext(id);
-		}
-		
-		protected function switchContext(contextId:uint, disposePrevious:Boolean=false)
-		{
-			_contextRepository.switchContext(contextId, disposePrevious);
+			_levelIndex = value;
 		}
 		
 	}

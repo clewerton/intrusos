@@ -1,6 +1,5 @@
-﻿package level
+﻿package context
 {
-	import context.MainMenu;
 	import engine.GameContext;
 	import level.level1.World1;
 	import engine.GameApp;
@@ -11,18 +10,21 @@
 	 */
 	public class GameContextFactory
 	{
+		public static const MAIN_MENU:int = -1;
+		public static const HIGH_SCORE:int = -2;
+		
 		public function GameContextFactory() {}
 		
-		public static function createContext(gameApp:GameApp, contextId:uint):GameContext
+		public static function createContext(gameApp:GameApp, contextId:int):GameContext
 		{
 			var ctx:GameContext = null;
 			switch (contextId)
 			{
-				case 1: 
-					ctx = new GameLevel(gameApp, new World1(gameApp));
+				case MAIN_MENU: 
+					ctx = new MainMenuContext(gameApp);
 					break;
-				case 1000: 
-					ctx = new MainMenu(gameApp);
+				default:
+					ctx = new GameLevel(gameApp, contextId);
 					break;
 			}
 			return ctx;

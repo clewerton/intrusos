@@ -1,10 +1,14 @@
-package engine 
+﻿package engine 
 {
+	import evento.StateEvent;
+	import flash.events.EventDispatcher;
+	import evento.EventChannel;
+
 	/**
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class StateManager 
+	public class StateManager extends EventDispatcher
 	{
 		// Indexed array (uint -> Function)
 		var _states:Array
@@ -34,6 +38,7 @@ package engine
 		{
 			_activeStateId = value;
 			performTransition(_activeStateId);
+			dispatchEvent(new StateEvent(EventChannel.STATE_CHANGED, value));
 		}
 		
 		private function performTransition(stateId:uint):void {
