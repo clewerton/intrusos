@@ -1,7 +1,5 @@
-﻿package evento 
+﻿package src.evento 
 {
-	import entidade.Bullet;
-	import entidade.GameObject;
 	import flash.events.Event;
 
 	/**

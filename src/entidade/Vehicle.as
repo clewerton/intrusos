@@ -1,8 +1,9 @@
-﻿package entidade {
+﻿package src.entidade {
 	
 	import flash.display.Shape;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import src.app.BaseWorld;
 	
 	public class Vehicle extends DestroyableObject {
 

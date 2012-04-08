@@ -1,4 +1,4 @@
-﻿package entidade {
+﻿package src.entidade {
 	
 	import flash.display.MovieClip;
 	
