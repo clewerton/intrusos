@@ -1,12 +1,8 @@
-﻿package
+﻿package src
 {
-	import engine.GameApp;
-	import engine.GameContext;
-	import evento.EventChannel;
-	import evento.StateEvent;
-	import evento.TelaEvent;
 	import flash.events.Event;
-	import context.GameContextFactory;
+	import lib.engine.GameApp;
+	import src.app.GameContextFactory;
 	
 	/**
 	 * ...
@@ -29,7 +25,7 @@
 		
 		private function initGame(e:Event = null):void
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
+			removeEventListener(Event.ADDED_TO_STAGE, initGame);
 			
 			// Adicionando contextos
 			addGameContext(GameContextFactory.MAIN_MENU);
@@ -46,6 +42,7 @@
 				switchContext(GameContextFactory.MAIN_MENU, true);
 				addGameContext(levelIndex); 
 			});
+			
 			
 			switchContext(GameContextFactory.MAIN_MENU);			
 			runApp();

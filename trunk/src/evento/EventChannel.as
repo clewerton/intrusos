@@ -1,7 +1,6 @@
-﻿package evento {
+﻿package src.evento {
 	
 	import flash.events.EventDispatcher;
-	import utils.MultiMap;
 	
 	public class EventChannel extends EventDispatcher {
 
@@ -9,7 +8,6 @@
 		
 		public static const STATE_CHANGED:String			= "StateEvent:StateChanged";
 
-		public static const EDGE_CLICKED:String			= "EdgeEvent:EdgeClicked";
 		public static const EDGE_ADDED:String 			= "PathEvent:EdgeAdded";
 		public static const EDGE_REMOVED:String 		= "PathEvent:EdgeRemoved";
 		public static const EDGE_VISITED:String 		= "PathEvent:EdgeVisited";

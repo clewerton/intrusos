@@ -1,20 +1,18 @@
-﻿package entidade
+﻿package src.entidade
 {
-	import engine.GameObject;
-	import entidade.Vehicle;
-	import flash.utils.Dictionary;
-	import grafo.Path;
-	import grafo.PathWalker;
-	import grafo.DirectedGraph;
-	import grafo.Node;
-	import grafo.Edge;
 	import flash.events.Event;
-	import evento.PathEvent;
-	import evento.EventChannel;
-	import flash.geom.ColorTransform;
 	import flash.events.MouseEvent;
-	import evento.EdgeEvent;
-	import engine.GameContainer;
+	import flash.geom.ColorTransform;
+	import flash.utils.Dictionary;
+	import lib.engine.GameContainer;
+	import lib.graph.DirectedGraph;
+	import lib.graph.Path;
+	import lib.graph.Node;
+	import src.evento.EventChannel;
+	import lib.graph.event.PathEvent;
+	import lib.graph.Edge;
+	import lib.graph.event.EdgeEvent;
+	import lib.graph.PathWalker;
 	
 	/**
 	 * ...
@@ -42,7 +40,7 @@
 			_graph.forEachEdge(handleClick);
 			active = false;
 		}
-		
+
 		private function edgeAdded(e:PathEvent):void {
 			var theEdge:Edge = e.edge;
 			var myColor:ColorTransform = theEdge.transform.colorTransform;
@@ -63,12 +61,10 @@
 		
 		private function configurePath(e:Event):void {
 			var theEdge:Edge = e.target as Edge;
-			if (!_path.inPath(theEdge))
-			{
+			if (!_path.inPath(theEdge)) {
 				_path.addEdge(theEdge);
 			}
-			else if (isRemovable(theEdge))
-			{
+			else if (isRemovable(theEdge)) {
 				_path.separate(theEdge);
 			}
 		}

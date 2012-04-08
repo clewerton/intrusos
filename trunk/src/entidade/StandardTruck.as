@@ -1,4 +1,5 @@
-﻿package entidade {
+﻿package src.entidade {
+	import src.app.BaseWorld;
 	
 	public class StandardTruck extends Vehicle {
 		

@@ -1,5 +1,7 @@
-﻿package entidade {
-	import utils.Utils;
+﻿package src.entidade {
+	
+	import src.app.BaseWorld;
+	import lib.utils.Utils;
 	
 	public class Bullet extends DestroyableObject {
 
