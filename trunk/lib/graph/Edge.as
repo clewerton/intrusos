@@ -12,7 +12,7 @@
 
 		private var _target: Node;
 		private var _source: Node;
-		private var _modulus:Number;
+		private var _modulus:Number = 0.0;
 		private var _marked:Boolean = false;
 		
 		public function connect(source: Node, target: Node):void {
@@ -33,7 +33,8 @@
 		}
 
 		// ABSTRACT
-		public function walk(node:DisplayObject, delta:uint) {
+		public function walk(node:DisplayObject, delta:uint):Number {
+			return 0;
 		}
 
 		// Getters e setters

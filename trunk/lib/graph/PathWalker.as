@@ -14,8 +14,8 @@
 	public class PathWalker extends EventDispatcher {
 
 		private var _path:Path;
-		private var _currentEdgeIndex:int;
-		private var _edgeWalkedDistance:Number;
+		private var _currentEdgeIndex:int = -1;
+		private var _edgeWalkedDistance:Number = 0.0;
 		private var _vehicle: Vehicle;
 		private var _active:Boolean = false;
 		private var _offset:uint;
@@ -58,6 +58,7 @@
 				distanceToWalk -= ramainingInEdge;
 				_edgeWalkedDistance = 0;
 				++_currentEdgeIndex;
+
 				// tratamento de possível ciclo no caminho
 				if(_currentEdgeIndex >= _path.edges.length) {
 					var lastNode:Node = _path.edges[_currentEdgeIndex - 1].targetNode;

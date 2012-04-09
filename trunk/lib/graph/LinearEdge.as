@@ -3,11 +3,11 @@
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import lib.engine.GameObject;
 	import src.evento.EventChannel;
 	import lib.utils.Utils;
 	
-	// A connection between 2 nodes.
 	public class LinearEdge extends Edge {
 
 		private var _target: Node;
@@ -25,10 +25,13 @@
 			_angle = Math.atan2(dy, dx);
 		}
 
-		public override function walk(node:DisplayObject, delta:uint) {
-			node.x = x + delta * Math.cos(getAngle(node.x, node.y));
-			node.y = y + delta * Math.sin(getAngle(node.x, node.y));
-			node.rotation = Utils.getDegree(getAngle(node.x, node.y));
+		// Retorna a distancia que excedente ao comprimento do caminho 
+		public override function walk(node:DisplayObject, distance:uint):Number {
+			var distanceToWalk = (distance > _modulus ? _modulus : distance);
+			node.x = x + distanceToWalk * Math.cos(_angle);
+			node.y = y + distanceToWalk * Math.sin(_angle);
+			node.rotation = Utils.getDegree(_angle);
+			return distance - distanceToWalk;
 		}
 
 		// Getters e setters

@@ -10,7 +10,7 @@
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class StandardEdge extends LinearEdge
+	public class StandardLinearEdge extends LinearEdge
 	{
 		
 		public override function connect(source:Node, target:Node):void
@@ -27,9 +27,9 @@
 		private function drawArrow(distance:Number) {
 			var arrowWidth = 4;
 			graphics.moveTo(distance, 0);
-			graphics.lineTo(distance - arrowWidth, -arrowWidth);
+			graphics.lineTo(distance - arrowWidth, -arrowWidth / 2);
 			graphics.moveTo(distance, 0);
-			graphics.lineTo(distance - arrowWidth, arrowWidth);
+			graphics.lineTo(distance - arrowWidth, arrowWidth / 2);
 		}
 	
 	}

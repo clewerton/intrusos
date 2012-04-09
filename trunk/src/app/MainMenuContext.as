@@ -26,16 +26,12 @@
 		protected override function onAddedToStage(e:Event = null):void
 		{
 			super.onAddedToStage(e);
-			menuVar = new GameMenuItem("Teste", action);
-			width = stage.stageWidth;
-			height = stage.stageHeight;
-			//addChild(menuVar);
+			menuVar = new GameMenuItem("Teste", function() { commandProcessor.process("BEGIN_GAME"); });
+			menuVar.x = width / 2;
+			menuVar.y = height / 2;
+			addChild(menuVar);
 		}
 			
-			public function action(e:Event):void
-			{
-				trace("Botao clicado!!");
-			}
 	}
 	
 }

@@ -27,8 +27,8 @@
 			super();
 			_gameLevel = gameLevel;
 			
-			mapLayer.scaleX = 2;
-			mapLayer.scaleY = 2;
+			//mapLayer.scaleX = 2;
+			//mapLayer.scaleY = 2;
 			
 			// Create graph:
 			var graph:DirectedGraph = new Level1GraphCreator().getGraph();
@@ -107,7 +107,6 @@
 			var vehicle:Vehicle = e.gameObject as Vehicle;
 			vehicleHealthHUD.score = convoy.vehicles[0].health;
 		}*/
-		
 	}
-
+	
 }
