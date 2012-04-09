@@ -1,4 +1,4 @@
-package com.senocular.drawing {
+package lib.utils {
 	
 	import flash.geom.Point;
 	

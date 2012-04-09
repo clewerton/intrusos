@@ -15,6 +15,11 @@
 			return degree * Math.PI / 180;
 		}
 		
+		public static function abs( value : Number ) : Number {
+			return value < 0 ? -value : value;
+		}
+		
+		
 	}
 
 }

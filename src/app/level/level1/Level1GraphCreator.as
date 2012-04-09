@@ -27,14 +27,14 @@
 		}
 
 		private function createNodes():void {
-			_grafo.addNode(new Node(50, 250));
-			_grafo.addNode(new Node(150, 250));
-			_grafo.addNode(new Node(250, 250));
-			_grafo.addNode(new Node(50, 150));
-			_grafo.addNode(new Node(150, 150));
-			_grafo.addNode(new Node(250, 150));
-			_grafo.addNode(new Node(50, 50));
-			_grafo.addNode(new Node(250, 50));
+			_grafo.addNode(new Node(50, 250));	//	0
+			_grafo.addNode(new Node(150, 250));	//	1
+			_grafo.addNode(new Node(250, 250));	//	2
+			_grafo.addNode(new Node(50, 150));	//	3
+			_grafo.addNode(new Node(150, 150));	//	4
+			_grafo.addNode(new Node(250, 150));	//	5
+			_grafo.addNode(new Node(50, 50));	//	6
+			_grafo.addNode(new Node(250, 50));	//	7
 		}
 		
 		private function creatGraph():void {
@@ -50,7 +50,7 @@
 			_grafo.connect(4, 5, new StandardLinearEdge()).name = "45";
 			_grafo.connect(5, 7, new StandardLinearEdge()).name = "57";
 			_grafo.connect(7, 6, new StandardLinearEdge()).name = "76";
-			_grafo.connect(1, 5, new StandardQuadrantEdge()).name = "15";
+			_grafo.connect(1, 5, new StandardQuadrantEdge(false)).name = "15";
 			
 		}
 		

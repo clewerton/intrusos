@@ -25,7 +25,7 @@
 
 			var pSource:Point = new Point(source.x, source.y);
 			var pTarget:Point = new Point(target.x, target.y);
-			_radius = Point.distance(pSource, pTarget) / 2;
+			_radius = Point.distance(pSource, pTarget) / Math.SQRT2;
 			setModulus(_radius * Math.PI / 4);
 			
 			// Esse só vale para quadrantes ortogonais!
@@ -52,6 +52,16 @@
 		protected function get radius():Number 
 		{
 			return _radius;
+		}
+		
+		public function get center():Point 
+		{
+			return _center;
+		}
+		
+		public function get clockwise():Boolean 
+		{
+			return _clockwise;
 		}
 		
 	}
