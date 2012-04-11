@@ -40,15 +40,21 @@
 			
 			node.x = x + walkedPoint.x;
 			node.y = y + walkedPoint.y;
-			node.rotation = Utils.getDegree(getAngle(walkedPoint.x, walkedPoint.y));
+			node.rotation = Utils.getDegree(getTangentAngle(walkedPoint.x, walkedPoint.y));
 			return distance - distanceToWalk;
 		}
 
 		// Getters e setters
 		public override function getAngle(px:Number, py:Number):Number {
-			return (_clockwise ? Math.atan2((px - targetNode.x), (sourceNode.y - py)) : Math.atan2((px - sourceNode.x), (targetNode.y - py)));
+			return _clockwise ? Math.atan2(py - sourceNode.y, px - targetNode.x) : Math.atan2(py - targetNode.y, px - sourceNode.x);
+			//return Math.atan2(py - sourceNode.y, px - targetNode.x);
 		}
 		
+		public function getTangentAngle(px:Number, py:Number):Number {
+			return _clockwise ? Math.atan2(px - targetNode.x, sourceNode.y - py) : Math.atan2(px - sourceNode.x, targetNode.y - py);
+			//return Math.atan2(px - targetNode.x, sourceNode.y - py);
+		}
+
 		protected function get radius():Number 
 		{
 			return _radius;

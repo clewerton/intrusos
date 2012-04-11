@@ -29,28 +29,40 @@
 		private function createNodes():void {
 			_grafo.addNode(new Node(50, 250));	//	0
 			_grafo.addNode(new Node(150, 250));	//	1
-			_grafo.addNode(new Node(250, 250));	//	2
-			_grafo.addNode(new Node(50, 150));	//	3
+			
+			_grafo.addNode(new Node(230, 250));	//	2
+			
+			_grafo.addNode(new Node(70, 150));	//	3
 			_grafo.addNode(new Node(150, 150));	//	4
 			_grafo.addNode(new Node(250, 150));	//	5
-			_grafo.addNode(new Node(50, 50));	//	6
+			_grafo.addNode(new Node(50, 50));		//	6
 			_grafo.addNode(new Node(250, 50));	//	7
+			
+			_grafo.addNode(new Node(250, 230));	//	8
+			_grafo.addNode(new Node(50, 130));	//	9
+			_grafo.addNode(new Node(50, 170));	//	10
+			
 		}
 		
 		private function creatGraph():void {
 			createNodes();
 			
-			_grafo.connect(0, 1, new StandardLinearEdge()).name = "01";
-			_grafo.connect(0, 3, new StandardLinearEdge()).name = "03";
-			//_grafo.connect(1, 2, new StandardLinearEdge()).name = "12";
-			_grafo.connect(1, 4, new StandardLinearEdge()).name = "14";
-			//_grafo.connect(2, 5, new StandardLinearEdge()).name = "25";
-			_grafo.connect(3, 4, new StandardLinearEdge()).name = "34";
-			_grafo.connect(6, 3, new StandardLinearEdge()).name = "63";
-			_grafo.connect(4, 5, new StandardLinearEdge()).name = "45";
-			_grafo.connect(5, 7, new StandardLinearEdge()).name = "57";
-			_grafo.connect(7, 6, new StandardLinearEdge()).name = "76";
-			_grafo.connect(1, 5, new StandardQuadrantEdge(false)).name = "15";
+			_grafo.connect(0, 1, new StandardLinearEdge()).name = "0-1";
+			_grafo.connect(0, 10, new StandardLinearEdge()).name = "0-10";
+			_grafo.connect(10, 3, new StandardQuadrantEdge()).name = "10-3";
+			_grafo.connect(9, 3, new StandardQuadrantEdge(false)).name = "9-3";
+			
+			_grafo.connect(1, 2, new StandardLinearEdge()).name = "1-2";
+			_grafo.connect(8, 5, new StandardLinearEdge()).name = "8-5";
+			
+			_grafo.connect(1, 4, new StandardLinearEdge()).name = "1-4";
+			_grafo.connect(8, 5, new StandardLinearEdge()).name = "8-5";
+			_grafo.connect(3, 4, new StandardLinearEdge()).name = "3-4";
+			_grafo.connect(6, 9, new StandardLinearEdge()).name = "6-9";
+			_grafo.connect(4, 5, new StandardLinearEdge()).name = "4-5";
+			_grafo.connect(5, 7, new StandardLinearEdge()).name = "5-7";
+			_grafo.connect(7, 6, new StandardLinearEdge()).name = "7-6";
+			_grafo.connect(2, 8, new StandardQuadrantEdge(false)).name = "2-8";
 			
 		}
 		
