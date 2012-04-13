@@ -1,6 +1,7 @@
 package lib.graph
 {
 	import flash.display.Shape;
+	import src.app.Settings;
 	
 	/**
 	 * ...
@@ -8,9 +9,8 @@ package lib.graph
 	 */
 	public class Node extends Shape
 	{
-		
-		internal const viewRadius:uint = 4;
-		private static var incr:int = 0;
+		private static const NODE_COLOR:int = 0x0000FF;
+		private static const NODE_RADIUS:int = 3;
 		
 		protected var _outEdges:Vector.<Edge>;
 		protected var _inEdges:Vector.<Edge>;
@@ -24,8 +24,8 @@ package lib.graph
 			_inEdges = new Vector.<Edge>();
 			_edges = new Vector.<Edge>();
 			
-			graphics.beginFill(0x0000FF);
-			graphics.drawCircle(0, 0, viewRadius);
+			graphics.beginFill(NODE_COLOR);
+			graphics.drawCircle(0, 0, NODE_RADIUS);
 		}
 		
 		internal function addOutEdge(edge:Edge):void

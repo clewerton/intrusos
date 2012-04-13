@@ -8,6 +8,7 @@
 	import lib.graph.DirectedGraph;
 	import lib.graph.Path;
 	import lib.graph.Node;
+	import src.app.Settings;
 	import src.evento.EventChannel;
 	import lib.graph.event.PathEvent;
 	import lib.graph.Edge;
@@ -44,14 +45,14 @@
 		private function edgeAdded(e:PathEvent):void {
 			var theEdge:Edge = e.edge;
 			var myColor:ColorTransform = theEdge.transform.colorTransform;
-			myColor.color = 0x00FFFF;
+			myColor.color = Settings.EDGE_HIGHLIGHTED_COLOR;
 			theEdge.transform.colorTransform = myColor;
 		}
 		
 		private function edgeRemoved(e:PathEvent):void {
 			var theEdge:Edge = e.edge;
 			var myColor:ColorTransform = theEdge.transform.colorTransform;
-			myColor.color = 0x00FF00;
+			myColor.color = Settings.EDGE_COLOR;
 			theEdge.transform.colorTransform = myColor;
 		}
 		
