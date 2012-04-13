@@ -2,12 +2,14 @@
 {
 	import lib.graph.DirectedGraph;
 	import lib.graph.event.EdgeEvent;
+	import lib.graph.event.NodeEvent;
 	import lib.graph.Node;
 	import lib.graph.Edge;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import src.entidade.StandardLinearEdge;
 	import src.entidade.StandardQuadrantEdge;
+	import src.evento.EventChannel;
 	
 	/**
 	 * ...
@@ -19,6 +21,7 @@
 		
 		public function Level1GraphCreator() {
 			_grafo = new DirectedGraph();
+			_grafo.addEventListener(EventChannel.NODE_ADDED, paintNode, false, 0, true);
 			creatGraph();
 		}
 		
@@ -66,6 +69,11 @@
 			_grafo.connect(7, 11, new StandardQuadrantEdge(false)).name = "7-11";
 			_grafo.connect(2, 8, new StandardQuadrantEdge(false)).name = "2-8";
 			
+		}
+		
+		private function paintNode(ev:NodeEvent):void {
+			ev.node.graphics.beginFill(Node.NODE_COLOR);
+			ev.node.graphics.drawCircle(0, 0, Node.NODE_RADIUS);
 		}
 		
 	}

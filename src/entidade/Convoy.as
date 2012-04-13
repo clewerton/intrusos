@@ -1,5 +1,8 @@
 ﻿package src.entidade
 {
+	import flash.display.DisplayObject;
+	import flash.display.Graphics;
+	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.ColorTransform;
@@ -32,57 +35,18 @@
 		private var _mapping = new Dictionary();
 		private var _vehicles:Vector.<Vehicle> = new Vector.<Vehicle>;
 		
+		private var _previousNode:Node;
+		
 		public function Convoy(graph:DirectedGraph, sourceNode:Node, canModify:Boolean = true, continuousPath:Boolean = false) {
 			_path = new Path(sourceNode, canModify, continuousPath);
 			_path.addEventListener(EventChannel.EDGE_ADDED, edgeAdded, false, 0, true);
 			_path.addEventListener(EventChannel.EDGE_REMOVED, edgeRemoved, false, 0, true);
-			
+			paint(sourceNode, Settings.FIRST_NODE_COLOR);
 			_graph = graph;
 			_graph.forEachEdge(handleClick);
 			active = false;
 		}
 
-		private function edgeAdded(e:PathEvent):void {
-			var theEdge:Edge = e.edge;
-			var myColor:ColorTransform = theEdge.transform.colorTransform;
-			myColor.color = Settings.EDGE_HIGHLIGHTED_COLOR;
-			theEdge.transform.colorTransform = myColor;
-		}
-		
-		private function edgeRemoved(e:PathEvent):void {
-			var theEdge:Edge = e.edge;
-			var myColor:ColorTransform = theEdge.transform.colorTransform;
-			myColor.color = Settings.EDGE_COLOR;
-			theEdge.transform.colorTransform = myColor;
-		}
-		
-		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
-			item.addEventListener(MouseEvent.CLICK, configurePath, false, 0, true);
-		}
-		
-		private function configurePath(e:Event):void {
-			var theEdge:Edge = e.target as Edge;
-			if (!_path.inPath(theEdge)) {
-				_path.addEdge(theEdge);
-			}
-			else if (isRemovable(theEdge)) {
-				_path.separate(theEdge);
-			}
-		}
-		
-		private function isRemovable(edge:Edge):Boolean {
-			var resultado:Boolean = true;
-			
-			for each (var _vehicle:Vehicle in _vehicles) {
-				var pw:PathWalker = _mapping[_vehicle];
-				if (!pw.edgeAhead(edge)) {
-					resultado = false;
-					break;
-				}
-			}
-			return resultado;
-		}
-		
 		public function addVehicle(vehicle:Vehicle):void {
 			_vehicles.push(vehicle);
 			addGameObject(vehicle);
@@ -90,11 +54,7 @@
 			newPathWalker.addEventListener(EventChannel.PATH_FINISHED, stopConvoyMoving, false, 0, true);
 			_mapping[vehicle] = newPathWalker;
 		}
-		
-		private function stopConvoyMoving(e:Event) {
-			stopWalking();
-		}
-		
+
 		public function removeVehicle(vehicle:Vehicle):void {
 			removeGameObject(vehicle);
 			delete _mapping[vehicle];
@@ -139,16 +99,6 @@
 			}
 		}
 		
-		private function showEdge(event:EdgeEvent):void {
-			trace("Edge: " + event.edge.name);
-		}
-		
-		private function startWalking():void {
-			for each (var item:Vehicle in _vehicles) {
-				_mapping[item].startWalking();
-			}
-		}
-		
 		public function resetWalking():void {
 			for each (var item:Vehicle in _vehicles)
 			{
@@ -163,6 +113,69 @@
 			}
 		}
 	
+		private function paint(obj:DisplayObject, color:int):void {
+				var objColor:ColorTransform = obj.transform.colorTransform;
+				objColor.color = color;
+				obj.transform.colorTransform = objColor;
+		}
+		
+		private function edgeAdded(e:PathEvent):void {
+			var theEdge:Edge = e.edge;
+			paint(theEdge, Settings.EDGE_HIGHLIGHTED_COLOR);
+			if (_previousNode != null) {
+				paint(_previousNode, Node.NODE_COLOR);
+			}
+			_previousNode = theEdge.targetNode;
+			paint(theEdge.targetNode, Node.NODE_SELECTED_COLOR);
+		}
+		
+		private function edgeRemoved(e:PathEvent):void {
+			var theEdge:Edge = e.edge;
+			paint(theEdge, Settings.EDGE_COLOR);
+			paint(_previousNode, Node.NODE_COLOR);
+		}
+		
+		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
+			item.addEventListener(MouseEvent.CLICK, configurePath, false, 0, true);
+		}
+		
+		private function configurePath(e:Event):void {
+			var theEdge:Edge = e.target as Edge;
+			if (!_path.inPath(theEdge)) {
+				_path.addEdge(theEdge);
+			}
+			else if (isRemovable(theEdge)) {
+				_path.separate(theEdge);
+			}
+		}
+		
+		private function isRemovable(edge:Edge):Boolean {
+			var resultado:Boolean = true;
+			
+			for each (var _vehicle:Vehicle in _vehicles) {
+				var pw:PathWalker = _mapping[_vehicle];
+				if (!pw.edgeAhead(edge)) {
+					resultado = false;
+					break;
+				}
+			}
+			return resultado;
+		}
+		
+		private function stopConvoyMoving(e:Event) {
+			stopWalking();
+		}
+		
+		private function showEdge(event:EdgeEvent):void {
+			trace("Edge: " + event.edge.name);
+		}
+		
+		private function startWalking():void {
+			for each (var item:Vehicle in _vehicles) {
+				_mapping[item].startWalking();
+			}
+		}
+		
 	}
 
 }
