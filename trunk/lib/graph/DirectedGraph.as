@@ -1,5 +1,7 @@
 ﻿package lib.graph {
 	import lib.engine.GameObject;
+	import src.evento.EventChannel;
+	import lib.graph.event.NodeEvent;
 	
 	public class DirectedGraph extends GameObject {
 
@@ -21,7 +23,8 @@
 
 		public function addNode(node:Node):void {
 			_nodes.push(node);
-				addChild(node);
+			addChild(node);
+			dispatchEvent(new NodeEvent(EventChannel.NODE_ADDED, node));
 		}
 
 		public function addNodes(nodes:Vector.<Node>):void {

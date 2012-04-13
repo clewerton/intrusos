@@ -9,8 +9,9 @@ package lib.graph
 	 */
 	public class Node extends Shape
 	{
-		private static const NODE_COLOR:int = 0x0000FF;
-		private static const NODE_RADIUS:int = 3;
+		public static const NODE_COLOR:int = 0x0000FF;
+		public static const NODE_SELECTED_COLOR:int = 0xFF0000;
+		public static const NODE_RADIUS:int = 3;
 		
 		protected var _outEdges:Vector.<Edge>;
 		protected var _inEdges:Vector.<Edge>;
@@ -23,9 +24,6 @@ package lib.graph
 			_outEdges = new Vector.<Edge>();
 			_inEdges = new Vector.<Edge>();
 			_edges = new Vector.<Edge>();
-			
-			graphics.beginFill(NODE_COLOR);
-			graphics.drawCircle(0, 0, NODE_RADIUS);
 		}
 		
 		internal function addOutEdge(edge:Edge):void

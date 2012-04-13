@@ -9,6 +9,7 @@
 		private var _continuousPath:Boolean;
 		private var _canModify:Boolean;
 		private var _firstNode:Node;
+		private var _lastNode:Node;
 		
 		public function Path(sourceNode:Node, canModify:Boolean = true, continuousPath:Boolean = false) {
 			_edges = new Vector.<Edge>();
@@ -98,6 +99,16 @@
 
 		public function get edges():Vector.<Edge> {
 			return _edges;
+		}
+		
+		public function get firstNode():Node 
+		{
+			return _firstNode;
+		}
+		
+		public function get lastNode():Node 
+		{
+			return _lastNode;
 		}
 		
 		private function adjustNodes():void {
