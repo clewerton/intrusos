@@ -83,6 +83,7 @@
 			tower.active = false;
 			removeTower(tower);
 			vehicleScoreHUD.score += tower.scoreValue();
+			tower.dispose();
 			tower = null;
 			if (numberOfTowers == 0) {
 				trace("VICTORY");

@@ -14,7 +14,7 @@
 		public static const MENU:int = 1;					// menu
 		public static const GAME_PLAY:int = 2;		// jogando
 		public static const PAUSED:int = 3;				// jogo em pausa
-		public static const NEXT_LEVEL:int = 4;		// jogo perdido
+		public static const NEXT_LEVEL:int = 4;		// jogo ganho
 		public static const GAME_OVER:int = 5;		// jogo perdido
 		
 		public function Main():void

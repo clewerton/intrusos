@@ -7,7 +7,8 @@
 			super(world, 350, 40);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
-			_hitRegion.graphics.drawRect(-8, -8, 16, 16);
+			_hitRegion.graphics.drawRect( -8, -8, 16, 16);
+			_hitRegion.graphics.endFill();
 		}
 		
 		public override function scoreValue():uint {

@@ -5,6 +5,7 @@
 	import lib.utils.Utils;
 	import flash.geom.Point;
 	import flash.display.Graphics;
+	import src.app.Settings;
 	
 	/**
 	 * ...
@@ -20,36 +21,28 @@
 		public override function connect(source:Node, target:Node):void
 		{
 			super.connect(source, target);
-			graphics.lineStyle(2, 0xFF0000);
+			graphics.lineStyle(Settings.EDGE_THICKNESS, Settings.EDGE_COLOR);
 
-			var startAngle:Number;
+			var startAngle:Number = getAngleAt(sourceNode.x, sourceNode.y);
 			var sign:int = clockwise ? -1 : 1;
-			if(clockwise) {
-				sign = -1;
-				startAngle = getAngle(sourceNode.x, sourceNode.y);
-			}
-			else {
-				sign = 1;
-				startAngle = -getAngle(sourceNode.x, sourceNode.y);
-			}
-			//var startAngle:Number = getAngle(sourceNode.x, sourceNode.y);
-			//Utils.drawLinedArc(graphics, radius, Math.PI / 2);
-			Utils.drawArc(graphics, 0, 0, radius, sign * Math.PI / 2, startAngle);
-			//rotation = Utils.getDegree(getAngle(sourceNode.x, sourceNode.y));
-			trace(name, startAngle);
-			
-			//drawArrow(Math.PI / 2 * 0.2);
+			Utils.drawArc(graphics, 0, 0, radius, sign * Math.PI / 2);
+
+			//drawArrow(sign * Math.PI / 4);
 			//drawArrow(Math.PI / 2 * 0.9);
+
+			rotation = Utils.getDegree(startAngle);
 		}
 		
 		private function drawArrow(angle:Number) {
+			var sign:int = clockwise ? 1 : -1;
 			var arrowWidth = 4;
-			var initPoint:Point = Point.polar(radius, angle);
-			trace(initPoint.x, initPoint.y);
+			var initPoint:Point = Point.polar(radius, -angle);
+			var arrow1:Point = initPoint.add(Point.polar(arrowWidth / 5, -angle - Math.PI / 4));
+			trace(initPoint.x, initPoint.y, radius);
 			graphics.moveTo(initPoint.x - radius, initPoint.y);
-			graphics.lineTo(- arrowWidth, -arrowWidth / 2);
-			graphics.moveTo(initPoint.x - radius, initPoint.y);
-			graphics.lineTo(- arrowWidth, arrowWidth / 2);
+			graphics.lineTo(arrow1.x, arrow1.y);
+			//graphics.moveTo(initPoint.x - radius, initPoint.y);
+			//graphics.lineTo(- arrowWidth, arrowWidth / 2);
 		}
 	
 	}

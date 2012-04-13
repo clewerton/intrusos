@@ -19,9 +19,9 @@
 			_radius = radius;
 			
 			_range = new Shape();
-			_range.graphics.beginFill(0xAAAAAA, 0.4);
+			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
 			_range.graphics.drawCircle(x, y, _radius);
-			_range.graphics.endFill();
+			//_range.graphics.endFill();
 			addChild(_range);
 			_timer = new Timer(500);
 			_timer.addEventListener(TimerEvent.TIMER, enableShooting, false, 0, true);
@@ -78,6 +78,11 @@
 		
 		protected function getNewBullet():void {
 			throw new Error("Metodo Abstrato!");
+		}
+		
+		public function dispose():void {
+			_range = null;
+			_timer = null;
 		}
 		
 	}

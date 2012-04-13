@@ -7,7 +7,8 @@
 			super(world, 500, 2, 50);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
-			_hitRegion.graphics.drawRect(-12, -5, 25, 10);
+			_hitRegion.graphics.drawRect( -12, -5, 25, 10);
+			_hitRegion.graphics.endFill();
 		}
 		
 		protected override function getNewBullet():void {

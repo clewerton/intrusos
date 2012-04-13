@@ -5,6 +5,7 @@
 	import lib.utils.Utils;
 	import fl.motion.MatrixTransformer;
 	import lib.graph.LinearEdge;
+	import src.app.Settings;
 	
 	/**
 	 * ...
@@ -16,12 +17,12 @@
 		public override function connect(source:Node, target:Node):void
 		{
 			super.connect(source, target);
-			graphics.lineStyle(2, 0x00FF00);
+			graphics.lineStyle(Settings.EDGE_THICKNESS, Settings.EDGE_COLOR);
 			graphics.lineTo(modulus, 0);
 
 			drawArrow(modulus * 0.2);
 			drawArrow(modulus * 0.9);
-			rotation = Utils.getDegree(getAngle(0, 0));
+			rotation = Utils.getDegree(getAngle());
 		}
 		
 		private function drawArrow(distance:Number) {

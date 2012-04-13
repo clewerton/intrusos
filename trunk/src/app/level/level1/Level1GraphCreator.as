@@ -36,11 +36,12 @@
 			_grafo.addNode(new Node(150, 150));	//	4
 			_grafo.addNode(new Node(250, 150));	//	5
 			_grafo.addNode(new Node(50, 50));		//	6
-			_grafo.addNode(new Node(250, 50));	//	7
+			_grafo.addNode(new Node(250, 70));	//	7
 			
 			_grafo.addNode(new Node(250, 230));	//	8
 			_grafo.addNode(new Node(50, 130));	//	9
 			_grafo.addNode(new Node(50, 170));	//	10
+			_grafo.addNode(new Node(230, 50));	//	11
 			
 		}
 		
@@ -61,7 +62,8 @@
 			_grafo.connect(6, 9, new StandardLinearEdge()).name = "6-9";
 			_grafo.connect(4, 5, new StandardLinearEdge()).name = "4-5";
 			_grafo.connect(5, 7, new StandardLinearEdge()).name = "5-7";
-			_grafo.connect(7, 6, new StandardLinearEdge()).name = "7-6";
+			_grafo.connect(11, 6, new StandardLinearEdge()).name = "11-6";
+			_grafo.connect(7, 11, new StandardQuadrantEdge(false)).name = "7-11";
 			_grafo.connect(2, 8, new StandardQuadrantEdge(false)).name = "2-8";
 			
 		}

@@ -13,6 +13,7 @@
 		private var _target: Node;
 		private var _source: Node;
 		private var _modulus:Number = 0.0;
+		private var _angle:Number;
 		private var _marked:Boolean = false;
 		
 		public function connect(source: Node, target: Node):void {
@@ -22,6 +23,7 @@
 			target.addInEdge(this);
 			x = _source.x;
 			y = _source.y;
+			_angle = Math.atan2(targetNode.y - sourceNode.y, targetNode.x - sourceNode.x);
 		}
 
 		public function disconnect():void {
@@ -45,9 +47,13 @@
 		protected function setModulus(val:Number):void {
 			_modulus = val;
 		}
+
+		public function getAngle():Number {
+			return _angle;
+		}
 		
 		// ABSTRACT
-		public function getAngle(x:Number, y:Number):Number {
+		public function getAngleAt(x:Number, y:Number):Number {
 			return 0;
 		}
 
