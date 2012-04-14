@@ -4,6 +4,7 @@
 	import lib.engine.GameContext;
 	import lib.engine.GameApp;
 	import src.Main;
+	import src.entidade.StandardTruck;
 	
 	/**
 	 * ...
@@ -59,14 +60,20 @@
 			addState(FAILED, function() { activeState = STARTING; });
 			addState(LEAVING, function() { gameApp.activeState = Main.MENU; } );
 			
+			inputManager.addCommandMapping(Keyboard.I, "INCLUDE_VEHICLE");
 			inputManager.addCommandMapping(Keyboard.E, "START_WALKING");
-			inputManager.addCommandMapping(Keyboard.R, "RESET_WALKING");
+			//inputManager.addCommandMapping(Keyboard.R, "RESET_WALKING");
 			inputManager.addCommandMapping(Keyboard.Q, "STOP_WALKING");
 			inputManager.addCommandMapping(Keyboard.V, "GO_MENU");
 			inputManager.addCommandMapping(Keyboard.Z, "GAME_OVER");
 
+			commandProcessor.addCommand("INCLUDE_VEHICLE", function() {
+				if(!_world.convoyMoved()) {
+					_world.addVehicle(new StandardTruck(_world)); 
+				}
+			});
 			commandProcessor.addCommand("START_WALKING", function() { _world.startWalkingPath(); });
-			commandProcessor.addCommand("RESET_WALKING", function() {_world.resetWalkingPath(); });
+			//commandProcessor.addCommand("RESET_WALKING", function() {_world.resetWalkingPath(); });
 			commandProcessor.addCommand("STOP_WALKING", function() {_world.stopWalkingPath(); });
 			commandProcessor.addCommand("GO_MENU", function() { gameApp.activeState = Main.MENU; });
 			commandProcessor.addCommand("GAME_OVER", function() { gameApp.activeState = Main.GAME_OVER; } );

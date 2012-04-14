@@ -10,6 +10,7 @@
 	import src.entidade.StandardLinearEdge;
 	import src.entidade.StandardQuadrantEdge;
 	import src.evento.EventChannel;
+	import lib.utils.Utils;
 	
 	/**
 	 * ...
@@ -39,12 +40,12 @@
 			_grafo.addNode(new Node(150, 150));	//	4
 			_grafo.addNode(new Node(250, 150));	//	5
 			_grafo.addNode(new Node(50, 50));		//	6
-			_grafo.addNode(new Node(250, 70));	//	7
+			_grafo.addNode(new Node(250, 110));	//	7
 			
 			_grafo.addNode(new Node(250, 230));	//	8
 			_grafo.addNode(new Node(50, 130));	//	9
 			_grafo.addNode(new Node(50, 170));	//	10
-			_grafo.addNode(new Node(230, 50));	//	11
+			_grafo.addNode(new Node(190, 50));	//	11
 			
 		}
 		
@@ -72,8 +73,10 @@
 		}
 		
 		private function paintNode(ev:NodeEvent):void {
-			ev.node.graphics.beginFill(Node.NODE_COLOR);
+			ev.node.graphics.beginFill(Node.NODE_COLOR, 1);
 			ev.node.graphics.drawCircle(0, 0, Node.NODE_RADIUS);
+			ev.node.graphics.endFill();
+			ev.node.visible = false;
 		}
 		
 	}

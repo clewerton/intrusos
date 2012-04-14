@@ -35,8 +35,7 @@
 			var node:Node = graph.getNodeAt(0);
 			addGraph(graph, node);
 			
-			convoy.addVehicle(new StandardTruck(this));
-			convoy.addVehicle(new StandardTruck(this));
+			addVehicle(new StandardTruck(this));
 			convoy.active = false;
 			convoy.visible = false;
 		

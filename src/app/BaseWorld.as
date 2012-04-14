@@ -59,9 +59,9 @@
 			_convoy.startWalkingPath();
 		}
 
-		public function resetWalkingPath():void {
+		/*public function resetWalkingPath():void {
 			_convoy.resetWalking();
-		}
+		}*/
 
 		public function stopWalkingPath():void {
 			_convoy.stopWalking();
@@ -174,6 +174,10 @@
 			bullet.y = sender.y;
 			addBullet(bullet);
 			return bullet;
+		}
+		
+		public function convoyMoved():Boolean {
+			return _convoy.moved;
 		}
 		
 	}

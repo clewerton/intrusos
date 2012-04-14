@@ -17,6 +17,7 @@
 	import lib.graph.Edge;
 	import lib.graph.event.EdgeEvent;
 	import lib.graph.PathWalker;
+	import lib.utils.Utils;
 	
 	/**
 	 * ...
@@ -24,6 +25,7 @@
 	 */
 	public class Convoy extends GameContainer
 	{
+		private const DISTANCE_BETWEEN_VEHICLES:uint = 30;
 		
 		// Grafo com os possíveis caminhos a serem percorridos
 		private var _graph:DirectedGraph;
@@ -35,13 +37,15 @@
 		private var _mapping = new Dictionary();
 		private var _vehicles:Vector.<Vehicle> = new Vector.<Vehicle>;
 		
-		private var _previousNode:Node;
+		private var _currentNode:Node;
+		
+		private var _moved:Boolean = false;
 		
 		public function Convoy(graph:DirectedGraph, sourceNode:Node, canModify:Boolean = true, continuousPath:Boolean = false) {
 			_path = new Path(sourceNode, canModify, continuousPath);
 			_path.addEventListener(EventChannel.EDGE_ADDED, edgeAdded, false, 0, true);
 			_path.addEventListener(EventChannel.EDGE_REMOVED, edgeRemoved, false, 0, true);
-			paint(sourceNode, Settings.FIRST_NODE_COLOR);
+			Utils.paint(sourceNode, Settings.FIRST_NODE_COLOR, true);
 			_graph = graph;
 			_graph.forEachEdge(handleClick);
 			active = false;
@@ -50,7 +54,7 @@
 		public function addVehicle(vehicle:Vehicle):void {
 			_vehicles.push(vehicle);
 			addGameObject(vehicle);
-			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, 40 * (_vehicles.length - 1));
+			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, DISTANCE_BETWEEN_VEHICLES * (_vehicles.length - 1));
 			newPathWalker.addEventListener(EventChannel.PATH_FINISHED, stopConvoyMoving, false, 0, true);
 			_mapping[vehicle] = newPathWalker;
 		}
@@ -92,47 +96,48 @@
 		
 		public function startWalkingPath():void {
 			if (_path.edges.length > 0) {
-				this.active = true;
-				this.visible = true;
+				active = true;
+				visible = true;
 				EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
 				startWalking();
+				moved = true;
 			}
 		}
 		
-		public function resetWalking():void {
+		/*public function resetWalking():void {
 			for each (var item:Vehicle in _vehicles)
 			{
 				_mapping[item].reset();
 			}
-		}
+		}*/
 		
 		public function stopWalking():void {
-			for each (var item:Vehicle in _vehicles)
-			{
+			for each (var item:Vehicle in _vehicles) {
 				_mapping[item].stopWalking();
 			}
 		}
 	
-		private function paint(obj:DisplayObject, color:int):void {
-				var objColor:ColorTransform = obj.transform.colorTransform;
-				objColor.color = color;
-				obj.transform.colorTransform = objColor;
-		}
-		
 		private function edgeAdded(e:PathEvent):void {
 			var theEdge:Edge = e.edge;
-			paint(theEdge, Settings.EDGE_HIGHLIGHTED_COLOR);
-			if (_previousNode != null) {
-				paint(_previousNode, Node.NODE_COLOR);
+			Utils.paint(theEdge, Settings.SELECTED_EDGE_COLOR, true);
+			if (_currentNode != null && _currentNode != _path.firstNode) {
+				Utils.paint(_currentNode, Node.NODE_COLOR, false);
 			}
-			_previousNode = theEdge.targetNode;
-			paint(theEdge.targetNode, Node.NODE_SELECTED_COLOR);
+			_currentNode = theEdge.targetNode;
+			Utils.paint(theEdge.targetNode, Node.NODE_SELECTED_COLOR, true);
 		}
 		
 		private function edgeRemoved(e:PathEvent):void {
 			var theEdge:Edge = e.edge;
-			paint(theEdge, Settings.EDGE_COLOR);
-			paint(_previousNode, Node.NODE_COLOR);
+			Utils.paint(_currentNode, Node.NODE_COLOR, false);
+			_currentNode = theEdge.sourceNode;
+			Utils.paint(theEdge, Settings.EDGE_COLOR, true);
+			if (_currentNode != _path.firstNode) {
+				Utils.paint(_currentNode, Node.NODE_SELECTED_COLOR, true);
+			}
+			else {
+				Utils.paint(_currentNode, Settings.FIRST_NODE_COLOR, true);
+			}
 		}
 		
 		private function handleClick(item:Edge, index:int, vector:Vector.<Edge>):void {
@@ -171,9 +176,29 @@
 		}
 		
 		private function startWalking():void {
-			for each (var item:Vehicle in _vehicles) {
-				_mapping[item].startWalking();
+			if(!firstFinished()) {
+				for each (var item:Vehicle in _vehicles) {
+					_mapping[item].startWalking();
+				}
 			}
+		}
+		
+		private function firstFinished():Boolean {
+			var pw:PathWalker = _mapping[_vehicles[_vehicles.length - 1]];
+			if(pw.finished()) {
+				return true;
+			}
+			return false;
+		}
+		
+		public function get moved():Boolean 
+		{
+			return _moved;
+		}
+		
+		public function set moved(value:Boolean):void 
+		{
+			_moved = value;
 		}
 		
 	}

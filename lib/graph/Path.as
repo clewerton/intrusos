@@ -23,9 +23,6 @@
 				if(edge.sourceNode == _firstNode) {
 					join(edge);
 				}
-				else {
-					throw new Error("Primeira aresta deve sair do nó inicial.");
-				}
 				return this;
 			}
 			var index:int = getOutEdgeFrom(edge.sourceNode);
@@ -39,9 +36,6 @@
 				(!_continuousPath) || 
 				(_continuousPath && (_edges[edges.length - 1].targetNode == edge.sourceNode))) {
 					join(edge);
-			}
-			else {
-				throw new Error("Permitido somente caminho contínuo.");
 			}
 			return this;
 		}

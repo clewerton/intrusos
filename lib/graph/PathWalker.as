@@ -27,7 +27,7 @@
 			_offset = offset;
 		}
 
-		public function reset():void {
+		private function reset():void {
 			_currentEdgeIndex = -1;
 			_edgeWalkedDistance = 0.0;
 			if (_path.edges.length >= 1) {
@@ -83,7 +83,7 @@
 			}
 		}
 	
-		private function finished():Boolean {
+		public function finished():Boolean {
 			return (_currentEdgeIndex == _path.edges.length);
 		}
 		
