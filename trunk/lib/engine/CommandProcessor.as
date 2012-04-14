@@ -33,7 +33,7 @@
 		}
 		
 		public function process(commandId:String):void {
-			trace("-> " + commandId);
+			//trace("-> " + commandId);
 			_commandHandlers[commandId]();
 		}
 

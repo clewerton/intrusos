@@ -2,6 +2,8 @@
 {
 	import flash.display.Graphics;
 	import flash.geom.Point;
+	import flash.display.DisplayObject;
+	import flash.geom.ColorTransform;
 
 	/**
 	 * ...
@@ -20,6 +22,13 @@
 		
 		public static function abs( value : Number ) : Number {
 			return value < 0 ? -value : value;
+		}
+		
+		public static function paint(obj:DisplayObject, color:int, isVisible:Boolean):void {
+				var objColor:ColorTransform = obj.transform.colorTransform;
+				objColor.color = color;
+				obj.visible = isVisible;
+				obj.transform.colorTransform = objColor;
 		}
 		
 		public static function drawLinedArc(target:Graphics, radius:Number, sweep:Number, startAngle:Number = 0):void {
