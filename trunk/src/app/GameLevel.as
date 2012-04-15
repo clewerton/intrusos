@@ -68,7 +68,7 @@
 			inputManager.addCommandMapping(Keyboard.Z, "GAME_OVER");
 
 			commandProcessor.addCommand("INCLUDE_VEHICLE", function() {
-				if(!_world.convoyMoved()) {
+				if(!_world.startedMoving()) {
 					_world.addVehicle(new StandardTruck(_world)); 
 				}
 			});

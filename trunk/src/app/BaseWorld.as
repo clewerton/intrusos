@@ -49,13 +49,13 @@
 			
 		}
 		
-		public override function update():void
-		{
+		public override function update():void {
 			super.update();
 			checkColisions();
 		}
 		
 		public function startWalkingPath():void {
+			_convoy.active = true;
 			_convoy.startWalkingPath();
 		}
 
@@ -64,6 +64,7 @@
 		}*/
 
 		public function stopWalkingPath():void {
+			_convoy.active = false;
 			_convoy.stopWalking();
 		}
 
@@ -73,6 +74,7 @@
 			
 			// Create convoy:
 			_convoy = new Convoy(_graph, sourceNode, true, true);
+			_convoy.active = false;
 			_mapLayer.addGameObject(_convoy);
 		}
 		
@@ -117,12 +119,13 @@
 		protected function checkColisions():void
 		{
 			for (var indexTowers:uint = 0; indexTowers < _towers.length; indexTowers++) {
-				for (var indexVehicles:uint = 0; indexVehicles < convoy.vehicles.length; indexVehicles++) {
-					if (convoy.vehicles[indexVehicles].range.hitTestObject(_towers[indexTowers].hitRegion) && convoy.vehicles[indexVehicles].enemy == null) {
-						convoy.vehicles[indexVehicles].enemy = _towers[indexTowers];
+				for (var indexVehicles:uint = 0; indexVehicles < convoy.size; indexVehicles++) {
+					var vehicle = convoy.getElement(indexVehicles) as Vehicle;
+					if (vehicle.range.hitTestObject(_towers[indexTowers].hitRegion) && vehicle.enemy == null) {
+						vehicle.enemy = _towers[indexTowers];
 					}
-					if (_towers[indexTowers].range.hitTestObject(convoy.vehicles[indexVehicles].hitRegion) && _towers[indexTowers].enemy == null) {
-						_towers[indexTowers].enemy = convoy.vehicles[indexVehicles];
+					if (_towers[indexTowers].range.hitTestObject(vehicle.hitRegion) && _towers[indexTowers].enemy == null) {
+						_towers[indexTowers].enemy = vehicle;
 					}
 				}
 			}
@@ -176,8 +179,8 @@
 			return bullet;
 		}
 		
-		public function convoyMoved():Boolean {
-			return _convoy.moved;
+		public function startedMoving():Boolean {
+			return _convoy.startedMoving;
 		}
 		
 	}
