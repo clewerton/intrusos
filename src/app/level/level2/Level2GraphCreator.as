@@ -1,4 +1,4 @@
-﻿package src.app.level.level1
+﻿package src.app.level.level2
 {
 	import lib.graph.DirectedGraph;
 	import lib.graph.event.NodeEvent;
@@ -11,11 +11,11 @@
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class Level1GraphCreator
+	public class Level2GraphCreator
 	{
 		private var _grafo:DirectedGraph;
 		
-		public function Level1GraphCreator() {
+		public function Level2GraphCreator() {
 			_grafo = new DirectedGraph();
 			_grafo.addEventListener(EventChannel.NODE_ADDED, paintNode, false, 0, true);
 			creatGraph();
@@ -55,6 +55,7 @@
 			_grafo.connect(1, 2, new StandardLinearEdge()).name = "1-2";
 			_grafo.connect(8, 5, new StandardLinearEdge()).name = "8-5";
 			
+			_grafo.connect(2, 3, new StandardLinearEdge()).name = "2-3";
 			_grafo.connect(1, 4, new StandardLinearEdge()).name = "1-4";
 			_grafo.connect(8, 5, new StandardLinearEdge()).name = "8-5";
 			_grafo.connect(3, 4, new StandardLinearEdge()).name = "3-4";

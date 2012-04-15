@@ -1,11 +1,6 @@
 ﻿package lib.graph {
 	
 	import flash.display.DisplayObject;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
-	import flash.geom.Point;
-	import lib.engine.GameObject;
-	import src.evento.EventChannel;
 	import lib.utils.Utils;
 	
 	public class LinearEdge extends Edge {

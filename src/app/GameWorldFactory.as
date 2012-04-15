@@ -1,6 +1,7 @@
 ﻿package src.app 
 {
 	import src.app.level.level1.World1;
+	import src.app.level.level2.World2;
 
 	/**
 	 * ...
@@ -18,6 +19,9 @@
 			{
 				case 1: 
 					obj = new World1(gameLevel);
+					break;
+				case 2: 
+					obj = new World2(gameLevel);
 					break;
 				default:
 					throw new Error("Id do mundo nao identificado");

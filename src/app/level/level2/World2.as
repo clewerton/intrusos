@@ -1,4 +1,4 @@
-﻿package src.app.level.level1
+﻿package src.app.level.level2
 {
 	import lib.graph.DirectedGraph;
 	import lib.graph.Node;
@@ -16,13 +16,13 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
-	 * Mundo da fase 1
+	 * Mundo da fase 2
 	 */
-	public class World1 extends BaseWorld
+	public class World2 extends BaseWorld
 	{
 		private var _gameLevel:GameLevel;
 
-		public function World1(gameLevel:GameLevel)
+		public function World2(gameLevel:GameLevel)
 		{
 			super();
 			_gameLevel = gameLevel;
@@ -31,7 +31,7 @@
 			mapLayer.scaleY = 2;
 			
 			// Create graph:
-			var graph:DirectedGraph = new Level1GraphCreator().getGraph();
+			var graph:DirectedGraph = new Level2GraphCreator().getGraph();
 			var node:Node = graph.getNodeAt(0);
 			addGraph(graph, node);
 			
@@ -68,7 +68,13 @@
 			torre.y = 75;
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
-			
+
+			torre = new StandardTower(this);
+			torre.x = 225;
+			torre.y = 125;
+			addTower(torre);
+			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
+
 			torre = new StandardTower(this);
 			torre.x = 225;
 			torre.y = 225;

@@ -2,8 +2,8 @@
 
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
-	import src.entidade.Vehicle;
 	import lib.graph.event.EdgeEvent;
+	import src.entidade.Vehicle;
 	import src.evento.EventChannel;
 	
 	/**

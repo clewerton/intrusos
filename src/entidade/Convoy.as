@@ -1,26 +1,20 @@
 ﻿package src.entidade
 {
-	import flash.display.DisplayObject;
-	import flash.display.Graphics;
-	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.geom.ColorTransform;
-	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import lib.engine.GameContainer;
+	import lib.engine.GameObject;
 	import lib.graph.DirectedGraph;
-	import lib.graph.Path;
-	import lib.graph.Node;
-	import src.app.Settings;
-	import src.evento.EventChannel;
-	import lib.graph.event.PathEvent;
 	import lib.graph.Edge;
 	import lib.graph.event.EdgeEvent;
+	import lib.graph.event.PathEvent;
+	import lib.graph.Node;
+	import lib.graph.Path;
 	import lib.graph.PathWalker;
 	import lib.utils.Utils;
-	import lib.engine.GameObject;
-	import flash.sensors.Accelerometer;
+	import src.app.Settings;
+	import src.evento.EventChannel;
 	
 	/**
 	 * ...

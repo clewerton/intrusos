@@ -3,8 +3,8 @@
 	import flash.display.Shape;
 	import lib.engine.GameObject;
 	import src.app.BaseWorld;
-	import src.evento.EventChannel;
 	import src.evento.DestroyableEvent;
+	import src.evento.EventChannel;
 	
 	public class DestroyableObject extends GameObject {
 

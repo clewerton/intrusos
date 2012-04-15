@@ -21,7 +21,6 @@
 			_range = new Shape();
 			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
 			_range.graphics.drawCircle(x, y, _radius);
-			//_range.graphics.endFill();
 			addChild(_range);
 			_timer = new Timer(500);
 			_timer.addEventListener(TimerEvent.TIMER, enableShooting, false, 0, true);
