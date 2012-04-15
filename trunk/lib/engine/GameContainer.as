@@ -90,6 +90,13 @@
 		{
 			_gameObjects.forEach(callback, obj);
 		}
+		
+		public function dispose():void {
+			for each(var obj:GameObject in _gameObjects) {
+				removeChild(obj);
+			}
+			_gameObjects = null;
+		}
 
 	}
 

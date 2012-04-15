@@ -1,10 +1,8 @@
 ﻿package src.entidade
 {
-	import lib.graph.Edge;
+	import lib.graph.LinearEdge;
 	import lib.graph.Node;
 	import lib.utils.Utils;
-	import fl.motion.MatrixTransformer;
-	import lib.graph.LinearEdge;
 	import src.app.Settings;
 	
 	/**

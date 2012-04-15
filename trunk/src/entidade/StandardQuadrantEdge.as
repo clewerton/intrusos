@@ -1,10 +1,9 @@
 ﻿package src.entidade
 {
+	import flash.geom.Point;
 	import lib.graph.Node;
 	import lib.graph.QuadrantEdge;
 	import lib.utils.Utils;
-	import flash.geom.Point;
-	import flash.display.Graphics;
 	import src.app.Settings;
 	
 	/**

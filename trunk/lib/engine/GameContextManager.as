@@ -60,6 +60,7 @@
 					_gameApp.removeChild(_contextMap[_activeContextId]);
 					_contextMap[_activeContextId].inputManager.disable();
 					if (deletePrevious) {
+						_contextMap[_activeContextId].dispose();
 						delete _contextMap[_activeContextId];
 					}
 				}

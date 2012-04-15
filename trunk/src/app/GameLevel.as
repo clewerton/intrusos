@@ -1,10 +1,10 @@
 ﻿package src.app
 {
 	import flash.ui.Keyboard;
-	import lib.engine.GameContext;
 	import lib.engine.GameApp;
-	import src.Main;
+	import lib.engine.GameContext;
 	import src.entidade.StandardTruck;
+	import src.Main;
 	
 	/**
 	 * ...
@@ -27,7 +27,7 @@
 		public static const LEAVING = 6;		// saindo da tela do jogo
 		
 		// O valor do último level
-		protected const MAX_LEVEL:int = 1;
+		public static const MAX_LEVEL:int = 2;
 		
 		public function GameLevel(gameApp:GameApp, levelIndex:uint = 1)
 		{
@@ -52,10 +52,7 @@
 			addState(PLAYING, function() { active = true; });
 			addState(PAUSED, function() { active = false; });
 			addState(SUCCEDED, function() {
-				if(_levelIndex < MAX_LEVEL) {
-					_levelIndex++; 
-					activeState = STARTING;
-				}
+				gameApp.activeState = Main.NEXT_LEVEL;
 			});
 			addState(FAILED, function() { activeState = STARTING; });
 			addState(LEAVING, function() { gameApp.activeState = Main.MENU; } );

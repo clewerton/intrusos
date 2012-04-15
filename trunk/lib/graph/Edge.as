@@ -1,11 +1,7 @@
 ﻿package lib.graph {
 	
 	import flash.display.DisplayObject;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	import lib.engine.GameObject;
-	import src.evento.EventChannel;
-	import lib.utils.Utils;
 	
 	// A connection between 2 nodes.
 	public class Edge extends GameObject {

@@ -6,6 +6,7 @@ package src.app
 	 */
 	public class Settings 
 	{
+
 		public static const FIRST_NODE_COLOR:int = 0xFFFF00;
 
 		public static const EDGE_COLOR:int = 0x00FF00;
