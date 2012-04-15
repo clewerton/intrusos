@@ -40,34 +40,6 @@
 			y += (_linearSpeed * Math.sin(rotation));
 		}
 		
-		public function get speed():uint {
-			return _linearSpeed;
-		}
-		
-		public function set speed(val:uint):void {
-			_linearSpeed = val;
-		}
-
-		public function set angularSpeed(val:Number):void {
-			_angularSpeed = val;
-		}
-		
-		public function get angularSpeed():Number { 
-			return _angularSpeed; 
-		} 
-		
-		public function get enemy():Tower {
-			return _enemy;
-		}
-		
-		public function set enemy(valor:Tower):void {
-			_enemy = valor;
-		}
-		
-		public function get range():Shape {
-			return _range;
-		}
-		
 		public override function update():void {
 			super.update();
 			if (!active || _enemy == null) {
@@ -98,6 +70,38 @@
 			throw new Error("Metodo Abstrato!");
 		}
 		
+		public function dispose():void {
+			_range = null;
+			_timer = null;
+		}
+
+		public function get speed():uint {
+			return _linearSpeed;
+		}
+		
+		public function set speed(val:uint):void {
+			_linearSpeed = val;
+		}
+
+		public function set angularSpeed(val:Number):void {
+			_angularSpeed = val;
+		}
+		
+		public function get angularSpeed():Number { 
+			return _angularSpeed; 
+		} 
+		
+		public function get enemy():Tower {
+			return _enemy;
+		}
+		
+		public function set enemy(valor:Tower):void {
+			_enemy = valor;
+		}
+		
+		public function get range():Shape {
+			return _range;
+		}
 		
 	}
 	

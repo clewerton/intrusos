@@ -13,21 +13,31 @@
 	 */
 	public class PathWalker extends EventDispatcher {
 
+		public static var countValue = 0;
 		private var _path:Path;
 		private var _currentEdgeIndex:int = -1;
 		private var _edgeWalkedDistance:Number = 0.0;
 		private var _vehicle: Vehicle;
 		private var _active:Boolean = false;
-		private var _offset:uint;
+		private var _offset:int;
+		
+		// true se o veiculo saiu do ponto de partida
+		private var _started:Boolean = false;
+		//private var _counter:int;
+		
+		
 		
 		public function PathWalker(path:Path, vehicle: Vehicle, offset:uint = 0) {
 			_path = path;
 			_vehicle = vehicle;
 			reset();
 			_offset = offset;
+			//_counter = countValue++;
 		}
 
 		private function reset():void {
+			_started = false;
+			_active = false;
 			_currentEdgeIndex = -1;
 			_edgeWalkedDistance = 0.0;
 			if (_path.edges.length >= 1) {
@@ -42,8 +52,8 @@
 			}
 		}
 		
-		public function step(delta:uint): void {
-			if((_path.edges.length <= 0) || finished() || (delta == 0)) {
+		public function step(delta:int): void {
+			if((_path.edges.length <= 0) || finished() || (delta == 0) || !_active) {
 				return;
 			}
 			if (_currentEdgeIndex < 0) {
@@ -64,9 +74,9 @@
 					var lastNode:Node = _path.edges[_currentEdgeIndex - 1].targetNode;
 					_currentEdgeIndex =  _path.getOutEdgeFrom(lastNode);
 					if(_currentEdgeIndex == -1) {
-						_currentEdgeIndex = _path.edges.length;
 						dispatchEvent(new Event(EventChannel.PATH_FINISHED));
-						stopWalking();
+						_currentEdgeIndex = _path.edges.length;
+						//stopWalking();
 						return;
 					}
 				}
@@ -96,17 +106,36 @@
 			return (index > _currentEdgeIndex);
 		}
 		
-		public function startWalking():void {
-			if(!_active) {
-				_active = true;
-				step(_offset);
-				_offset = 0;
+		private function startWalking():void {
+			_started = true;
+			step(_offset);
+		}
+		
+		public function walk():void {
+			_active = true;
+			if (!_started) {
+				startWalking();
 			}
 		}
 		
 		public function stopWalking():void {
 			_active = false;
 		}
+		
+		public function get active():Boolean 
+		{
+			return _active;
+		}
+		
+		public function set active(value:Boolean):void 
+		{
+			_active = value;
+		}
+		
+		/*public function get counter():int 
+		{
+			return _counter;
+		}*/
 		
 	}
 	

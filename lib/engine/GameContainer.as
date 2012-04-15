@@ -57,17 +57,40 @@
 			}
 			_gameObjects.splice(_gameObjects.indexOf(obj), 1);
 		}
+
+		public function get size():int {
+			return _gameObjects.length;
+		}
+
+		public function getElement(index:int):GameObject {
+			return _gameObjects[index];
+		}
 		
-		protected function filterGameObjects(predicate:Function, obj:GameObject)
+		public function get firstElement():GameObject {
+			if(_gameObjects.length > 0) {
+				return _gameObjects[0];
+			}
+			return null;
+		}
+
+		public function get lastElement():GameObject {
+			if(_gameObjects.length > 0) {
+				return _gameObjects[_gameObjects.length - 1];
+			}
+			return null;
+		}
+
+		protected function filterGameObjects(predicate:Function, obj:GameObject):Vector.<GameObject>
 		{
 			var result:Vector.<GameObject> = _gameObjects.filter(predicate, obj);
 			return result;
 		}
-		
-		public function get size():int {
-			return _gameObjects.length;
+
+		protected function forEachGameObject(callback:Function, obj:GameObject=null):void
+		{
+			_gameObjects.forEach(callback, obj);
 		}
-	
+
 	}
 
 }

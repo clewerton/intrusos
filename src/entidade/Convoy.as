@@ -6,6 +6,7 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.ColorTransform;
+	import flash.geom.Point;
 	import flash.utils.Dictionary;
 	import lib.engine.GameContainer;
 	import lib.graph.DirectedGraph;
@@ -18,6 +19,8 @@
 	import lib.graph.event.EdgeEvent;
 	import lib.graph.PathWalker;
 	import lib.utils.Utils;
+	import lib.engine.GameObject;
+	import flash.sensors.Accelerometer;
 	
 	/**
 	 * ...
@@ -35,11 +38,12 @@
 		
 		// Mapa que relaciona um veículo com um guia <Vehicle, PathWalker>
 		private var _mapping = new Dictionary();
-		private var _vehicles:Vector.<Vehicle> = new Vector.<Vehicle>;
+		//private var _vehicles:Vector.<Vehicle> = new Vector.<Vehicle>;
 		
 		private var _currentNode:Node;
 		
-		private var _moved:Boolean = false;
+		private var _startedMoving:Boolean = false;
+		private var _stopped:Boolean = true;
 		
 		public function Convoy(graph:DirectedGraph, sourceNode:Node, canModify:Boolean = true, continuousPath:Boolean = false) {
 			_path = new Path(sourceNode, canModify, continuousPath);
@@ -52,9 +56,9 @@
 		}
 
 		public function addVehicle(vehicle:Vehicle):void {
-			_vehicles.push(vehicle);
+			//_vehicles.push(vehicle);
 			addGameObject(vehicle);
-			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, DISTANCE_BETWEEN_VEHICLES * (_vehicles.length - 1));
+			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, DISTANCE_BETWEEN_VEHICLES * (this.size - 1));
 			newPathWalker.addEventListener(EventChannel.PATH_FINISHED, stopConvoyMoving, false, 0, true);
 			_mapping[vehicle] = newPathWalker;
 		}
@@ -62,45 +66,28 @@
 		public function removeVehicle(vehicle:Vehicle):void {
 			removeGameObject(vehicle);
 			delete _mapping[vehicle];
-			_vehicles.splice(_vehicles.indexOf(vehicle), 1);
+			//_vehicles.splice(_vehicles.indexOf(vehicle), 1);
 			vehicle = null;
-		}
-		
-		public function get vehicles():Vector.<Vehicle> {
-			return _vehicles;
-		}
-		
-		public override function set visible(val:Boolean):void {
-			super.visible = val;
-			for each (var item:Vehicle in _vehicles)
-			{
-				item.visible = val;
-			}
-		}
-		
-		public override function set active(val:Boolean):void {
-			for each (var item:Vehicle in _vehicles) {
-				item.active = val;
-			}
 		}
 		
 		public override function update():void {
 			if (!active) {
 				return;
 			}
-			for each (var item:Vehicle in _vehicles) {
+			forEachGameObject(function(item:GameObject, index:int, vector:Vector.<GameObject>):void { 
 				item.update();
-				_mapping[item].update();
-			}
+				var pw:PathWalker = _mapping[item];
+				pw.update();
+			});
 		}
 		
 		public function startWalkingPath():void {
 			if (_path.edges.length > 0) {
-				active = true;
 				visible = true;
 				EventChannel.getInstance().addEventListener(EventChannel.EDGE_VISITED, showEdge, false, 0, true);
 				startWalking();
-				moved = true;
+				startedMoving = true;
+				_stopped = false;
 			}
 		}
 		
@@ -112,9 +99,22 @@
 		}*/
 		
 		public function stopWalking():void {
-			for each (var item:Vehicle in _vehicles) {
+			_stopped = true;
+			forEachGameObject(function(item:GameObject, index:int, vector:Vector.<GameObject>):void {
+				if(index < vector.length - 1) {
+					var vehicle:Vehicle = item as Vehicle;
+					var nextVehicle:Vehicle = vector[index+ 1] as Vehicle;
+
+					var dx:Number = nextVehicle.x - vehicle.x;
+					var dy:Number = nextVehicle.y - vehicle.y;
+					var dist = Math.sqrt(dx * dx + dy * dy);
+					if(dist != DISTANCE_BETWEEN_VEHICLES && (vehicle.rotation == nextVehicle.rotation)) {
+						var pw:PathWalker = _mapping[item];
+						pw.step(dist - DISTANCE_BETWEEN_VEHICLES);
+					}
+				}
 				_mapping[item].stopWalking();
-			}
+			});
 		}
 	
 		private function edgeAdded(e:PathEvent):void {
@@ -157,13 +157,14 @@
 		private function isRemovable(edge:Edge):Boolean {
 			var resultado:Boolean = true;
 			
-			for each (var _vehicle:Vehicle in _vehicles) {
-				var pw:PathWalker = _mapping[_vehicle];
-				if (!pw.edgeAhead(edge)) {
-					resultado = false;
-					break;
+			forEachGameObject(function(item:GameObject, index:int, vector:Vector.<GameObject>):void {
+				if(resultado) {
+					var pw:PathWalker = _mapping[item];
+					if (!pw.edgeAhead(edge)) {
+						resultado = false;
+					}
 				}
-			}
+			});
 			return resultado;
 		}
 		
@@ -177,28 +178,28 @@
 		
 		private function startWalking():void {
 			if(!firstFinished()) {
-				for each (var item:Vehicle in _vehicles) {
-					_mapping[item].startWalking();
-				}
+				forEachGameObject(function(item:GameObject, index:int, vector:Vector.<GameObject>):void { _mapping[item].walk(); });
 			}
 		}
 		
 		private function firstFinished():Boolean {
-			var pw:PathWalker = _mapping[_vehicles[_vehicles.length - 1]];
-			if(pw.finished()) {
-				return true;
-			}
-			return false;
+			var pw:PathWalker = _mapping[lastElement];
+			return pw.finished();
 		}
 		
-		public function get moved():Boolean 
+		public function get startedMoving():Boolean 
 		{
-			return _moved;
+			return _startedMoving;
 		}
 		
-		public function set moved(value:Boolean):void 
+		public function set startedMoving(value:Boolean):void 
 		{
-			_moved = value;
+			_startedMoving = value;
+		}
+		
+		public function get stopped():Boolean 
+		{
+			return _stopped;
 		}
 		
 	}
