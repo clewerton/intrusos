@@ -1,28 +1,30 @@
 ﻿package src.app
 {
 	
-	import flash.display.SimpleButton;
-	import flash.events.MouseEvent;
+	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
-	public class GameMenuItem extends SimpleButton
+	public class GameMenuItem extends MovieClip
 	{
 		
 		private var command:Function;
 		
-		public function GameMenuItem(val:String, func:Function)
-		{
+		public function GameMenuItem(val:String, func:Function) {
+			str.text = val;
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			command = func;
 			addEventListener(MouseEvent.CLICK, command, false, 0, true);
-			
+
+			addEventListener(MouseEvent.MOUSE_OVER, function(e:MouseEvent):void {
+				buttonMode = true;
+				useHandCursor = true;
+			});
 		}
 		
-		protected function init(e:Event = null):void
-		{
+		protected function init(e:Event = null):void {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
-	
 	}
 
 }

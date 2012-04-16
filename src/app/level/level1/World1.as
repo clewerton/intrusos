@@ -63,17 +63,39 @@
 		
 		private function createTowers():void
 		{
-			var torre:Tower = new StandardTower(this);
-			torre.x = 75;
-			torre.y = 75;
+			var torre:Tower;
+			
+			torre = new StandardTower(this);
+			torre.x = 175;
+			torre.y = 175;
+			addTower(torre);
+			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
+
+			torre = new StandardTower(this);
+			torre.x = 325;
+			torre.y = 175;
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
 			
 			torre = new StandardTower(this);
-			torre.x = 225;
-			torre.y = 225;
+			torre.x = 625;
+			torre.y = 175;
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
+			
+			torre = new StandardTower(this);
+			torre.x = 625;
+			torre.y = 625;
+			addTower(torre);
+			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
+			
+			torre = new StandardTower(this);
+			torre.x = 175;
+			torre.y = 625;
+			addTower(torre);
+			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
+
+			
 		}
 		
 		private function destroyTower(e:DestroyableEvent):void
@@ -90,12 +112,18 @@
 			}
 		}
 		
+		public override function addVehicle(vehicle:Vehicle):void {
+			super.addVehicle(vehicle);
+			vehicle.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
+		}
+		
 		private function destroyVehicle(e:DestroyableEvent):void
 		{
 			var vehicle:Vehicle = e.gameObject as Vehicle;
 			//adjustHealthHUD(e);
 			removeVehicle(vehicle);
 			vehicle.active = false;
+			vehicle = null;
 			if (convoy.size == 0) {
 				trace("FAILURE");
 				_gameLevel.activeState = GameLevel.FAILED;

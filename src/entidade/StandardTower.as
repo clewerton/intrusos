@@ -4,7 +4,7 @@
 	public class StandardTower extends Tower {
 		
 		public function StandardTower(world:BaseWorld) {
-			super(world, 350, 40);
+			super(world, 350, 100);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
 			_hitRegion.graphics.drawRect( -8, -8, 16, 16);
