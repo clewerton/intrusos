@@ -54,7 +54,9 @@
 			addState(SUCCEDED, function() {
 				gameApp.activeState = Main.NEXT_LEVEL;
 			});
-			addState(FAILED, function() { activeState = STARTING; });
+			addState(FAILED, function() { 
+				gameApp.activeState = Main.MENU; 
+			});
 			addState(LEAVING, function() { gameApp.activeState = Main.MENU; } );
 			
 			inputManager.addCommandMapping(Keyboard.I, "INCLUDE_VEHICLE");

@@ -16,20 +16,30 @@
 				super(gameApp);
 				
 				// Create inputManager:
-				inputManager.addCommandMapping(Keyboard.E, "BEGIN_GAME");
+				inputManager.addCommandMapping(Keyboard.NUMBER_1, "LEVEL_1");
+				inputManager.addCommandMapping(Keyboard.NUMBER_2, "LEVEL_2");
 				
-				commandProcessor.addCommand("BEGIN_GAME", function() {
+				commandProcessor.addCommand("LEVEL_1", function() {
 					gameApp.activeState = Main.START_GAME;
+				});
+				commandProcessor.addCommand("LEVEL_2", function() {
+					gameApp.activeState = Main.NEXT_LEVEL;
 				});
 			}
 			
 		protected override function onAddedToStage(e:Event = null):void
 		{
 			super.onAddedToStage(e);
-			menuVar = new GameMenuItem("Teste", function() { commandProcessor.process("BEGIN_GAME"); });
+			menuVar = new GameMenuItem("Iniciar fase 1", function() { commandProcessor.process("LEVEL_1"); });
 			menuVar.x = width / 2;
 			menuVar.y = height / 2;
 			addChild(menuVar);
+			
+			menuVar = new GameMenuItem("Iniciar fase 2", function() { trace("Nojento! Tcham!!") });
+			menuVar.x = width / 2;
+			menuVar.y = height * 2 / 3;
+			addChild(menuVar);
+
 		}
 			
 	}
