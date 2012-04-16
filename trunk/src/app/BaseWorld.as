@@ -1,5 +1,6 @@
 ﻿package src.app
 {
+	import flash.geom.Rectangle;
 	import lib.engine.GameContainer;
 	import lib.graph.DirectedGraph;
 	import lib.graph.Node;
@@ -8,6 +9,7 @@
 	import src.entidade.DestroyableObject;
 	import src.entidade.Tower;
 	import src.entidade.Vehicle;
+	import flash.events.Event;
 	
 	/**
 	 * ...
@@ -15,6 +17,7 @@
 	 */
 	public class BaseWorld extends GameContainer
 	{
+		private static const MAX_VEHICLES:uint = 4;
 		
 		private var _vehicleScoreHUD:HudValue;
 		//private var _vehicleHealthHUD:HudValue;
@@ -44,7 +47,13 @@
 			addGameObject(_hudLayer);
 			setHUD();
 		}
-		
+
+		protected override function onAddedToStage(ev:Event = null):void {
+			super.onAddedToStage(ev);
+			_mapLayer.scrollRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
+			stage.focus = _mapLayer;
+		}
+
 		public function restart():void {
 			
 		}
@@ -96,7 +105,9 @@
 		
 		public function addVehicle(vehicle:Vehicle):void
 		{
-			_convoy.addVehicle(vehicle);
+			if (_convoy.size < MAX_VEHICLES) {
+				_convoy.addVehicle(vehicle);
+			}
 		}
 		
 		public function removeVehicle(vehicle:Vehicle):void
@@ -181,6 +192,13 @@
 		
 		public function startedMoving():Boolean {
 			return _convoy.startedMoving;
+		}
+		
+		public function scroll(dx:int, dy:int):void {
+			var newScrollRect:Rectangle = _mapLayer.scrollRect;
+			newScrollRect.x += dx;
+			newScrollRect.y += dy;
+			_mapLayer.scrollRect = newScrollRect;
 		}
 		
 	}
