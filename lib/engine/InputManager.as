@@ -67,7 +67,7 @@
 		private function handleKeyboardDown(event:KeyboardEvent):void {
 			var command:String = _mappings[event.keyCode];
 			if (command != null && (_commands.indexOf(command) == -1)) {
-				_commands.push(_mappings[event.keyCode]);
+				_commands.push(command);
 			}
 		}
 

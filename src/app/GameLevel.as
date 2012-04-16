@@ -60,20 +60,39 @@
 			inputManager.addCommandMapping(Keyboard.I, "INCLUDE_VEHICLE");
 			inputManager.addCommandMapping(Keyboard.E, "START_WALKING");
 			//inputManager.addCommandMapping(Keyboard.R, "RESET_WALKING");
-			inputManager.addCommandMapping(Keyboard.Q, "STOP_WALKING");
-			inputManager.addCommandMapping(Keyboard.V, "GO_MENU");
-			inputManager.addCommandMapping(Keyboard.Z, "GAME_OVER");
+			//inputManager.addCommandMapping(Keyboard.Q, "STOP_WALKING");
+			//inputManager.addCommandMapping(Keyboard.V, "GO_MENU");
+			//inputManager.addCommandMapping(Keyboard.Z, "GAME_OVER");
 
+			inputManager.addCommandMapping(Keyboard.W, "SCROLL_UP");
+			inputManager.addCommandMapping(Keyboard.S, "SCROLL_DOWN");
+			inputManager.addCommandMapping(Keyboard.A, "SCROLL_LEFT");
+			inputManager.addCommandMapping(Keyboard.D, "SCROLL_RIGHT");
+
+			commandProcessor.addCommand("START_WALKING", function() { _world.startWalkingPath(); });			
 			commandProcessor.addCommand("INCLUDE_VEHICLE", function() {
 				if(!_world.startedMoving()) {
 					_world.addVehicle(new StandardTruck(_world)); 
 				}
+			}, true);
+			commandProcessor.addCommand("SCROLL_UP", function() { 
+				_world.scroll(0, -10); 
 			});
-			commandProcessor.addCommand("START_WALKING", function() { _world.startWalkingPath(); });
+			commandProcessor.addCommand("SCROLL_DOWN", function() { 
+				_world.scroll(0, 10); 
+			});
+			commandProcessor.addCommand("SCROLL_LEFT", function() { 
+				_world.scroll(-10, -0); 
+			});
+			commandProcessor.addCommand("SCROLL_RIGHT", function() { 
+				_world.scroll(10, 0); 
+			});
+
+
 			//commandProcessor.addCommand("RESET_WALKING", function() {_world.resetWalkingPath(); });
-			commandProcessor.addCommand("STOP_WALKING", function() {_world.stopWalkingPath(); });
-			commandProcessor.addCommand("GO_MENU", function() { gameApp.activeState = Main.MENU; });
-			commandProcessor.addCommand("GAME_OVER", function() { gameApp.activeState = Main.GAME_OVER; } );
+			//commandProcessor.addCommand("STOP_WALKING", function() {_world.stopWalkingPath(); });
+			//commandProcessor.addCommand("GO_MENU", function() { gameApp.activeState = Main.MENU; });
+			//commandProcessor.addCommand("GAME_OVER", function() { gameApp.activeState = Main.GAME_OVER; } );
 		}
 		
 	}

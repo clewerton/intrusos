@@ -10,6 +10,7 @@
 	{
 		// Mapeamento comando -> handler. Map<String, Function)
 		private var _commandHandlers:Dictionary;
+		private var _popFromCommandBuffer:Array;
 		
 		public function CommandProcessor()
 		{
@@ -18,14 +19,18 @@
 		
 		public function init():void {
 			_commandHandlers = new Dictionary();
+			_popFromCommandBuffer = new Array();
 		}
 		
 		public function dispose():void {
 			_commandHandlers = null;
 		}
 		
-		public function addCommand(command:String, handler:Function):void {
+		public function addCommand(command:String, handler:Function, popFromBuffer:Boolean=false):void {
 			_commandHandlers[command] = handler;
+			if (popFromBuffer) {
+				_popFromCommandBuffer[command] = true;
+			}
 		}
 
 		public function removeCommand(command:String):void {
@@ -39,7 +44,9 @@
 
 		public function processAll(commands:Vector.<String>):void {
 			for each(var command:String in commands) {
-				commands.pop();
+				if (_popFromCommandBuffer[command]) {
+					commands.pop();
+				}
 				process(command);
 			}
 		}
