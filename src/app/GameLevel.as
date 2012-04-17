@@ -55,7 +55,7 @@
 				gameApp.activeState = Main.NEXT_LEVEL;
 			});
 			addState(FAILED, function() { 
-				gameApp.activeState = Main.MENU; 
+				gameApp.activeState = Main.GAME_OVER; 
 			});
 			addState(LEAVING, function() { gameApp.activeState = Main.MENU; } );
 			
@@ -76,19 +76,11 @@
 				if(!_world.startedMoving()) {
 					_world.addVehicle(new StandardTruck(_world)); 
 				}
-			}, true);
-			commandProcessor.addCommand("SCROLL_UP", function() { 
-				_world.scroll(0, -10); 
 			});
-			commandProcessor.addCommand("SCROLL_DOWN", function() { 
-				_world.scroll(0, 10); 
-			});
-			commandProcessor.addCommand("SCROLL_LEFT", function() { 
-				_world.scroll(-10, -0); 
-			});
-			commandProcessor.addCommand("SCROLL_RIGHT", function() { 
-				_world.scroll(10, 0); 
-			});
+			commandProcessor.addCommand("SCROLL_UP", function() { _world.scroll(0, -10); }, false);
+			commandProcessor.addCommand("SCROLL_DOWN", function() { _world.scroll(0, 10); }, false);
+			commandProcessor.addCommand("SCROLL_LEFT", function() { _world.scroll(-10, -0); }, false);
+			commandProcessor.addCommand("SCROLL_RIGHT", function() { _world.scroll(10, 0); }, false);
 
 
 			//commandProcessor.addCommand("RESET_WALKING", function() {_world.resetWalkingPath(); });

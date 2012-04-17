@@ -32,7 +32,9 @@
 			addGameContext(GameContextFactory.MAIN_MENU);
 			
 			// Adicionando estados
-			addState(MENU, function() { switchContext(GameContextFactory.MAIN_MENU); });
+			addState(MENU, function() { 
+				switchContext(GameContextFactory.MAIN_MENU); 
+			});
 			
 			addState(START_GAME, function() { 
 				levelIndex = 1;
@@ -54,7 +56,6 @@
 			});
 			addState(GAME_OVER, function() { 
 				switchContext(GameContextFactory.MAIN_MENU, true);
-				activeState = MENU;
 			});
 			
 			
