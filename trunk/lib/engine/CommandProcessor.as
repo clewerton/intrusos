@@ -26,7 +26,7 @@
 			_commandHandlers = null;
 		}
 		
-		public function addCommand(command:String, handler:Function, popFromBuffer:Boolean=false):void {
+		public function addCommand(command:String, handler:Function, popFromBuffer:Boolean=true):void {
 			_commandHandlers[command] = handler;
 			if (popFromBuffer) {
 				_popFromCommandBuffer[command] = true;

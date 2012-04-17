@@ -52,6 +52,7 @@
 			super.onAddedToStage(ev);
 			_mapLayer.scrollRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 			stage.focus = _mapLayer;
+			stage.stageFocusRect = false;
 		}
 
 		public function restart():void {
