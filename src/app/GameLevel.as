@@ -55,7 +55,7 @@
 				gameApp.activeState = Main.NEXT_LEVEL;
 			});
 			addState(FAILED, function() { 
-				gameApp.activeState = Main.GAME_OVER; 
+				gameApp.activeState = Main.END_GAME;
 			});
 			addState(LEAVING, function() { gameApp.activeState = Main.MENU; } );
 			

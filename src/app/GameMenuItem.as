@@ -10,11 +10,12 @@
 		
 		private var command:Function;
 		
-		public function GameMenuItem(val:String, func:Function) {
+		public function GameMenuItem(val:String, theColor:uint, func:Function) {
 			buttonMode = true;
 			useHandCursor = true;
 			mouseChildren = false;			
 			str.text = val;
+			str.textColor = theColor;
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			command = func;
 			addEventListener(MouseEvent.CLICK, command, false, 0, true);

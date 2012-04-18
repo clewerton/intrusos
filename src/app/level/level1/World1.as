@@ -90,8 +90,6 @@
 			torre.y = 625;
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
-
-			
 		}
 		
 		private function destroyTower(e:DestroyableEvent):void
@@ -124,7 +122,7 @@
 		private function destroyVehicle(e:DestroyableEvent):void
 		{
 			var vehicle:Vehicle = e.gameObject as Vehicle;
-			//adjustHealthHUD(e);
+			setVehicleHealthHUDValue(vehicle.index, 0);
 			removeVehicle(vehicle);
 			vehicle.active = false;
 			vehicle = null;
