@@ -20,7 +20,9 @@
 		private static const MAX_VEHICLES:uint = 4;
 		
 		private var _vehicleScoreHUD:HudValue;
-		//private var _vehicleHealthHUD:HudValue;
+		
+		// indicador de HP de cada veículo
+		private var _vehicleHealthHUD:Vector.<HudValue>;
 		
 		private var _towers:Vector.<Tower>;
 		private var _convoy:Convoy;
@@ -38,6 +40,7 @@
 		{
 			super();
 			
+			_vehicleHealthHUD = new Vector.<HudValue>();
 			_towers = new Vector.<Tower>;
 			//_bullets = new Vector.<Bullet>;
 			_mapLayer = new GameContainer();
@@ -51,14 +54,14 @@
 		protected override function onAddedToStage(ev:Event = null):void {
 			super.onAddedToStage(ev);
 			_mapLayer.scrollRect = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
+			enter();
+		}
+
+		function enter():void {
 			stage.focus = _mapLayer;
 			stage.stageFocusRect = false;
 		}
 
-		public function restart():void {
-			
-		}
-		
 		public override function update():void {
 			super.update();
 			checkColisions();
@@ -108,6 +111,11 @@
 		{
 			if (_convoy.size < MAX_VEHICLES) {
 				_convoy.addVehicle(vehicle);
+				
+				_vehicleHealthHUD[_convoy.size - 1] = new HudValue(vehicle.health);
+				_vehicleHealthHUD[_convoy.size - 1].x = 40 + (_convoy.size - 1) * 100;
+				_vehicleHealthHUD[_convoy.size - 1].y = 40;
+				_hudLayer.addGameObject(_vehicleHealthHUD[_convoy.size - 1]);
 			}
 		}
 		
@@ -160,6 +168,21 @@
 			return _vehicleScoreHUD;
 		}
 		
+		/*public function getVehicleHealthHUD(index:uint):HudValue
+		{
+			return _vehicleHealthHUD[index];
+		}*/
+		
+		public function setVehicleHealthHUDValue(index:uint, value:int):void 
+		{
+			_vehicleHealthHUD[index].score = value;
+		}
+
+		/*public function addVehicleHealthHUDValue(index:uint, value:int):void 
+		{
+			_vehicleHealthHUD[index] += value;
+		}*/
+		
 		/*public function get vehicleHealthHUD():HudValue 
 		{
 			return _vehicleHealthHUD;
@@ -168,14 +191,9 @@
 		private function setHUD():void
 		{
 			_vehicleScoreHUD = new HudValue();
-			_vehicleScoreHUD.x = 40;
+			_vehicleScoreHUD.x = 760;
 			_vehicleScoreHUD.y = 570;
 			_hudLayer.addGameObject(_vehicleScoreHUD);
-			
-			//_vehicleHealthHUD = new HudValue(_convoy.vehicles[0].health);
-			//_vehicleHealthHUD.x = 760;
-			//_vehicleHealthHUD.y = 570;
-			//_hudLayer.addGameObject(_vehicleHealthHUD);
 		}
 		
 		public function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet

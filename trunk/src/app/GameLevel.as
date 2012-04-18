@@ -64,7 +64,7 @@
 			//inputManager.addCommandMapping(Keyboard.R, "RESET_WALKING");
 			//inputManager.addCommandMapping(Keyboard.Q, "STOP_WALKING");
 			//inputManager.addCommandMapping(Keyboard.V, "GO_MENU");
-			//inputManager.addCommandMapping(Keyboard.Z, "GAME_OVER");
+			inputManager.addCommandMapping(Keyboard.P, "PAUSE_SCREEN");
 
 			inputManager.addCommandMapping(Keyboard.W, "SCROLL_UP");
 			inputManager.addCommandMapping(Keyboard.S, "SCROLL_DOWN");
@@ -86,7 +86,14 @@
 			//commandProcessor.addCommand("RESET_WALKING", function() {_world.resetWalkingPath(); });
 			//commandProcessor.addCommand("STOP_WALKING", function() {_world.stopWalkingPath(); });
 			//commandProcessor.addCommand("GO_MENU", function() { gameApp.activeState = Main.MENU; });
-			//commandProcessor.addCommand("GAME_OVER", function() { gameApp.activeState = Main.GAME_OVER; } );
+			commandProcessor.addCommand("PAUSE_SCREEN", function() { 
+				gameApp.activeState = Main.PAUSED; } 
+			);
+		}
+		
+		public override function enter():void {
+			super.enter();
+			_world.enter();
 		}
 		
 	}

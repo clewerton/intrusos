@@ -42,10 +42,6 @@
 			createTowers();
 		}
 		
-		public override function restart():void {
-			
-		}
-		
 		public override function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet
 		{
 			var bullet:Bullet = super.newBullet(bulletClass, sender, receiver);

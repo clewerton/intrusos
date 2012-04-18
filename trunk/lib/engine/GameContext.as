@@ -24,6 +24,8 @@
 			reset();
 		}
 		
+		public function enter():void {}
+		
 		protected function reset():void {
 			_inputManager = new InputManager(_gameApp);
 			_commandProcessor = new CommandProcessor();

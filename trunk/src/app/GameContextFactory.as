@@ -11,6 +11,10 @@
 	{
 		public static const MAIN_MENU:int = -1;
 		public static const HIGH_SCORE:int = -2;
+		public static const PAUSE_MENU:int = -3;
+
+		private static var _menuContext:MainMenuContext;
+		private static var _pauseContext:PauseMenuContext;
 		
 		public function GameContextFactory() {}
 		
@@ -19,8 +23,17 @@
 			var ctx:GameContext = null;
 			switch (contextId)
 			{
-				case MAIN_MENU: 
-					ctx = new MainMenuContext(gameApp);
+				case MAIN_MENU:
+					if (_menuContext == null) {
+						_menuContext = new MainMenuContext(gameApp);
+					}
+					ctx = _menuContext;
+					break;
+				case PAUSE_MENU: 
+					if (_pauseContext == null) {
+						_pauseContext = new PauseMenuContext(gameApp);
+					}
+					ctx = _pauseContext;
 					break;
 				default:
 					ctx = new GameLevel(gameApp, contextId);

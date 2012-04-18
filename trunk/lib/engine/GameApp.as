@@ -90,9 +90,9 @@
 			_contextManager.removeContext(id);
 		}
 		
-		public function switchContext(contextId:int, disposePrevious:Boolean=false)
+		public function switchContext(contextId:int, removePreviousFromStage=true, disposePrevious:Boolean=false)
 		{
-			_contextManager.switchContext(contextId, disposePrevious);
+			_contextManager.switchContext(contextId, removePreviousFromStage, disposePrevious);
 		}
 		
 		// Getters and Setters

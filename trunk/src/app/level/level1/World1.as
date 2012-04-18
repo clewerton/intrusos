@@ -42,10 +42,6 @@
 			createTowers();
 		}
 		
-		public override function restart():void {
-			
-		}
-		
 		public override function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet
 		{
 			var bullet:Bullet = super.newBullet(bulletClass, sender, receiver);
@@ -114,9 +110,17 @@
 		
 		public override function addVehicle(vehicle:Vehicle):void {
 			super.addVehicle(vehicle);
+			vehicle.addEventListener(EventChannel.OBJECT_HIT, hitVehicle, false, 0, true);
 			vehicle.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
 		}
 		
+		private function hitVehicle(e:DestroyableEvent):void
+		{
+			var vehicle:Vehicle = e.gameObject as Vehicle;
+			setVehicleHealthHUDValue(vehicle.index, vehicle.health);
+			
+		}
+
 		private function destroyVehicle(e:DestroyableEvent):void
 		{
 			var vehicle:Vehicle = e.gameObject as Vehicle;

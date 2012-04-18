@@ -15,6 +15,8 @@
 		private var _range:Shape;
 		private var _timer:Timer;
 		private var _canShoot:Boolean = false;
+		
+		private var _index:int;
 
 		public function Vehicle(world:BaseWorld, health:uint, linearSpeed:uint, radius:uint) {
 			super(world, health);
@@ -101,6 +103,16 @@
 		
 		public function get range():Shape {
 			return _range;
+		}
+		
+		public function get index():int 
+		{
+			return _index;
+		}
+		
+		public function set index(value:int):void 
+		{
+			_index = value;
 		}
 		
 	}
