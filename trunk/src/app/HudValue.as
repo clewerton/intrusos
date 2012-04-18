@@ -8,8 +8,9 @@
 		
 		private var _score:int;
 		
-		public function HudValue(val:int = 0) {
+		public function HudValue(val:int = 0, theColor:uint=0x000000) {
 			this.score = val;
+			scoreStr.textColor = theColor;
 		}
 		
 		public function set score(val:int):void {

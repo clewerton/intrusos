@@ -19,6 +19,8 @@
 		public static const START_GAME:int = 5;		// Começar jogo do nível corrente
 		public static const GAME_OVER:int = 6;		// jogo perdido
 		public static const BACK_TO_GAME:int = 7;		// jogo perdido
+		public static const END_GAME:int = 8;		// jogo perdido
+		public static const RESTART_GAME:int = 9;		// jogo perdido
 
 		
 		public function Main():void
@@ -34,6 +36,7 @@
 			// Adicionando contextos
 			addGameContext(GameContextFactory.MAIN_MENU);
 			addGameContext(GameContextFactory.PAUSE_MENU);
+			addGameContext(GameContextFactory.END_GAME_MENU);
 			
 			// Adicionando estados
 			addState(MENU, function() { 
@@ -66,13 +69,23 @@
 				switchContext(levelIndex); 
 			});
 
+			addState(RESTART_GAME, function() { 
+				removeContext(levelIndex);
+				addGameContext(levelIndex);
+				switchContext(levelIndex); 
+			});
+
 			addState(BACK_TO_GAME, function() { 
 				switchContext(levelIndex);
 			});
-			
+
 			addState(GAME_OVER, function() {
-				removeContext(levelIndex);
 				switchContext(GameContextFactory.MAIN_MENU);
+				removeContext(levelIndex);
+			});
+
+			addState(END_GAME, function() { 
+				switchContext(GameContextFactory.END_GAME_MENU);
 			});
 			
 			switchContext(GameContextFactory.MAIN_MENU);

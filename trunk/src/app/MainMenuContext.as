@@ -30,12 +30,12 @@
 			var menuVar:GameMenuItem;
 
 			super.onAddedToStage(e);
-			menuVar = new GameMenuItem("Iniciar fase 1", function() { commandProcessor.process("LEVEL_1"); });
+			menuVar = new GameMenuItem("Iniciar fase 1", 0xFFFF00, function() { commandProcessor.process("LEVEL_1"); });
 			menuVar.x = width / 2;
 			menuVar.y = height / 3;
 			addChild(menuVar);
 			
-			menuVar = new GameMenuItem("Iniciar fase 2", function() { commandProcessor.process("LEVEL_2"); });
+			menuVar = new GameMenuItem("Iniciar fase 2", 0xFFFF00, function() { commandProcessor.process("LEVEL_2"); });
 			menuVar.x = width / 2;
 			menuVar.y = height * 2 / 3;
 			addChild(menuVar);

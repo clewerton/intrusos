@@ -112,7 +112,7 @@
 			if (_convoy.size < MAX_VEHICLES) {
 				_convoy.addVehicle(vehicle);
 				
-				_vehicleHealthHUD[_convoy.size - 1] = new HudValue(vehicle.health);
+				_vehicleHealthHUD[_convoy.size - 1] = new HudValue(vehicle.health, 0xFFFF00);
 				_vehicleHealthHUD[_convoy.size - 1].x = 40 + (_convoy.size - 1) * 100;
 				_vehicleHealthHUD[_convoy.size - 1].y = 40;
 				_hudLayer.addGameObject(_vehicleHealthHUD[_convoy.size - 1]);
@@ -190,7 +190,7 @@
 		
 		private function setHUD():void
 		{
-			_vehicleScoreHUD = new HudValue();
+			_vehicleScoreHUD = new HudValue(0, 0x0000FF);
 			_vehicleScoreHUD.x = 760;
 			_vehicleScoreHUD.y = 570;
 			_hudLayer.addGameObject(_vehicleScoreHUD);

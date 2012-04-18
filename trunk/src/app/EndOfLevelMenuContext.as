@@ -6,17 +6,15 @@
 	import lib.engine.GameContext;
 	import src.Main;
 	
-	public class PauseMenuContext extends GameContext
+	public class EndOfLevelMenuContext extends GameContext
 	{
 
-			public function PauseMenuContext(gameApp:GameApp)
+			public function EndOfLevelMenuContext(gameApp:GameApp)
 			{
 				super(gameApp);
 				
-				// Create inputManager:
-				
-				commandProcessor.addCommand("CONTINUE", function() {
-					gameApp.activeState = Main.BACK_TO_GAME;
+				commandProcessor.addCommand("AGAIN", function() {
+					gameApp.activeState = Main.RESTART_GAME;
 				});
 				commandProcessor.addCommand("GAME_OVER", function() {
 					gameApp.activeState = Main.GAME_OVER;
@@ -28,7 +26,12 @@
 			var menuVar:GameMenuItem;
 
 			super.onAddedToStage(e);
-			menuVar = new GameMenuItem("Continuar Partida", 0xFFFF00, function() { commandProcessor.process("CONTINUE"); });
+			
+			//if(
+
+			menuVar = new GameMenuItem("Reinciar Partida", 0xFFFF00, function() { commandProcessor.process("AGAIN"); });
+
+			menuVar = new GameMenuItem("Reiniciar Partida", 0xFFFF00, function() { commandProcessor.process("AGAIN"); });
 			menuVar.x = 400;
 			menuVar.y = 200;
 			addChild(menuVar);
