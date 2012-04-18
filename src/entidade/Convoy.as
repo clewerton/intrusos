@@ -55,6 +55,7 @@
 			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, DISTANCE_BETWEEN_VEHICLES * (this.size - 1));
 			newPathWalker.addEventListener(EventChannel.PATH_FINISHED, stopConvoyMoving, false, 0, true);
 			_mapping[vehicle] = newPathWalker;
+			vehicle.index = size - 1;
 		}
 
 		public function removeVehicle(vehicle:Vehicle):void {

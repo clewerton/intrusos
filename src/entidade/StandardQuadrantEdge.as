@@ -34,7 +34,7 @@
 		
 		private function drawArrow(angle:Number) {
 			var sign:int = clockwise ? 1 : -1;
-			var arrowWidth = 4;
+			var arrowWidth = 6;
 			var initPoint:Point = Point.polar(radius, -angle);
 			var arrow1:Point = initPoint.add(Point.polar(arrowWidth / 5, -angle - Math.PI / 4));
 			trace(initPoint.x, initPoint.y, radius);

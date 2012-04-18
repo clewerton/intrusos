@@ -11,15 +11,13 @@
 		private var command:Function;
 		
 		public function GameMenuItem(val:String, func:Function) {
+			buttonMode = true;
+			useHandCursor = true;
+			mouseChildren = false;			
 			str.text = val;
 			addEventListener(Event.ADDED_TO_STAGE, init);
 			command = func;
 			addEventListener(MouseEvent.CLICK, command, false, 0, true);
-
-			addEventListener(MouseEvent.MOUSE_OVER, function(e:MouseEvent):void {
-				buttonMode = true;
-				useHandCursor = true;
-			});
 		}
 		
 		protected function init(e:Event = null):void {
