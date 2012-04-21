@@ -1,5 +1,7 @@
 ﻿package src.app.level.level1
 {
+	import flash.display.Shape;
+	import flash.events.Event;
 	import lib.graph.DirectedGraph;
 	import lib.graph.Node;
 	import src.app.BaseWorld;
@@ -40,6 +42,15 @@
 			convoy.visible = false;
 		
 			createTowers();
+		}
+		
+		protected override function onAddedToStage(ev:Event = null):void {
+			super.onAddedToStage(ev);
+			var background:Shape = new Shape();
+			background.graphics.beginFill(0x777777);
+			background.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			background.graphics.endFill();
+			addChildAt(background, 0);
 		}
 		
 		public override function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet
@@ -101,7 +112,6 @@
 			tower.dispose();
 			tower = null;
 			if (numberOfTowers == 0) {
-				trace("VICTORY");
 				_gameLevel.activeState = GameLevel.SUCCEDED;
 			}
 		}
@@ -127,16 +137,9 @@
 			vehicle.active = false;
 			vehicle = null;
 			if (convoy.size == 0) {
-				trace("FAILURE");
 				_gameLevel.activeState = GameLevel.FAILED;
 			}
 		}
-		
-		/*private function adjustHealthHUD(e:DestroyableEvent):void
-		{
-			var vehicle:Vehicle = e.gameObject as Vehicle;
-			vehicleHealthHUD.score = convoy.vehicles[0].health;
-		}*/
 	}
 	
 }
