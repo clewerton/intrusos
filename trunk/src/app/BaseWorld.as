@@ -10,6 +10,7 @@
 	import src.entidade.Tower;
 	import src.entidade.Vehicle;
 	import flash.events.Event;
+	import flash.text.TextFieldAutoSize;
 	
 	/**
 	 * ...
@@ -112,9 +113,9 @@
 			if (_convoy.size < MAX_VEHICLES) {
 				_convoy.addVehicle(vehicle);
 				
-				_vehicleHealthHUD[_convoy.size - 1] = new HudValue(vehicle.health, 0xFFFF00);
-				_vehicleHealthHUD[_convoy.size - 1].x = 40 + (_convoy.size - 1) * 100;
-				_vehicleHealthHUD[_convoy.size - 1].y = 40;
+				_vehicleHealthHUD[_convoy.size - 1] = new HudValue(TextFieldAutoSize.LEFT, vehicle.health, 0xFFFF00);
+				_vehicleHealthHUD[_convoy.size - 1].x = 70 + (_convoy.size - 1) * 100;
+				_vehicleHealthHUD[_convoy.size - 1].y = 20;
 				_hudLayer.addGameObject(_vehicleHealthHUD[_convoy.size - 1]);
 			}
 		}
@@ -190,9 +191,9 @@
 		
 		private function setHUD():void
 		{
-			_vehicleScoreHUD = new HudValue(0, 0x0000FF);
-			_vehicleScoreHUD.x = 760;
-			_vehicleScoreHUD.y = 570;
+			_vehicleScoreHUD = new HudValue(TextFieldAutoSize.RIGHT, 0, 0x00FF77);
+			_vehicleScoreHUD.x = 720;
+			_vehicleScoreHUD.y = 20;
 			_hudLayer.addGameObject(_vehicleScoreHUD);
 		}
 		

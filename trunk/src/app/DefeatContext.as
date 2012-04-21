@@ -6,10 +6,10 @@
 	import lib.engine.GameContext;
 	import src.Main;
 	
-	public class PauseMenuContext extends GameContext
+	public class DefeatContext extends GameContext
 	{
 
-			public function PauseMenuContext(gameApp:GameApp)
+			public function DefeatContext(gameApp:GameApp)
 			{
 				super(gameApp);
 			}
@@ -19,18 +19,19 @@
 			var menuVar:GameMenuItem;
 
 			super.onAddedToStage(e);
-			menuVar = new GameMenuItem("Continuar Partida", 0xFFFF00, function() { 
-					gameApp.activeState = Main.BACK_TO_GAME;
+			
+			menuVar = new GameMenuItem("Reiniciar Partida", 0xFFFF00, function() { 
+				gameApp.activeState = Main.RESTART_GAME;
 			});
 			menuVar.x = 400;
-			menuVar.y = 250;
+			menuVar.y = 400;
 			addChild(menuVar);
 			
 			menuVar = new GameMenuItem("Abortar Partida", 0xFFFF00, function() { 
-					gameApp.activeState = Main.GAME_OVER;
+				gameApp.activeState = Main.GAME_OVER;
 			});
 			menuVar.x = 400;
-			menuVar.y = 350;
+			menuVar.y = 450;
 			addChild(menuVar);
 
 		}

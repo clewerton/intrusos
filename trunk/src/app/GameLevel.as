@@ -24,7 +24,6 @@
 		public static const PAUSED = 3;			// jogo em pausa
 		public static const SUCCEDED = 4;		// jogo ganho
 		public static const FAILED = 5;			// jogo perdido
-		public static const LEAVING = 6;		// saindo da tela do jogo
 		
 		// O valor do último level
 		public static const MAX_LEVEL:int = 2;
@@ -52,18 +51,14 @@
 			addState(PLAYING, function() { active = true; });
 			addState(PAUSED, function() { active = false; });
 			addState(SUCCEDED, function() {
-				gameApp.activeState = Main.NEXT_LEVEL;
+				gameApp.activeState = Main.VICTORY_MATCH;
 			});
 			addState(FAILED, function() { 
-				gameApp.activeState = Main.END_GAME;
+				gameApp.activeState = Main.DEFEAT_MATCH;
 			});
-			addState(LEAVING, function() { gameApp.activeState = Main.MENU; } );
 			
 			inputManager.addCommandMapping(Keyboard.I, "INCLUDE_VEHICLE");
 			inputManager.addCommandMapping(Keyboard.E, "START_WALKING");
-			//inputManager.addCommandMapping(Keyboard.R, "RESET_WALKING");
-			//inputManager.addCommandMapping(Keyboard.Q, "STOP_WALKING");
-			//inputManager.addCommandMapping(Keyboard.V, "GO_MENU");
 			inputManager.addCommandMapping(Keyboard.P, "PAUSE_SCREEN");
 
 			inputManager.addCommandMapping(Keyboard.W, "SCROLL_UP");
@@ -82,13 +77,10 @@
 			commandProcessor.addCommand("SCROLL_LEFT", function() { _world.scroll(-10, -0); }, false);
 			commandProcessor.addCommand("SCROLL_RIGHT", function() { _world.scroll(10, 0); }, false);
 
-
-			//commandProcessor.addCommand("RESET_WALKING", function() {_world.resetWalkingPath(); });
-			//commandProcessor.addCommand("STOP_WALKING", function() {_world.stopWalkingPath(); });
-			//commandProcessor.addCommand("GO_MENU", function() { gameApp.activeState = Main.MENU; });
 			commandProcessor.addCommand("PAUSE_SCREEN", function() { 
 				gameApp.activeState = Main.PAUSED; } 
 			);
+			
 		}
 		
 		public override function enter():void {

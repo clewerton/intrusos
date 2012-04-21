@@ -12,12 +12,14 @@
 		public static const MAIN_MENU:int = -1;
 		public static const HIGH_SCORE:int = -2;
 		public static const PAUSE_MENU:int = -3;
-		public static const END_GAME_MENU:int = -4;
+		public static const DEFEAT_GAME_MENU:int = -4;
+		public static const VICTORY_GAME_MENU:int = -5;
 		
 
 		private static var _menuContext:MainMenuContext;
 		private static var _pauseContext:PauseMenuContext;
-		private static var _endGameContext:EndOfLevelMenuContext;
+		private static var _defeatContext:DefeatContext;
+		private static var _victorytContext:VictoryContext;
 		
 		public function GameContextFactory() {}
 		
@@ -38,11 +40,17 @@
 					}
 					ctx = _pauseContext;
 					break;
-				case END_GAME_MENU: 
-					if (_endGameContext == null) {
-						_endGameContext = new EndOfLevelMenuContext(gameApp);
+				case DEFEAT_GAME_MENU: 
+					if (_defeatContext == null) {
+						_defeatContext = new DefeatContext(gameApp);
 					}
-					ctx = _endGameContext;
+					ctx = _defeatContext;
+					break;
+				case VICTORY_GAME_MENU: 
+					if (_victorytContext == null) {
+						_victorytContext = new VictoryContext(gameApp);
+					}
+					ctx = _victorytContext;
 					break;
 				default:
 					ctx = new GameLevel(gameApp, contextId);
