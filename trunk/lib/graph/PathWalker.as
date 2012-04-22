@@ -23,16 +23,13 @@
 		
 		// true se o veiculo saiu do ponto de partida
 		private var _started:Boolean = false;
-		//private var _counter:int;
 		
 		
 		
 		public function PathWalker(path:Path, vehicle: Vehicle, offset:uint = 0) {
 			_path = path;
 			_vehicle = vehicle;
-			reset();
 			_offset = offset;
-			//_counter = countValue++;
 		}
 
 		private function reset():void {
@@ -107,6 +104,10 @@
 		
 		private function startWalking():void {
 			_started = true;
+			if (_path.edges.length >= 1) {
+				_vehicle.x = _path.edges[0].x;
+				_vehicle.y = _path.edges[0].y;
+			}
 			step(_offset);
 		}
 		
