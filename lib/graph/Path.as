@@ -10,6 +10,7 @@
 		private var _canModify:Boolean;
 		private var _firstNode:Node;
 		private var _lastNode:Node;
+		private var _currentEdgeIndex:int;
 		
 		public function Path(sourceNode:Node, canModify:Boolean = true, continuousPath:Boolean = false) {
 			_edges = new Vector.<Edge>();
@@ -27,7 +28,7 @@
 			}
 			var index:int = getOutEdgeFrom(edge.sourceNode);
 			if(index >= 0) {
-				if(_canModify) {
+				if(_canModify && !_edges[index].marked) {
 					separateFromIndex(index);
 					join(edge);
 				}
@@ -105,6 +106,16 @@
 			return _lastNode;
 		}
 		
+		function get currentEdgeIndex():int 
+		{
+			return _currentEdgeIndex;
+		}
+		
+		function set currentEdgeIndex(value:int):void 
+		{
+			_currentEdgeIndex = value;
+		}
+		
 		private function adjustNodes():void {
 			if(_edges.length > 0) {
 				targetNode = _edges[_edges.length - 1].targetNode;
@@ -112,6 +123,12 @@
 			else {
 				sourceNode = null;
 				targetNode = null;
+			}
+		}
+		
+		public function unMarkEdges(index:int):void {
+			for (var idx:int = index; idx < _edges.length; idx++ ) {
+				_edges[idx].marked = false;
 			}
 		}
 
