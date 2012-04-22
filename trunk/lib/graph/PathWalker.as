@@ -76,7 +76,6 @@
 					if(_currentEdgeIndex == -1) {
 						dispatchEvent(new Event(EventChannel.PATH_FINISHED));
 						_currentEdgeIndex = _path.edges.length;
-						//stopWalking();
 						return;
 					}
 				}
@@ -130,6 +129,16 @@
 		public function set active(value:Boolean):void 
 		{
 			_active = value;
+		}
+		
+		public function get currentEdgeIndex():int 
+		{
+			return _currentEdgeIndex;
+		}
+		
+		public function set currentEdgeIndex(value:int):void 
+		{
+			_currentEdgeIndex = value;
 		}
 		
 		/*public function get counter():int 
