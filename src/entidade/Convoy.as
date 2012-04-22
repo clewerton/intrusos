@@ -50,13 +50,10 @@
 		}
 
 		public function addVehicle(vehicle:Vehicle):void {
-			//_vehicles.push(vehicle);
 			addGameObject(vehicle);
 			var newPathWalker:PathWalker = new PathWalker(_path, vehicle, DISTANCE_BETWEEN_VEHICLES * (this.size - 1));
 			newPathWalker.addEventListener(EventChannel.PATH_FINISHED, stopConvoyMoving, false, 0, true);
-			if(size == 1) {
-				newPathWalker.addEventListener(EventChannel.EDGE_VISITED, checkPath, false, 0, true);
-			}
+			newPathWalker.addEventListener(EventChannel.EDGE_VISITED, checkPath, false, 0, true);
 			_mapping[vehicle] = newPathWalker;
 			vehicle.index = size - 1;
 		}
@@ -64,7 +61,6 @@
 		public function removeVehicle(vehicle:Vehicle):void {
 			removeGameObject(vehicle);
 			delete _mapping[vehicle];
-			//_vehicles.splice(_vehicles.indexOf(vehicle), 1);
 			vehicle = null;
 		}
 		
@@ -182,11 +178,12 @@
 		
 		private function checkPath(e:EdgeEvent) {
 			var theEdge:Edge = e.edge;
-			var pw0:PathWalker = _mapping[firstElement];
 			theEdge.marked = true;
-			_path.unMarkEdges(pw0.currentEdgeIndex + 1);
+			if(_mapping[firstElement].currentEdgeIndex == _mapping[lastElement].currentEdgeIndex) {
+				_path.unMarkEdges(_mapping[lastElement].currentEdgeIndex + 1);
+			}
 		}
-		
+
 		private function firstFinished():Boolean {
 			var pw:PathWalker = _mapping[lastElement];
 			return pw.finished();
