@@ -18,15 +18,18 @@
 		// Layers
 		private var _world:BaseWorld;
 		
-		// Estados possíveis do jogo
+		// Estados possíveis do level
 		public static const STARTING = 1;		// Começando o jogo
 		public static const PLAYING = 2;		// jogando
 		public static const PAUSED = 3;			// jogo em pausa
 		public static const SUCCEDED = 4;		// jogo ganho
 		public static const FAILED = 5;			// jogo perdido
+		public static const CONFIG = 5;			// configurando a partida
 		
 		// O valor do último level
 		public static const MAX_LEVEL:int = 2;
+		
+		private var _started:Boolean = false;
 		
 		public function GameLevel(gameApp:GameApp, levelIndex:uint = 1)
 		{
@@ -37,7 +40,8 @@
 			}
 			
 			init();
-			activeState = STARTING;
+			_world = GameWorldFactory.createWorld(this, _levelIndex);
+			addGameObject(_world);
 		}
 
 		private function init():void {
@@ -45,14 +49,21 @@
 			var scope:GameLevel = this;
 			
 			addState(STARTING, function() {
-				_world = GameWorldFactory.createWorld(scope, _levelIndex);
-				addGameObject(_world);
-			} );
+				if(!_started) {
+					_started = true;					 
+					gameApp.activeState = Main.CONFIG_CONVOY;			
+				}
+				else {
+					activeState = PLAYING;
+				}
+			});
+			
 			addState(PLAYING, function() { active = true; });
 			addState(PAUSED, function() { active = false; });
 			addState(SUCCEDED, function() {
 				gameApp.activeState = Main.VICTORY_MATCH;
 			});
+			
 			addState(FAILED, function() { 
 				gameApp.activeState = Main.DEFEAT_MATCH;
 			});
@@ -86,6 +97,7 @@
 		public override function enter():void {
 			super.enter();
 			_world.enter();
+			activeState = STARTING;
 		}
 		
 	}
