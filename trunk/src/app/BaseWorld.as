@@ -27,7 +27,7 @@
 		
 		private var _towers:Vector.<Tower>;
 		private var _convoy:Convoy;
-		//private var _bullets:Vector.<Bullet>;
+		private var _powerUps:Vector.<DestroyableObject>;
 		
 		//Grafo com os possíveis caminhos a serem percorridos
 		private var _graph:DirectedGraph;
@@ -45,7 +45,8 @@
 			_towers = new Vector.<Tower>;
 			_mapLayer = new GameContainer();
 			_hudLayer = new GameContainer();
-
+			_powerUps = new Vector.<DestroyableObject>();
+			
 			addGameObject(_mapLayer);
 			addGameObject(_hudLayer);
 			setHUD();
@@ -149,6 +150,16 @@
 						_towers[indexTowers].enemy = vehicle;
 					}
 				}
+				for (indexVehicles = 0; indexVehicles < convoy.size; indexVehicles++) {
+					for (var indexHP:uint = 0; indexHP < _powerUps.length; indexHP++) {
+						vehicle = convoy.getElement(indexVehicles) as Vehicle;
+						if (vehicle.hitRegion.hitTestObject(_powerUps[indexHP].hitRegion)) {
+							vehicle.increaseHealth(_powerUps[indexHP].health);
+							_powerUps[indexHP].destroy();
+						}
+					}
+				}
+				
 			}
 		}
 		
@@ -204,6 +215,16 @@
 			newScrollRect.x += dx;
 			newScrollRect.y += dy;
 			_mapLayer.scrollRect = newScrollRect;
+		}
+		
+		public function addPowerUp(obj:DestroyableObject):void {
+			_powerUps.push(obj);
+			_mapLayer.addGameObject(obj);
+		}
+
+		public function removePowerUp(obj:DestroyableObject):void {
+			_powerUps.splice(_powerUps.indexOf(obj), 1);
+			_mapLayer.removeGameObject(obj);
 		}
 		
 	}

@@ -4,7 +4,7 @@
 	public class StandardTower extends Tower {
 		
 		public function StandardTower(world:BaseWorld) {
-			super(world, 350, 100);
+			super(world, 350, 80, 600);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
 			_hitRegion.graphics.drawRect( -8, -8, 16, 16);
@@ -12,7 +12,7 @@
 		}
 		
 		public override function scoreValue():uint {
-			return 110;
+			return 150;
 		}
 		
 		protected override function getNewBullet():void {

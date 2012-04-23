@@ -7,28 +7,23 @@
 	
 	public class Vehicle extends DestroyableObject {
 
-		private var _radius:uint;
 		private var _linearSpeed:uint;
 		private var _angularSpeed:Number;
 		private var _enemy:Tower;
 		private var _states:Array;
 		private var _range:Shape;
-		private var _timer:Timer;
-		private var _canShoot:Boolean = false;
+		private var _cannon:Cannon;
 		
 		private var _index:int;
 
-		public function Vehicle(world:BaseWorld, health:uint, linearSpeed:uint, radius:uint) {
+		public function Vehicle(world:BaseWorld, health:uint, linearSpeed:uint, cannon:Cannon) {
 			super(world, health);
 			_linearSpeed = linearSpeed;
-			_radius = radius;
+			_cannon = cannon;
 			_range = new Shape();
 			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
-			_range.graphics.drawCircle(x, y, _radius);
+			_range.graphics.drawCircle(x, y, cannon.radius);
 			addChild(_range);
-			
-			_timer = new Timer(300);
-			_timer.addEventListener(TimerEvent.TIMER, enableShooting, false, 0, true);
 		}
 
 		public function move():void {
@@ -48,33 +43,19 @@
 				return;
 			}
 			if (_range.hitTestObject(_enemy.hitRegion)) {
-				if(!_timer.running) {
-					_timer.start();
-				}
-				if (_canShoot) {
-					getNewBullet();
-				}
+				_cannon.shoot();
 				if(!_enemy.isAlive()) {
 					_enemy = null;
 				}
-				_canShoot = false;
 			} 
 			else {
 				_enemy = null;
 			}
 		}
 		
-		private function enableShooting(e:TimerEvent):void {
-			_canShoot = true;
-		}
-		
-		protected function getNewBullet():void {
-			throw new Error("Metodo Abstrato!");
-		}
-		
 		public function dispose():void {
 			_range = null;
-			_timer = null;
+			_cannon = null;
 		}
 
 		public function get speed():uint {

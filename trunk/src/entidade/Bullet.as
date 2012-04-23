@@ -7,6 +7,7 @@
 
 		private var _speed:uint;
 		private var _damage:int;
+		private var _interval:uint;
 		private var _enemy:DestroyableObject;
 		
 		public function Bullet(world:BaseWorld, health:uint, speed:uint, damage:uint) {
@@ -35,6 +36,16 @@
 		public function get damage():int 
 		{
 			return _damage;
+		}
+		
+		public function get interval():uint 
+		{
+			return _interval;
+		}
+		
+		public function set interval(value:uint):void 
+		{
+			_interval = value;
 		}
 		
 		public override function update():void {

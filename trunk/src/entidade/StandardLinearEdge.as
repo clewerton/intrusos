@@ -24,7 +24,7 @@
 		}
 		
 		private function drawArrow(distance:Number) {
-			var arrowWidth = 6;
+			var arrowWidth = 8;
 			graphics.moveTo(distance, 0);
 			graphics.lineTo(distance - arrowWidth, -arrowWidth / 2);
 			graphics.moveTo(distance, 0);

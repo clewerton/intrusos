@@ -14,7 +14,7 @@
 		private var _timer:Timer;
 		private var _canShoot:Boolean = false;
 
-		public function Tower(world:BaseWorld, health:uint, radius:uint) {
+		public function Tower(world:BaseWorld, health:uint, radius:uint, bulletInterval:uint) {
 			super(world, health);
 			_radius = radius;
 			
@@ -22,7 +22,7 @@
 			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
 			_range.graphics.drawCircle(x, y, _radius);
 			addChild(_range);
-			_timer = new Timer(500);
+			_timer = new Timer(bulletInterval);
 			_timer.addEventListener(TimerEvent.TIMER, enableShooting, false, 0, true);
 		}
 		
