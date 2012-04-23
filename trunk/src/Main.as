@@ -23,7 +23,6 @@
 		public static const DEFEAT_MATCH:int = 8;			// partida perdida
 		public static const VICTORY_MATCH:int = 9;		// partida ganha
 		public static const RESTART_GAME:int = 10;		// recomeçando jogo
-		public static const CONFIG_CONVOY:int = 11;		// configurando o comboio	
 
 		
 		public function Main():void
@@ -97,11 +96,6 @@
 				switchContext(GameContextFactory.VICTORY_GAME_MENU);
 			});
 
-			addState(CONFIG_CONVOY, function() {
-				addGameContext(GameContextFactory.CONVOY_CONFIG);
-				switchContext(GameContextFactory.CONVOY_CONFIG);
-			});
-			
 			// Definindo contexto inicial
 			switchContext(GameContextFactory.MAIN_MENU);
 			// Luz, câmera, ação!

@@ -6,27 +6,28 @@
 	 * ...
 	 * @author Clewerton Coelho
 	 */
-	public class GameApp extends GameObject
+	public class GameApp extends GameContext
 	{
 		// Container de telas
-		private var _contextManager:GameContextManager;
+		//private var _contextManager:GameContextManager;
 		
 		// Gerenciador de Som
 		private var _soundManager:SoundManager;
 		
 		// Gerenciador de Input
-		private var _inputManager:InputManager;
+		//private var _inputManager:InputManager;
 
 		// Gerenciador de estados
-		private var _stateManager:StateManager;
+		//private var _stateManager:StateManager;
 		
 		private var _levelIndex:uint = 1;
 		
 		public function GameApp()
 		{
-			_soundManager = new SoundManager();
-			_contextManager = new GameContextManager(this);
-			_stateManager = new StateManager();
+			super(this);
+			//_soundManager = new SoundManager();
+			//_contextManager = new GameContextManager(this);
+			//_stateManager = new StateManager();
 		}
 		
 		// Coloca a engine em estado de execução
@@ -46,26 +47,23 @@
 			update();
 		}
 		
-		public override function update():void
+		/*public override function update():void
 		{
 			super.update();
 			if (_contextManager.activeContext != null)
 			{
 				_contextManager.activeContext.update();
 			}
-		}
+		}*/
 		
-		public function dispose():void
+		public override function dispose():void
 		{
 			stage.removeEventListener(Event.ENTER_FRAME, updateFrameHandler, false);
-			if (_contextManager.activeContext != null)
-			{
-				removeChild(_contextManager.activeContext);
-			}
+			super.dispose();
 		}
 		
 		// Métodos relativos à estado
-		protected function addState(stateId:uint, action:Function):void 
+		/*protected function addState(stateId:uint, action:Function):void 
 		{
 			_stateManager.addState(stateId, action);
 		}
@@ -77,10 +75,10 @@
 		public function set activeState(value:uint):void 
 		{
 			_stateManager.activeStateId = value;
-		}
+		}*/
 		
 		// Métodos relativos à contexto
-		protected function addContext(context:GameContext, id:int)
+		/*protected function addContext(context:GameContext, id:int)
 		{
 			_contextManager.addContext(context, id);
 		}
@@ -93,7 +91,7 @@
 		public function switchContext(contextId:int, removePreviousFromStage=true, disposePrevious:Boolean=false)
 		{
 			_contextManager.switchContext(contextId, removePreviousFromStage, disposePrevious);
-		}
+		}*/
 		
 		// Getters and Setters
 		public function get soundManager():SoundManager
@@ -101,7 +99,7 @@
 			return _soundManager;
 		}
 		
-		internal function get inputManager():InputManager 
+		/*internal function get inputManager():InputManager 
 		{
 			return _inputManager;
 		}
@@ -109,7 +107,7 @@
 		internal function set inputManager(value:InputManager):void 
 		{
 			_inputManager = value;
-		}
+		}*/
 		
 		public function get levelIndex():uint 
 		{

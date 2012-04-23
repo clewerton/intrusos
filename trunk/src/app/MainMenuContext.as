@@ -9,13 +9,14 @@
 	public class MainMenuContext extends GameContext
 	{
 		
-		public function MainMenuContext(gameApp:GameApp)
+		public function MainMenuContext(parentContext:GameContext)
 		{
-			super(gameApp);
+			super(parentContext);
 		}
 		
 		protected override function onAddedToStage(e:Event = null):void
 		{
+			var gameApp:GameApp = parentContext as GameApp;
 			var menuVar:GameMenuItem;
 			
 			super.onAddedToStage(e);

@@ -3,6 +3,7 @@
 	import flash.display.MovieClip;
 	import src.entidade.Convoy;
 	import src.entidade.StandardTruck;
+	import src.entidade.Vehicle;
 	
 	
 	public class StandardVehicleChoice extends VechicleChoice {
@@ -12,8 +13,8 @@
 			super(pos);
 		}
 		
-		public override function getVehicleType():String {
-			return "StandardTruck";
+		public override function getVehicleType():Class {
+			return StandardTruck;
 		}
 		
 	}
