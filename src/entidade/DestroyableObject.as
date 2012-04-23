@@ -30,8 +30,9 @@
 			if (!active || !isAlive()) {
 				return;
 			}
-			if (_health < _maxHealth) {
-				_health += valor;
+			_health += valor;
+			if (_health > _maxHealth) {
+				_health = _maxHealth
 			}
 			notifyHealthChanged();
 		}

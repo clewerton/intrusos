@@ -8,6 +8,7 @@
 	import src.app.GameLevel;
 	import src.entidade.Bullet;
 	import src.entidade.DestroyableObject;
+	import src.entidade.HealthPack;
 	import src.entidade.StandardTower;
 	import src.entidade.StandardTruck;
 	import src.entidade.Tower;
@@ -41,6 +42,7 @@
 			convoy.visible = false;
 		
 			createTowers();
+			createPowerUps();
 		}
 		
 		protected override function onAddedToStage(ev:Event = null):void {
@@ -72,14 +74,14 @@
 			var torre:Tower;
 			
 			torre = new StandardTower(this);
-			torre.x = 175;
-			torre.y = 175;
+			torre.x = 160;
+			torre.y = 160;
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
 
 			torre = new StandardTower(this);
-			torre.x = 325;
-			torre.y = 175;
+			torre.x = 335;
+			torre.y = 160;
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
 			
@@ -138,6 +140,31 @@
 			if (convoy.size == 0) {
 				_gameLevel.activeState = GameLevel.FAILED;
 			}
+		}
+		
+		private function createPowerUps():void
+		{
+			var healthPack:HealthPack;
+			
+			healthPack = new HealthPack(this);
+			addPowerUp(healthPack);
+			healthPack.x = 500;
+			healthPack.y = 150;
+			healthPack.addEventListener(EventChannel.OBJECT_DESTROYED, increaseHealth, false, 0, true);
+			
+			healthPack = new HealthPack(this);
+			addPowerUp(healthPack);
+			healthPack.x = 400;
+			healthPack.y = 200;
+			healthPack.addEventListener(EventChannel.OBJECT_DESTROYED, increaseHealth, false, 0, true);
+			
+		}
+		
+		private function increaseHealth(e:DestroyableEvent):void
+		{
+			var healthPack:HealthPack = e.gameObject as HealthPack;
+			healthPack.active = false;
+			removePowerUp(healthPack);
 		}
 	}
 	

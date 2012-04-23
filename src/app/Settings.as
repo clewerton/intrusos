@@ -11,7 +11,7 @@ package src.app
 
 		public static const EDGE_COLOR:int = 0x007777;
 		public static const SELECTED_EDGE_COLOR:int = 0x00FFFF;
-		public static const EDGE_THICKNESS = 3;
+		public static const EDGE_THICKNESS = 4;
 		
 		public function Settings() 
 		{
