@@ -4,6 +4,7 @@
 	import lib.engine.GameApp;
 	import src.app.GameContextFactory;
 	import src.app.GameLevel;
+	import flash.display.StageScaleMode;
 	
 	/**
 	 * ...
@@ -18,15 +19,17 @@
 		public static const NEXT_LEVEL:int = 4;				// próxima fase
 		public static const START_GAME:int = 5;				// Começar jogo da fase corrente
 		public static const GAME_OVER:int = 6;				// jogo perdido
-		public static const BACK_TO_GAME:int = 7;			// de volta à tela do jogo
+		public static const BACK_TO_GAME:int = 7;			// voltando à tela do jogo
 		public static const DEFEAT_MATCH:int = 8;			// partida perdida
 		public static const VICTORY_MATCH:int = 9;		// partida ganha
 		public static const RESTART_GAME:int = 10;		// recomeçando jogo
+		public static const CONFIG_CONVOY:int = 11;		// configurando o comboio	
 
 		
 		public function Main():void
 		{
 			super();
+			stage.scaleMode = StageScaleMode.NO_SCALE;
 			addEventListener(Event.ADDED_TO_STAGE, initGame);
 		}
 		
@@ -34,11 +37,12 @@
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, initGame);
 			
-			// Adicionando contextos
+			// Contextos a serem mantidos em memória
 			addGameContext(GameContextFactory.MAIN_MENU);
 			addGameContext(GameContextFactory.PAUSE_MENU);
 			addGameContext(GameContextFactory.DEFEAT_GAME_MENU);
 			addGameContext(GameContextFactory.VICTORY_GAME_MENU);
+
 			
 			// Adicionando estados
 			addState(MAIN_MENU, function() { 
@@ -92,8 +96,15 @@
 			addState(VICTORY_MATCH, function() { 
 				switchContext(GameContextFactory.VICTORY_GAME_MENU);
 			});
+
+			addState(CONFIG_CONVOY, function() {
+				addGameContext(GameContextFactory.CONVOY_CONFIG);
+				switchContext(GameContextFactory.CONVOY_CONFIG);
+			});
 			
+			// Definindo contexto inicial
 			switchContext(GameContextFactory.MAIN_MENU);
+			// Luz, câmera, ação!
 			runApp();
 		}
 

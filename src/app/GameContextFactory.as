@@ -9,13 +9,14 @@
 	 */
 	public class GameContextFactory
 	{
+		// Id's positivos são reservados para contextos de levels. Todos as outras situações deverão ser id's negativos.
 		public static const MAIN_MENU:int = -1;
-		public static const HIGH_SCORE:int = -2;
-		public static const PAUSE_MENU:int = -3;
-		public static const DEFEAT_GAME_MENU:int = -4;
-		public static const VICTORY_GAME_MENU:int = -5;
+		public static const PAUSE_MENU:int = -2;
+		public static const DEFEAT_GAME_MENU:int = -3;
+		public static const VICTORY_GAME_MENU:int = -4;
+		public static const CONVOY_CONFIG:int = -5;
 		
-
+		// Contextos a serem salvos
 		private static var _menuContext:MainMenuContext;
 		private static var _pauseContext:PauseMenuContext;
 		private static var _defeatContext:DefeatContext;
@@ -52,7 +53,11 @@
 					}
 					ctx = _victorytContext;
 					break;
+				case CONVOY_CONFIG: 
+					ctx = new ConvoyConfigContext(gameApp);;
+					break;
 				default:
+					// Aqui carrega o contexto do level corrente
 					ctx = new GameLevel(gameApp, contextId);
 					break;
 			}
