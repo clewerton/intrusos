@@ -14,15 +14,16 @@
 		private var availableChoices:Vector.<VechicleChoice> = new Vector.<VechicleChoice>();
 		private var selectedChoices:Array = new Array();
 		
-		public function ConvoyConfigContext(gameApp:GameApp)
+		public function ConvoyConfigContext(parentContext:GameContext)
 		{
-			super(gameApp);
+			super(parentContext);
 		}
 		
 		protected override function onAddedToStage(e:Event = null):void
 		{
 			var menuVar:GameMenuItem;
 			var vehicleChoice:VechicleChoice;
+			var gameLevel:GameLevel = parentContext as GameLevel;			
 			
 			super.onAddedToStage(e);
 			
@@ -35,14 +36,18 @@
 				addSelectedChoice(newChoice, counter);
 			}
 			
-		/*menuVar = new GameMenuItem("Adicionar veiculo", 0xFFFF00, function() {
-			 gameApp.activeState = Main.BACK_TO_GAME;
-			 });
-			 menuVar.x = 350;
-			 menuVar.y = 550;
-			 addChild(menuVar);
+			menuVar = new GameMenuItem("Continuar", 0xFFFF00, function() {
+				var selectedChoices:Vector.<Class> = getConvoyConfiguration();
+				if(selectedChoices.length > 0) {
+					gameLevel.createConvoyFrom(getConvoyConfiguration());
+					gameLevel.activeState = GameLevel.GO_TO_MAP;
+				}
+			});
+			menuVar.x = stage.stageWidth / 2;
+			menuVar.y = 550;
+			addChild(menuVar);
 		
-			 menuVar = new GameMenuItem("Retirar veiculo", 0xFFFF00, function() {
+			 /*menuVar = new GameMenuItem("Retirar veiculo", 0xFFFF00, function() {
 			 gameApp.levelIndex = 2;
 			 gameApp.activeState = Main.START_GAME;
 			 });
@@ -96,7 +101,7 @@
 		private function addSelectedChoice(obj:VechicleChoice, counter:int):void {
 			selectedChoices[counter] = obj;
 			obj.x = 100 + 200 * counter;
-			obj.y = 500;
+			obj.y = 475;
 			addChildAt(obj, 1);
 			obj.doubleClickEnabled = true;
 			obj.addEventListener(MouseEvent.DOUBLE_CLICK, function(evt:MouseEvent):void {
@@ -116,10 +121,13 @@
 			return -1;
 		}
 		
-		public function getConvoyConfiguration():Vector.<String> {
-			var result:Vector.<String> = new Vector.<String>();
+		public function getConvoyConfiguration():Vector.<Class> {
+			var result:Vector.<Class> = new Vector.<Class>();
 			for (var counter:int = 0; counter < 4; counter++) {
-				result.push(selectedChoices[counter]);
+				var strType:Class = selectedChoices[counter].getVehicleType();
+				if(strType != null) {
+					result.push(strType);
+				}
 			}
 			return result;
 		}

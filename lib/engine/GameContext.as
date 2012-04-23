@@ -7,7 +7,10 @@
 	 */
 	public class GameContext extends GameContainer
 	{
-		private var _gameApp:GameApp;
+		private var _parentContext:GameContext;
+		
+		// Container de telas
+		private var _contextManager:GameContextManager;
 		
 		// Processador de input
 		private var _inputManager:InputManager;
@@ -18,16 +21,17 @@
 		// Estado corrente do contexto
 		private var _stateManager:StateManager;
 		
-		public function GameContext(gameApp:GameApp)
+		public function GameContext(parentContext:GameContext)
 		{
-			_gameApp = gameApp;
+			_parentContext = parentContext;
 			reset();
 		}
 		
 		public function enter():void {}
 		
 		protected function reset():void {
-			_inputManager = new InputManager(_gameApp);
+			_contextManager = new GameContextManager(_parentContext);
+			_inputManager = new InputManager(_parentContext);
 			_commandProcessor = new CommandProcessor();
 			_stateManager = new StateManager();
 		}
@@ -36,6 +40,34 @@
 		{
 			commandProcessor.processAll(inputManager.commands);
 			super.update();
+			if (_contextManager.activeContext != null && _contextManager.activeContext != this)
+			{
+				_contextManager.activeContext.update();
+			}
+		}
+
+		public override function dispose():void
+		{
+			if (_contextManager.activeContext != null && _contextManager.activeContext != this)
+			{
+				removeChild(_contextManager.activeContext);
+			}
+		}
+
+		// Métodos relativos à contexto
+		public function addContext(context:GameContext, id:int)
+		{
+			_contextManager.addContext(context, id);
+		}
+
+		protected function removeContext(id:int)
+		{
+			_contextManager.removeContext(id);
+		}
+		
+		public function switchContext(contextId:int, removePreviousFromStage=true, disposePrevious:Boolean=false)
+		{
+			_contextManager.switchContext(contextId, removePreviousFromStage, disposePrevious);
 		}
 		
 		// Métodos relativos à estado
@@ -48,12 +80,12 @@
 			return _stateManager._activeStateId;
 		}
 
+		// Getters e Setters
 		public function set activeState(value:uint):void 
 		{
 			_stateManager.activeStateId = value;
 		}
 		
-		// Getters e Setters
 		public function get inputManager():InputManager
 		{
 			return _inputManager;
@@ -64,14 +96,14 @@
 			_inputManager = value;
 		}
 		
-		protected function get commandProcessor():CommandProcessor 
+		public function get commandProcessor():CommandProcessor 
 		{
 			return _commandProcessor;
 		}
 		
-		protected function get gameApp():GameApp 
+		public function get parentContext():GameContext 
 		{
-			return _gameApp;
+			return _parentContext;
 		}
 		
 	}

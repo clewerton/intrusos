@@ -39,7 +39,9 @@
 		
 		public function process(commandId:String):void {
 			//trace("-> " + commandId);
-			_commandHandlers[commandId]();
+			if(_commandHandlers[commandId] != null) {
+				_commandHandlers[commandId]();
+			}
 		}
 
 		public function processAll(commands:Vector.<String>):void {

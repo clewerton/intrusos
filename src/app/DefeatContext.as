@@ -9,9 +9,9 @@
 	public class DefeatContext extends GameContext
 	{
 
-			public function DefeatContext(gameApp:GameApp)
+			public function DefeatContext(parentContext:GameContext)
 			{
-				super(gameApp);
+				super(parentContext);
 			}
 			
 		protected override function onAddedToStage(e:Event = null):void
@@ -21,14 +21,14 @@
 			super.onAddedToStage(e);
 			
 			menuVar = new GameMenuItem("Reiniciar Partida", 0xFFFF00, function() { 
-				gameApp.activeState = Main.RESTART_GAME;
+				parentContext.activeState = Main.RESTART_GAME;
 			});
 			menuVar.x = 400;
 			menuVar.y = 400;
 			addChild(menuVar);
 			
 			menuVar = new GameMenuItem("Abortar Partida", 0xFFFF00, function() { 
-				gameApp.activeState = Main.GAME_OVER;
+				parentContext.activeState = Main.GAME_OVER;
 			});
 			menuVar.x = 400;
 			menuVar.y = 450;

@@ -2,6 +2,7 @@
 	
 	import flash.display.MovieClip;
 	import src.entidade.Convoy;
+	import src.entidade.Vehicle;
 	
 	
 	public class VechicleChoice extends MovieClip {
@@ -16,8 +17,8 @@
 			return _pos;
 		}
 		
-		public function getVehicleType():String {
-			return "";
+		public function getVehicleType():Class {
+			return null;
 		}
 	}
 	

@@ -43,7 +43,6 @@
 			
 			_vehicleHealthHUD = new Vector.<HudValue>();
 			_towers = new Vector.<Tower>;
-			//_bullets = new Vector.<Bullet>;
 			_mapLayer = new GameContainer();
 			_hudLayer = new GameContainer();
 
@@ -72,10 +71,6 @@
 			_convoy.active = true;
 			_convoy.startWalkingPath();
 		}
-
-		/*public function resetWalkingPath():void {
-			_convoy.resetWalking();
-		}*/
 
 		public function stopWalkingPath():void {
 			_convoy.active = false;
@@ -108,6 +103,13 @@
 			return _towers.length;
 		}
 		
+		public function createConvoyFrom(config:Vector.<Class>):void
+		{
+			for each(var clazz:Class in config) {
+				addVehicle(new clazz(this));
+			}
+		}
+		
 		public function addVehicle(vehicle:Vehicle):void
 		{
 			if (_convoy.size < MAX_VEHICLES) {
@@ -127,13 +129,11 @@
 		
 		private function addBullet(bullet:Bullet):void
 		{
-			//_bullets.push(bullet);
 			_mapLayer.addGameObject(bullet);
 		}
 		
 		public function removeBullet(bullet:Bullet):void
 		{
-			//_bullets.splice(_bullets.indexOf(bullet), 1);
 			_mapLayer.removeGameObject(bullet);
 		}
 		
@@ -169,26 +169,11 @@
 			return _vehicleScoreHUD;
 		}
 		
-		/*public function getVehicleHealthHUD(index:uint):HudValue
-		{
-			return _vehicleHealthHUD[index];
-		}*/
-		
 		public function setVehicleHealthHUDValue(index:uint, value:int):void 
 		{
 			_vehicleHealthHUD[index].score = value;
 		}
 
-		/*public function addVehicleHealthHUDValue(index:uint, value:int):void 
-		{
-			_vehicleHealthHUD[index] += value;
-		}*/
-		
-		/*public function get vehicleHealthHUD():HudValue 
-		{
-			return _vehicleHealthHUD;
-		}*/
-		
 		private function setHUD():void
 		{
 			_vehicleScoreHUD = new HudValue(TextFieldAutoSize.RIGHT, 0, 0x00FF77);

@@ -9,16 +9,16 @@
 	 */
 	internal class GameContextManager
 	{
-		private var _gameApp:GameApp;
+		private var _parentContext:GameContext;
 		
 		// <id:uint, context:GameContext> - Nao usar Vector, pois a matriz deve ser indexada !
 		private var _contextMap:Dictionary;
 		private var _activeContextId:int;
 		
-		public function GameContextManager(gameApp:GameApp)
+		public function GameContextManager(context:GameContext)
 		{
 			init();
-			_gameApp = gameApp;
+			_parentContext = context;
 		}
 		
 		public function init():void
@@ -60,7 +60,7 @@
 				if (_contextMap[_activeContextId] != null) {
 					// limpar a configuração do contexto antigo:
 					if(removePreviousFromStage) {
-						_gameApp.removeChild(_contextMap[_activeContextId]);
+						_parentContext.removeChild(_contextMap[_activeContextId]);
 					}
 					_contextMap[_activeContextId].inputManager.disable();
 					if (deletePrevious) {
@@ -71,9 +71,9 @@
 				
 				// configurar o novo contexto:
 				_activeContextId = id;
-				_gameApp.inputManager = _contextMap[_activeContextId].inputManager;
+				_parentContext.inputManager = _contextMap[_activeContextId].inputManager;
 				_contextMap[_activeContextId].inputManager.enable();
-				_gameApp.addChild(_contextMap[_activeContextId]);
+				_parentContext.addChild(_contextMap[_activeContextId]);
 				_contextMap[_activeContextId].enter();
 			}
 		}

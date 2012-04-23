@@ -9,13 +9,14 @@
 	public class PauseMenuContext extends GameContext
 	{
 
-			public function PauseMenuContext(gameApp:GameApp)
+			public function PauseMenuContext(parentContext:GameContext)
 			{
-				super(gameApp);
+				super(parentContext);
 			}
 			
 		protected override function onAddedToStage(e:Event = null):void
 		{
+			var gameApp:GameApp = parentContext as GameApp;
 			var menuVar:GameMenuItem;
 
 			super.onAddedToStage(e);
