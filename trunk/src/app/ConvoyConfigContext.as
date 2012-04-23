@@ -12,7 +12,7 @@
 	public class ConvoyConfigContext extends GameContext
 	{
 		private var availableChoices:Vector.<VechicleChoice> = new Vector.<VechicleChoice>();
-		private var selectedChoices:Vector.<VechicleChoice> = new Vector.<VechicleChoice>();
+		private var selectedChoices:Array = new Array();
 		
 		public function ConvoyConfigContext(gameApp:GameApp)
 		{
@@ -27,13 +27,11 @@
 			super.onAddedToStage(e);
 			
 			// Adicionando opções de veículos
-			vehicleChoice = new StandardVehicleChoice();
-			availableChoices.push(vehicleChoice);
+			vehicleChoice = new StandardVehicleChoice(0);
 			configureAvailableChoice(vehicleChoice, 0);
 			
 			for (var counter:int = 0; counter < 4; counter++) {
-				var newChoice = new VechicleChoice();
-				selectedChoices.push(newChoice);
+				var newChoice:VechicleChoice = new VechicleChoice(counter);
 				addSelectedChoice(newChoice, counter);
 			}
 			
@@ -55,9 +53,10 @@
 		}
 
 		private function configureAvailableChoice(availableChoice:VechicleChoice, counter:int):void {
+			availableChoices.push(availableChoice);
 			addChildAt(availableChoice, 2);
 			var choiceX = 75 + counter * 400;
-			var choiceY = 200 + counter * 100;
+			var choiceY = 220 + counter * 100;
 			
 			availableChoice.x = choiceX;
 			availableChoice.y = choiceY;
@@ -85,19 +84,27 @@
 				if (selIndex > -1) {
 					var selectedChoice:VechicleChoice = selectedChoices[selIndex];
 					removeChild(selectedChoice);
-					selectedChoice = new StandardVehicleChoice();
+					var pos:int = selectedChoice.pos;
+					selectedChoice = new StandardVehicleChoice(pos);
 					addSelectedChoice(selectedChoice, selIndex);
 					obj.x = choiceX;
 					obj.y = choiceY;
 				}
 			});
-			
 		}
 		
 		private function addSelectedChoice(obj:VechicleChoice, counter:int):void {
+			selectedChoices[counter] = obj;
 			obj.x = 100 + 200 * counter;
 			obj.y = 500;
 			addChildAt(obj, 1);
+			obj.doubleClickEnabled = true;
+			obj.addEventListener(MouseEvent.DOUBLE_CLICK, function(evt:MouseEvent):void {
+				removeChild(obj);
+				var pos:int = obj.pos;
+				obj = new VechicleChoice(pos);
+				addSelectedChoice(obj, pos);
+			});
 		}
 			
 		private function optionSelected(obj:DisplayObject):int {
@@ -108,6 +115,14 @@
 			}
 			return -1;
 		}
-	
+		
+		public function getConvoyConfiguration():Vector.<String> {
+			var result:Vector.<String> = new Vector.<String>();
+			for (var counter:int = 0; counter < 4; counter++) {
+				result.push(selectedChoices[counter]);
+			}
+			return result;
+		}
+		
 	}
 }
