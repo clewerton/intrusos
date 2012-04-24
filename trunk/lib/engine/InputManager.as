@@ -8,7 +8,7 @@
 	 */
 	public class InputManager 
 	{
-		private var _parentContext:GameContext;
+		private var _gameApp:GameApp;
 		
 		// Mapeamentos (key:uint -> command:String)
 		protected var _mappings:Dictionary;
@@ -19,9 +19,9 @@
 		
 		private var _enabled:Boolean = false;
 		
-		public function InputManager(parentContext:GameContext) {
+		public function InputManager(gameApp:GameApp) {
 			init();
-			_parentContext = parentContext;
+			_gameApp = gameApp;
 		}
 
 		public function init():void {
@@ -50,8 +50,8 @@
 			if (_enabled) {
 				return;
 			}
-			_parentContext.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyboardDown, false, 0, true);
-			_parentContext.stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyboardUp, false, 0, true);
+			_gameApp.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyboardDown, false, 0, true);
+			_gameApp.stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyboardUp, false, 0, true);
 			_enabled = true;
 		}
 
@@ -59,8 +59,8 @@
 			if (!_enabled) {
 				return;
 			}
-			_parentContext.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleKeyboardDown);
-			_parentContext.stage.removeEventListener(KeyboardEvent.KEY_UP, handleKeyboardUp);
+			_gameApp.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleKeyboardDown);
+			_gameApp.stage.removeEventListener(KeyboardEvent.KEY_UP, handleKeyboardUp);
 			_enabled = false;
 		}
 		

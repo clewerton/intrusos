@@ -7,6 +7,8 @@
 	import flash.events.MouseEvent;
 	import lib.engine.GameApp;
 	import lib.engine.GameContext;
+	import src.evento.ConvoySelectedEvent;
+	import src.evento.EventChannel;
 	import src.Main;
 	
 	public class ConvoyConfigContext extends GameContext
@@ -14,16 +16,15 @@
 		private var availableChoices:Vector.<VechicleChoice> = new Vector.<VechicleChoice>();
 		private var selectedChoices:Array = new Array();
 		
-		public function ConvoyConfigContext(parentContext:GameContext)
+		public function ConvoyConfigContext(gameApp:GameApp)
 		{
-			super(parentContext);
+			super(gameApp);
 		}
 		
 		protected override function onAddedToStage(e:Event = null):void
 		{
 			var menuVar:GameMenuItem;
 			var vehicleChoice:VechicleChoice;
-			var gameLevel:GameLevel = parentContext as GameLevel;			
 			
 			super.onAddedToStage(e);
 			
@@ -38,9 +39,9 @@
 			
 			menuVar = new GameMenuItem("Continuar", 0xFFFF00, function() {
 				var selectedChoices:Vector.<Class> = getConvoyConfiguration();
-				if(selectedChoices.length > 0) {
-					gameLevel.createConvoyFrom(getConvoyConfiguration());
-					gameLevel.activeState = GameLevel.GO_TO_MAP;
+				if (selectedChoices.length > 0) {
+					dispatchEvent(new ConvoySelectedEvent(EventChannel.CONVOY_SELECTED, selectedChoices));
+					gameApp.activeState = Main.START_GAME;
 				}
 			});
 			menuVar.x = stage.stageWidth / 2;
@@ -121,7 +122,7 @@
 			return -1;
 		}
 		
-		public function getConvoyConfiguration():Vector.<Class> {
+		private function getConvoyConfiguration():Vector.<Class> {
 			var result:Vector.<Class> = new Vector.<Class>();
 			for (var counter:int = 0; counter < 4; counter++) {
 				var strType:Class = selectedChoices[counter].getVehicleType();

@@ -2,9 +2,13 @@
 {
 	import flash.events.Event;
 	import lib.engine.GameApp;
+	import lib.engine.GameContext;
+	import src.app.ConvoyConfigContext;
 	import src.app.GameContextFactory;
 	import src.app.GameLevel;
 	import flash.display.StageScaleMode;
+	import src.evento.ConvoySelectedEvent;
+	import src.evento.EventChannel;
 	
 	/**
 	 * ...
@@ -23,7 +27,10 @@
 		public static const DEFEAT_MATCH:int = 8;			// partida perdida
 		public static const VICTORY_MATCH:int = 9;		// partida ganha
 		public static const RESTART_GAME:int = 10;		// recomeçando jogo
+		public static const CONFIG_CONVOY:int = 11;		// configurando o comboio	
 
+		private var _convoyConfigContext:GameContext;
+		private var _currentLevelContext:GameContext;
 		
 		public function Main():void
 		{
@@ -34,6 +41,9 @@
 		
 		private function initGame(e:Event = null):void
 		{
+			// Necessario pra pegar o escopo dentro de um closure
+			var scope:GameApp = this;
+			
 			removeEventListener(Event.ADDED_TO_STAGE, initGame);
 			
 			// Contextos a serem mantidos em memória
@@ -51,18 +61,26 @@
 			addState(PAUSED, function() { 
 				switchContext(GameContextFactory.PAUSE_MENU, false); 
 			});
+
+			addState(CONFIG_CONVOY, function() {
+				_convoyConfigContext = GameContextFactory.createContext(scope, GameContextFactory.CONVOY_CONFIG);
+				_convoyConfigContext.addEventListener(EventChannel.CONVOY_SELECTED, createConvoy, false, 0, true);
+				addContext(_convoyConfigContext, GameContextFactory.CONVOY_CONFIG);
+				switchContext(GameContextFactory.CONVOY_CONFIG);
+			});
 			
 			addState(START_CAMPAIGN, function() { 
 				levelIndex = 1;
-				addGameContext(levelIndex);
+				addGameLevel(levelIndex);
 				switchContext(levelIndex); 
 			});
 
 			addState(NEXT_LEVEL, function() {
-				levelIndex++;
-				if (levelIndex <= GameLevel.MAX_LEVEL) {
-					addGameContext(levelIndex);
-					switchContext(levelIndex, true, true); 
+				if (levelIndex < GameLevel.MAX_LEVEL) {
+					removeGameLevel(levelIndex);
+					levelIndex++;
+					addGameLevel(levelIndex);
+					switchContext(levelIndex);
 				}
 				else {
 					activeState = GAME_OVER;
@@ -70,22 +88,22 @@
 			});
 			
 			addState(START_GAME, function() { 
-				addGameContext(levelIndex);
+				addGameLevel(levelIndex);
 				switchContext(levelIndex); 
 			});
 
 			addState(RESTART_GAME, function() { 
-				removeContext(levelIndex);
+				removeGameLevel(levelIndex);
 				activeState = START_GAME;
 			});
 
-			addState(BACK_TO_GAME, function() { 
+			addState(BACK_TO_GAME, function() {
 				switchContext(levelIndex);
 			});
 
 			addState(GAME_OVER, function() {
 				switchContext(GameContextFactory.MAIN_MENU);
-				removeContext(levelIndex);
+				removeGameLevel(levelIndex);
 			});
 
 			addState(DEFEAT_MATCH, function() { 
@@ -105,7 +123,22 @@
 		private function addGameContext(indexId:int):void {
 			addContext(GameContextFactory.createContext(this, indexId), indexId);
 		}
-	
+
+		private function addGameLevel(indexId:int):void {
+			_currentLevelContext = GameContextFactory.createContext(this, indexId);
+			addContext(_currentLevelContext, indexId);
+		}
+
+		private function removeGameLevel(indexId:int):void {
+			removeContext(indexId);
+			removeContext(GameContextFactory.CONVOY_CONFIG);
+			_currentLevelContext = null;
+		}
+
+		private function createConvoy(ev:ConvoySelectedEvent):void {
+			(_currentLevelContext as GameLevel).createConvoyFrom(ev.selection);
+		}
+		
 	}
 
 }
