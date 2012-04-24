@@ -32,21 +32,16 @@
 		public static const MAX_LEVEL:int = 2;
 		
 		private var _started:Boolean = false;
-		private var _gameApp:GameApp;
 		
-		public function GameLevel(pContext:GameContext, levelIndex:uint = 1)
+		public function GameLevel(gameApp:GameApp, levelIndex:uint = 1)
 		{
-			super(pContext);
-			_gameApp = parentContext as GameApp;
+			super(gameApp);
 			
 			_levelIndex = levelIndex;
 			if (_levelIndex < 1) {
 				_levelIndex = 1;
 			}
 
-			addGameContext(GameContextFactory.CONVOY_CONFIG);
-			addContext(this, levelIndex);
-			
 			init();
 			_world = GameWorldFactory.createWorld(this, _levelIndex);
 			addGameObject(_world);
@@ -59,34 +54,32 @@
 			addState(STARTING, function() {
 				if(!_started) {
 					_started = true;					 
-					activeState = CONVOY_CONFIG;			
+					gameApp.activeState = Main.CONFIG_CONVOY;			
 				}
 				else {
 					activeState = PLAYING;
 				}
 			});
 
+			addState(CONVOY_CONFIG, function() {
+				gameApp.activeState = Main.CONFIG_CONVOY;			
+			});
+
 			addState(GO_TO_MAP, function() {
-				switchContext(_levelIndex);
-				activeState = PLAYING; 
+				gameApp.activeState = Main.START_GAME; 
 			});
 			
 			addState(PLAYING, function() { active = true; });
 			addState(PAUSED, function() { active = false; } );
 			
 			addState(SUCCEDED, function() {
-				_gameApp.activeState = Main.VICTORY_MATCH;
+				gameApp.activeState = Main.VICTORY_MATCH;
 			});
 			
 			addState(FAILED, function() { 
-				_gameApp.activeState = Main.DEFEAT_MATCH;
+				gameApp.activeState = Main.DEFEAT_MATCH;
 			});
 
-			addState(CONVOY_CONFIG, function() {
-				addGameContext(GameContextFactory.CONVOY_CONFIG);
-				switchContext(GameContextFactory.CONVOY_CONFIG, false);
-			});
-			
 			inputManager.addCommandMapping(Keyboard.E, "START_WALKING");
 			inputManager.addCommandMapping(Keyboard.P, "PAUSE_SCREEN");
 
@@ -104,7 +97,7 @@
 			}, false);
 
 			commandProcessor.addCommand("PAUSE_SCREEN", function() { 
-				_gameApp.activeState = Main.PAUSED; } 
+				gameApp.activeState = Main.PAUSED; } 
 			);
 			
 		}
@@ -112,15 +105,12 @@
 		public override function enter():void {
 			super.enter();
 			_world.enter();
-			activeState = STARTING;
+			if(activeState == 0) {
+				activeState = STARTING;
+			}
 		}
 		
-		private function addGameContext(indexId:int):void {
-			addContext(GameContextFactory.createContext(this, indexId), indexId);
-		}
-		
-		public function createConvoyFrom(config:Vector.<Class>):void
-		{
+		public function createConvoyFrom(config:Vector.<Class>):void {
 			_world.createConvoyFrom(config);
 		}
 		

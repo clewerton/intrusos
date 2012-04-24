@@ -21,8 +21,10 @@
 		public static const TOWER_DESTROYED:String 		= "DestroyableEvent:TowerDestroyed";
 		public static const VEHICLE_DESTROYED:String 	= "DestroyableEvent:VehicleDestroyed";
 
-		//public static const CREATE_BULLET:String 		= "BulletEvent:CreateBullet";
 		public static const BULLET_CREATED:String 		= "BulletEvent:BulletCreated";
+		
+		public static const CONVOY_SELECTED:String 		= "ConvoySelectedEvent:ConvoySelected";
+		
 		
 		public function EventChannel() {}
 		

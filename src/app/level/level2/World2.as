@@ -12,6 +12,8 @@
 	import src.entidade.Vehicle;
 	import src.evento.DestroyableEvent;
 	import src.evento.EventChannel;
+	import flash.events.Event;
+	import flash.display.Shape;
 
 	/**
 	 * ...
@@ -39,6 +41,15 @@
 			convoy.visible = false;
 		
 			createTowers();
+		}
+		
+		protected override function onAddedToStage(ev:Event = null):void {
+			super.onAddedToStage(ev);
+			var background:Shape = new Shape();
+			background.graphics.beginFill(0x993300, 0.5);
+			background.graphics.drawRect(0, 0, stage.stageWidth, stage.stageHeight);
+			background.graphics.endFill();
+			addChildAt(background, 0);
 		}
 		
 		public override function newBullet(bulletClass:Class, sender:DestroyableObject, receiver:DestroyableObject):Bullet
@@ -76,6 +87,19 @@
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
 		}
+
+		public override function addVehicle(vehicle:Vehicle):void {
+			super.addVehicle(vehicle);
+			vehicle.addEventListener(EventChannel.OBJECT_HIT, hitVehicle, false, 0, true);
+			vehicle.addEventListener(EventChannel.OBJECT_DESTROYED, destroyVehicle, false, 0, true);
+		}
+		
+		private function hitVehicle(e:DestroyableEvent):void
+		{
+			var vehicle:Vehicle = e.gameObject as Vehicle;
+			setVehicleHealthHUDValue(vehicle.index, vehicle.health);
+			
+		}
 		
 		private function destroyTower(e:DestroyableEvent):void
 		{
@@ -94,20 +118,14 @@
 		private function destroyVehicle(e:DestroyableEvent):void
 		{
 			var vehicle:Vehicle = e.gameObject as Vehicle;
-			//adjustHealthHUD(e);
+			setVehicleHealthHUDValue(vehicle.index, 0);
 			removeVehicle(vehicle);
 			vehicle.active = false;
+			vehicle = null;
 			if (convoy.size == 0) {
-				trace("FAILURE");
 				_gameLevel.activeState = GameLevel.FAILED;
 			}
 		}
-		
-		/*private function adjustHealthHUD(e:DestroyableEvent):void
-		{
-			var vehicle:Vehicle = e.gameObject as Vehicle;
-			vehicleHealthHUD.score = convoy.vehicles[0].health;
-		}*/
 	}
 	
 }

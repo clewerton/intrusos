@@ -9,14 +9,13 @@
 	public class VictoryContext extends GameContext
 	{
 
-			public function VictoryContext(parentContext:GameContext)
+			public function VictoryContext(gameApp:GameApp)
 			{
-				super(parentContext);
+				super(gameApp);
 			}
 			
 		protected override function onAddedToStage(e:Event = null):void
 		{
-			var gameApp:GameApp = parentContext as GameApp;
 			var menuVar:GameMenuItem;
 
 			super.onAddedToStage(e);
@@ -36,7 +35,7 @@
 			addChild(menuVar);
 
 			if (gameApp.levelIndex < GameLevel.MAX_LEVEL) {
-				menuVar = new GameMenuItem("Próxima fase", 0xFFFF00, function() { 
+				menuVar = new GameMenuItem("Proxima fase", 0xFFFF00, function() { 
 					gameApp.activeState = Main.NEXT_LEVEL;
 				});
 				menuVar.x = 400;

@@ -96,6 +96,16 @@
 			_index = value;
 		}
 		
+		public function get cannon():Cannon 
+		{
+			return _cannon;
+		}
+		
+		public function set cannon(value:Cannon):void 
+		{
+			_cannon = value;
+		}
+		
 	}
 	
 }

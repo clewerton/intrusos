@@ -9,18 +9,17 @@
 	public class PauseMenuContext extends GameContext
 	{
 
-			public function PauseMenuContext(parentContext:GameContext)
+			public function PauseMenuContext(gameApp:GameApp)
 			{
-				super(parentContext);
+				super(gameApp);
 			}
 			
 		protected override function onAddedToStage(e:Event = null):void
 		{
-			var gameApp:GameApp = parentContext as GameApp;
 			var menuVar:GameMenuItem;
 
 			super.onAddedToStage(e);
-			menuVar = new GameMenuItem("Continuar Partida", 0xFFFF00, function() { 
+			menuVar = new GameMenuItem("Continuar Partida", 0xFFFF00, function() {
 					gameApp.activeState = Main.BACK_TO_GAME;
 			});
 			menuVar.x = 400;

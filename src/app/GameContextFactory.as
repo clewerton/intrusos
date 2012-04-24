@@ -20,45 +20,41 @@
 		private static var _menuContext:MainMenuContext;
 		private static var _pauseContext:PauseMenuContext;
 		private static var _defeatContext:DefeatContext;
-		private static var _victorytContext:VictoryContext;
 		
 		public function GameContextFactory() {}
 		
-		public static function createContext(context:GameContext, contextId:int):GameContext
+		public static function createContext(gameApp:GameApp, contextId:int):GameContext
 		{
 			var ctx:GameContext = null;
 			switch (contextId)
 			{
 				case MAIN_MENU:
 					if (_menuContext == null) {
-						_menuContext = new MainMenuContext(context);
+						_menuContext = new MainMenuContext(gameApp);
 					}
 					ctx = _menuContext;
 					break;
 				case PAUSE_MENU: 
 					if (_pauseContext == null) {
-						_pauseContext = new PauseMenuContext(context);
+						_pauseContext = new PauseMenuContext(gameApp);
 					}
 					ctx = _pauseContext;
 					break;
 				case DEFEAT_GAME_MENU: 
 					if (_defeatContext == null) {
-						_defeatContext = new DefeatContext(context);
+						_defeatContext = new DefeatContext(gameApp);
 					}
 					ctx = _defeatContext;
 					break;
 				case VICTORY_GAME_MENU: 
-					if (_victorytContext == null) {
-						_victorytContext = new VictoryContext(context);
-					}
-					ctx = _victorytContext;
+					ctx = new VictoryContext(gameApp);
 					break;
 				case CONVOY_CONFIG: 
-					ctx = new ConvoyConfigContext(context);
+					ctx = new ConvoyConfigContext(gameApp);
 					break;
 				default:
 					// Aqui carrega o contexto do level corrente
-					ctx = new GameLevel(context, contextId);
+					ctx = new GameLevel(gameApp, contextId);
 					break;
 			}
 			return ctx;

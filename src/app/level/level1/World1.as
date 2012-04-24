@@ -6,6 +6,7 @@
 	import lib.graph.Node;
 	import src.app.BaseWorld;
 	import src.app.GameLevel;
+	import src.entidade.BigTower;
 	import src.entidade.Bullet;
 	import src.entidade.DestroyableObject;
 	import src.entidade.HealthPack;
@@ -91,7 +92,7 @@
 			addTower(torre);
 			torre.addEventListener(EventChannel.OBJECT_DESTROYED, destroyTower, false, 0, true);
 			
-			torre = new StandardTower(this);
+			torre = new BigTower(this);
 			torre.x = 625;
 			torre.y = 625;
 			addTower(torre);
