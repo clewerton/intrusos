@@ -26,21 +26,21 @@
 		}
 
 		private function createNodes():void {
-			_grafo.addNode(new Node(50, 250));	//	0
-			_grafo.addNode(new Node(150, 250));	//	1
+			_grafo.addNode(new Node(0, 50, 250));	//	0
+			_grafo.addNode(new Node(1, 150, 250));	//	1
 			
-			_grafo.addNode(new Node(230, 250));	//	2
+			_grafo.addNode(new Node(2, 230, 250));	//	2
 			
-			_grafo.addNode(new Node(70, 150));	//	3
-			_grafo.addNode(new Node(150, 150));	//	4
-			_grafo.addNode(new Node(250, 150));	//	5
-			_grafo.addNode(new Node(50, 50));		//	6
-			_grafo.addNode(new Node(250, 110));	//	7
+			_grafo.addNode(new Node(3, 70, 150));	//	3
+			_grafo.addNode(new Node(4, 150, 150));	//	4
+			_grafo.addNode(new Node(5, 250, 150));	//	5
+			_grafo.addNode(new Node(6, 50, 50));		//	6
+			_grafo.addNode(new Node(7, 250, 110));	//	7
 			
-			_grafo.addNode(new Node(250, 230));	//	8
-			_grafo.addNode(new Node(50, 130));	//	9
-			_grafo.addNode(new Node(50, 170));	//	10
-			_grafo.addNode(new Node(190, 50));	//	11
+			_grafo.addNode(new Node(8, 250, 230));	//	8
+			_grafo.addNode(new Node(9, 50, 130));	//	9
+			_grafo.addNode(new Node(10, 50, 170));	//	10
+			_grafo.addNode(new Node(11, 190, 50));	//	11
 			
 		}
 		

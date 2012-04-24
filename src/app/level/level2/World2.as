@@ -7,7 +7,6 @@
 	import src.entidade.Bullet;
 	import src.entidade.DestroyableObject;
 	import src.entidade.StandardTower;
-	import src.entidade.StandardTruck;
 	import src.entidade.Tower;
 	import src.entidade.Vehicle;
 	import src.evento.DestroyableEvent;

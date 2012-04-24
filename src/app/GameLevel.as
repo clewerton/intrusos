@@ -4,7 +4,6 @@
 	import lib.engine.GameApp;
 	import lib.engine.GameContext;
 	import lib.engine.GameContextManager;
-	import src.entidade.StandardTruck;
 	import src.Main;
 	
 	/**

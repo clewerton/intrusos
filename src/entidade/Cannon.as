@@ -20,7 +20,7 @@
 		
 		public function Cannon(world:BaseWorld, owner:Vehicle, radius:uint, interval:uint)
 		{
-			super(world, 10);
+			super(world, 10, 0);
 			_radius = radius;
 			_interval = interval;
 			_owner = owner;

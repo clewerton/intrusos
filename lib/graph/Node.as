@@ -16,9 +16,11 @@ package lib.graph
 		protected var _outEdges:Vector.<Edge>;
 		protected var _inEdges:Vector.<Edge>;
 		protected var _edges:Vector.<Edge>;
+		private var _id:uint;
 		
-		public function Node(posX:int, posY:int)
+		public function Node(id:uint, posX:int, posY:int)
 		{
+			_id = id;
 			x = posX;
 			y = posY;
 			_outEdges = new Vector.<Edge>();
@@ -90,6 +92,16 @@ package lib.graph
 		public function getEdgesSize():uint
 		{
 			return _edges.length;
+		}
+		
+		public function get id():uint 
+		{
+			return _id;
+		}
+		
+		public function set id(value:uint):void 
+		{
+			_id = value;
 		}
 	
 	}

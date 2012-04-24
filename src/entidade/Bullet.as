@@ -11,7 +11,7 @@
 		private var _enemy:DestroyableObject;
 		
 		public function Bullet(world:BaseWorld, health:uint, speed:uint, damage:uint) {
-			super(world, health);
+			super(world, health, 0);
 			_speed = speed;
 			_enemy = enemy;
 			_damage = damage;
