@@ -10,6 +10,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Criador do grafo da fase 1
 	 */
 	public class Level1GraphCreator
 	{
@@ -26,36 +27,36 @@
 		}
 
 		private function createNodes():void {
-			_grafo.addNode(new Node(150, 100));		//	0
-			_grafo.addNode(new Node(400, 100));		//	1
-			_grafo.addNode(new Node(500, 100));		//	2
-			_grafo.addNode(new Node(650, 100));		//	3
+			_grafo.addNode(new Node(0, 150, 100));
+			_grafo.addNode(new Node(1, 400, 100));
+			_grafo.addNode(new Node(2, 500, 100));
+			_grafo.addNode(new Node(3, 650, 100));
 			
-			_grafo.addNode(new Node(300, 300));		//	4
-			_grafo.addNode(new Node(400, 300));		//	4
-			_grafo.addNode(new Node(500, 300));		//	5
-			_grafo.addNode(new Node(700, 300));		//	7
+			_grafo.addNode(new Node(4, 300, 300));
+			_grafo.addNode(new Node(5, 400, 300));
+			_grafo.addNode(new Node(6, 500, 300));
+			_grafo.addNode(new Node(7, 700, 300));
 			
-			_grafo.addNode(new Node(100, 400));		//	8
-			_grafo.addNode(new Node(300, 400));		//	9
-			_grafo.addNode(new Node(500, 400));		//	10
-			_grafo.addNode(new Node(700, 400));		//	11
+			_grafo.addNode(new Node(8, 100, 400));
+			_grafo.addNode(new Node(9, 300, 400));
+			_grafo.addNode(new Node(10, 500, 400));
+			_grafo.addNode(new Node(11, 700, 400));
 
-			_grafo.addNode(new Node(300, 500));		//	12
-			_grafo.addNode(new Node(400, 500));		//	13
-			_grafo.addNode(new Node(500, 500));		//	14
+			_grafo.addNode(new Node(12, 300, 500));
+			_grafo.addNode(new Node(13, 400, 500));
+			_grafo.addNode(new Node(14, 500, 500));
 			
-			_grafo.addNode(new Node(550, 550));		//	15
-			_grafo.addNode(new Node(700, 550));		//	16
+			_grafo.addNode(new Node(15, 550, 550));
+			_grafo.addNode(new Node(16, 700, 550));
 									 
-			_grafo.addNode(new Node(100, 700));		//	17
-			_grafo.addNode(new Node(300, 700));		//	18
-			_grafo.addNode(new Node(400, 700));		//	19
-			_grafo.addNode(new Node(550, 700));		//	20
-			_grafo.addNode(new Node(700, 700));		//	21
+			_grafo.addNode(new Node(17, 100, 700));
+			_grafo.addNode(new Node(18, 300, 700));
+			_grafo.addNode(new Node(19, 400, 700));
+			_grafo.addNode(new Node(20, 550, 700));
+			_grafo.addNode(new Node(21, 700, 700));
 
-			_grafo.addNode(new Node(100, 150));		//	22
-			_grafo.addNode(new Node(700, 150));		//	23
+			_grafo.addNode(new Node(22, 100, 150));
+			_grafo.addNode(new Node(23, 700, 150));
 			
 		}
 		

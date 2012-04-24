@@ -11,6 +11,7 @@
 	import src.entidade.Vehicle;
 	import flash.events.Event;
 	import flash.text.TextFieldAutoSize;
+	import src.entidade.PowerUp;
 	
 	/**
 	 * ...
@@ -27,7 +28,7 @@
 		
 		private var _towers:Vector.<Tower>;
 		private var _convoy:Convoy;
-		private var _powerUps:Vector.<DestroyableObject>;
+		private var _powerUps:Vector.<PowerUp>;
 		
 		//Grafo com os possíveis caminhos a serem percorridos
 		private var _graph:DirectedGraph;
@@ -45,7 +46,7 @@
 			_towers = new Vector.<Tower>;
 			_mapLayer = new GameContainer();
 			_hudLayer = new GameContainer();
-			_powerUps = new Vector.<DestroyableObject>();
+			_powerUps = new Vector.<PowerUp>();
 			
 			addGameObject(_mapLayer);
 			addGameObject(_hudLayer);
@@ -154,7 +155,7 @@
 					for (var indexHP:uint = 0; indexHP < _powerUps.length; indexHP++) {
 						vehicle = convoy.getElement(indexVehicles) as Vehicle;
 						if (vehicle.hitRegion.hitTestObject(_powerUps[indexHP].hitRegion)) {
-							vehicle.increaseHealth(_powerUps[indexHP].health);
+							_powerUps[indexHP].apply(vehicle);
 							_powerUps[indexHP].destroy();
 						}
 					}

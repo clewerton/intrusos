@@ -16,8 +16,8 @@
 		
 		private var _index:int;
 
-		public function Vehicle(world:BaseWorld, health:uint, linearSpeed:uint, cannon:Cannon) {
-			super(world, health);
+		public function Vehicle(world:BaseWorld, health:uint, linearSpeed:uint, endurance:uint, cannon:Cannon) {
+			super(world, health, endurance);
 			_linearSpeed = linearSpeed;
 			_cannon = cannon;
 			_range = new Shape();

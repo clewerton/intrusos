@@ -5,20 +5,20 @@
 	import src.app.BaseWorld;
 	
 	
-	public class HealthPack extends PowerUp {
+	public class EndurancePack extends PowerUp {
 		
-		public function HealthPack(world:BaseWorld) {
-			super(world, 200, 0);
+		public function EndurancePack(world:BaseWorld) {
+			super(world, 0, 2);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
 			_hitRegion.graphics.drawRect( -7, -7, 15, 15);
 			_hitRegion.graphics.endFill();
-
 		}
 		
 		public override function apply(obj:Vehicle):void {
-			obj.increaseHealth(health);
+			obj.endurance += endurance;
 		}
+		
 	}
 	
 }

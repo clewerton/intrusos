@@ -10,6 +10,8 @@
 	import src.evento.ConvoySelectedEvent;
 	import src.evento.EventChannel;
 	import src.Main;
+	import flash.utils.getQualifiedClassName;
+	import flash.utils.getDefinitionByName;
 	
 	public class ConvoyConfigContext extends GameContext
 	{
@@ -29,9 +31,13 @@
 			super.onAddedToStage(e);
 			
 			// Adicionando opções de veículos
-			vehicleChoice = new StandardVehicleChoice(0);
+			vehicleChoice = new AttackTruckChoice(0);
 			configureAvailableChoice(vehicleChoice, 0);
-			
+
+			vehicleChoice = new DefenseTruckChoice(1);
+			configureAvailableChoice(vehicleChoice, 1);
+
+			// Slots de seleções a serem preenchidas opcionalmente (mínimo = 1)
 			for (var counter:int = 0; counter < 4; counter++) {
 				var newChoice:VechicleChoice = new VechicleChoice(counter);
 				addSelectedChoice(newChoice, counter);
@@ -47,22 +53,13 @@
 			menuVar.x = stage.stageWidth / 2;
 			menuVar.y = 550;
 			addChild(menuVar);
-		
-			 /*menuVar = new GameMenuItem("Retirar veiculo", 0xFFFF00, function() {
-			 gameApp.levelIndex = 2;
-			 gameApp.activeState = Main.START_GAME;
-			 });
-			 menuVar.x = 450
-			 menuVar.y = 550;
-			 addChild(menuVar);
-		 */
 		}
 
 		private function configureAvailableChoice(availableChoice:VechicleChoice, counter:int):void {
 			availableChoices.push(availableChoice);
 			addChildAt(availableChoice, 2);
-			var choiceX = 75 + counter * 400;
-			var choiceY = 220 + counter * 100;
+			var choiceX = (counter + 1) * 250;
+			var choiceY = 220;
 			
 			availableChoice.x = choiceX;
 			availableChoice.y = choiceY;
@@ -91,7 +88,8 @@
 					var selectedChoice:VechicleChoice = selectedChoices[selIndex];
 					removeChild(selectedChoice);
 					var pos:int = selectedChoice.pos;
-					selectedChoice = new StandardVehicleChoice(pos);
+					var clazz:Class = Class(getDefinitionByName(getQualifiedClassName(obj)));
+					selectedChoice = new clazz(pos);
 					addSelectedChoice(selectedChoice, selIndex);
 					obj.x = choiceX;
 					obj.y = choiceY;

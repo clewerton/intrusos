@@ -4,7 +4,7 @@
 	public class BigTower extends Tower {
 		
 		public function BigTower(world:BaseWorld) {
-			super(world, 500, 120, 1500);
+			super(world, 600, 120, 1800);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
 			_hitRegion.graphics.drawRect( -13, -13, 26, 26);

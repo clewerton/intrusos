@@ -4,7 +4,7 @@
 	public class FireBullet extends Bullet {
 		
 		public function FireBullet(world:BaseWorld) {
-			super(world, 2, 5, 20);
+			super(world, 2, 5, 25);
 		}
 	}
 	

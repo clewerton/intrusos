@@ -15,7 +15,7 @@
 		private var _canShoot:Boolean = false;
 
 		public function Tower(world:BaseWorld, health:uint, radius:uint, bulletInterval:uint) {
-			super(world, health);
+			super(world, health, 0);
 			_radius = radius;
 			
 			_range = new Shape();

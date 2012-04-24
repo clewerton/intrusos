@@ -9,9 +9,10 @@
 	import src.entidade.BigTower;
 	import src.entidade.Bullet;
 	import src.entidade.DestroyableObject;
+	import src.entidade.EndurancePack;
 	import src.entidade.HealthPack;
+	import src.entidade.PowerUp;
 	import src.entidade.StandardTower;
-	import src.entidade.StandardTruck;
 	import src.entidade.Tower;
 	import src.entidade.Vehicle;
 	import src.evento.DestroyableEvent;
@@ -145,27 +146,32 @@
 		
 		private function createPowerUps():void
 		{
-			var healthPack:HealthPack;
+			var powerUp:PowerUp;
 			
-			healthPack = new HealthPack(this);
-			addPowerUp(healthPack);
-			healthPack.x = 500;
-			healthPack.y = 150;
-			healthPack.addEventListener(EventChannel.OBJECT_DESTROYED, increaseHealth, false, 0, true);
+			powerUp = new HealthPack(this);
+			addPowerUp(powerUp);
+			powerUp.x = 500;
+			powerUp.y = 150;
+			powerUp.addEventListener(EventChannel.OBJECT_DESTROYED, destroyPowerUp, false, 0, true);
 			
-			healthPack = new HealthPack(this);
-			addPowerUp(healthPack);
-			healthPack.x = 400;
-			healthPack.y = 200;
-			healthPack.addEventListener(EventChannel.OBJECT_DESTROYED, increaseHealth, false, 0, true);
+			powerUp = new HealthPack(this);
+			addPowerUp(powerUp);
+			powerUp.x = 700;
+			powerUp.y = 200;
+			powerUp.addEventListener(EventChannel.OBJECT_DESTROYED, destroyPowerUp, false, 0, true);
+
+			powerUp = new EndurancePack(this);
+			addPowerUp(powerUp);
+			powerUp.x = 500;
+			powerUp.y = 300;
+			powerUp.addEventListener(EventChannel.OBJECT_DESTROYED, destroyPowerUp, false, 0, true);
 			
 		}
 		
-		private function increaseHealth(e:DestroyableEvent):void
-		{
-			var healthPack:HealthPack = e.gameObject as HealthPack;
-			healthPack.active = false;
-			removePowerUp(healthPack);
+		private function destroyPowerUp(e:DestroyableEvent):void {
+			var powerUp:PowerUp = e.gameObject as PowerUp;
+			powerUp.active = false;
+			removePowerUp(powerUp);
 		}
 	}
 	

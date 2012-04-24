@@ -1,15 +1,18 @@
 ﻿package lib.graph {
+	import flash.utils.Dictionary;
 	import lib.engine.GameObject;
 	import src.evento.EventChannel;
 	import lib.graph.event.NodeEvent;
 	
 	public class DirectedGraph extends GameObject {
 
-		private var _nodes: Vector.<Node>;
+		//private var _nodes: Vector.<Node>;
+		private var _nodes: Dictionary;
 		private var _edges:Vector.<Edge>;
 
 		public function DirectedGraph() {
-			_nodes = new Vector.<Node>;
+			//_nodes = new Vector.<Node>;
+			_nodes = new Dictionary();
 			_edges = new Vector.<Edge>;
 		}
 
@@ -22,7 +25,8 @@
 		}
 
 		public function addNode(node:Node):void {
-			_nodes.push(node);
+			//_nodes.push(node);
+			_nodes[node.id] = node;
 			addChild(node);
 			dispatchEvent(new NodeEvent(EventChannel.NODE_ADDED, node));
 		}
@@ -34,14 +38,14 @@
 		}
 
 		public function connect(firstNodeIndex:uint, secondNodeIndex:uint, edge:Edge):Edge {
-			if(!_nodes.length == 0) {
+			if(_nodes[firstNodeIndex] != null &&  _nodes[secondNodeIndex] != null) {
 				edge.connect(_nodes[firstNodeIndex], _nodes[secondNodeIndex]);
 				_edges.push(edge);
 				addChild(edge);
 				return edge;
 			}
 			else {
-				throw new Error("Os indices não possuem refer}ancias válidas.");
+				throw new Error("Invalid reference index.");
 			}
 		}
 
