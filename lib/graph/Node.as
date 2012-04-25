@@ -10,8 +10,8 @@ package lib.graph
 	public class Node extends Shape
 	{
 		public static const NODE_COLOR:int = 0x0000FF;
-		public static const NODE_SELECTED_COLOR:int = 0xFF0000;
-		public static const NODE_RADIUS:int = 3;
+		public static const NODE_SELECTED_COLOR:int = 0x66CC00;
+		public static const NODE_RADIUS:int = 5;
 		
 		protected var _outEdges:Vector.<Edge>;
 		protected var _inEdges:Vector.<Edge>;

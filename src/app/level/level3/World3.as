@@ -1,4 +1,4 @@
-﻿package src.app.level.level1
+﻿package src.app.level.level3
 {
 	import flash.display.Shape;
 	import flash.events.Event;
@@ -10,6 +10,7 @@
 	import src.entidade.Bullet;
 	import src.entidade.DestroyableObject;
 	import src.entidade.EndurancePack;
+	import src.entidade.HardTower;
 	import src.entidade.HealthPack;
 	import src.entidade.PowerUp;
 	import src.entidade.StandardTower;
@@ -23,11 +24,11 @@
 	 * @author Clewerton Coelho
 	 * Mundo da fase 1
 	 */
-	public class World1 extends BaseWorld
+	public class World3 extends BaseWorld
 	{
 		private var _gameLevel:GameLevel;
 
-		public function World1(gameLevel:GameLevel)
+		public function World3(gameLevel:GameLevel)
 		{
 			super();
 			_gameLevel = gameLevel;
@@ -36,8 +37,8 @@
 			mapLayer.scaleY = 2;
 			
 			// Create graph:
-			var graph:DirectedGraph = new Level1GraphCreator().getGraph();
-			var node:Node = graph.getNodeById(0);
+			var graph:DirectedGraph = new Level3GraphCreator().getGraph();
+			var node:Node = graph.getNodeById(16);
 			addGraph(graph, node);
 			
 			convoy.active = false;
@@ -73,12 +74,21 @@
 		
 		private function createTowers():void
 		{
-			configureTower(new StandardTower(this), 170, 325);
-			configureTower(new StandardTower(this), 335, 160);
-			configureTower(new StandardTower(this), 635, 165);
-			configureTower(new BigTower(this), 625, 625);
-			configureTower(new BigTower(this), 400, 400);
-			configureTower(new StandardTower(this), 170, 630);
+			configureTower(new StandardTower(this), 335, 645);
+			configureTower(new StandardTower(this), 160, 455);
+			configureTower(new StandardTower(this), 160, 240);
+			configureTower(new StandardTower(this), 340, 60);
+			configureTower(new BigTower(this), 565, 45);
+			configureTower(new StandardTower(this), 740, 220);
+			configureTower(new StandardTower(this), 750, 440);
+			configureTower(new BigTower(this), 590, 590);
+			configureTower(new StandardTower(this), 375, 475);
+			configureTower(new BigTower(this), 260, 350);
+			configureTower(new StandardTower(this), 325, 205);
+			configureTower(new StandardTower(this), 575, 195);
+			configureTower(new StandardTower(this), 655, 310);
+			configureTower(new StandardTower(this), 590, 435);
+			configureTower(new HardTower(this), 460, 330);
 		}
 		
 		private function configureTower(tower:Tower, px:int, py:int):void {
@@ -128,14 +138,23 @@
 		
 		private function createPowerUps():void
 		{
-			configurePowerUp(new HealthPack(this), 300, 500);
-			configurePowerUp(new HealthPack(this), 700, 300);
-			configurePowerUp(new HealthPack(this), 100, 400);
-			configurePowerUp(new HealthPack(this), 550, 550);
-			configurePowerUp(new EndurancePack(this), 400, 100);
-			configurePowerUp(new EndurancePack(this), 700, 700);
-			configurePowerUp(new EndurancePack(this), 400, 700);
-			configurePowerUp(new EndurancePack(this), 500, 300);
+			configurePowerUp(new EndurancePack(this), 480, 390);
+			configurePowerUp(new EndurancePack(this), 530, 340);
+			configurePowerUp(new EndurancePack(this), 460, 270);
+			configurePowerUp(new EndurancePack(this), 370, 360);
+			configurePowerUp(new EndurancePack(this), 480, 470);
+			configurePowerUp(new EndurancePack(this), 610, 340);
+			configurePowerUp(new EndurancePack(this), 460, 190);
+			configurePowerUp(new EndurancePack(this), 290, 360);
+			configurePowerUp(new EndurancePack(this), 480, 550);
+			configurePowerUp(new EndurancePack(this), 700, 340);
+			configurePowerUp(new EndurancePack(this), 460, 100);
+			configurePowerUp(new EndurancePack(this), 200, 360);
+			configurePowerUp(new EndurancePack(this), 480, 640);
+			configurePowerUp(new EndurancePack(this), 800, 340);
+			configurePowerUp(new EndurancePack(this), 460, 0);
+			configurePowerUp(new EndurancePack(this), 100, 360);
+			
 		}
 		
 		private function configurePowerUp(powerUp:PowerUp, px:int, py:int):void {

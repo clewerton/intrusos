@@ -19,7 +19,7 @@
 			_radius = radius;
 			
 			_range = new Shape();
-			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
+			_range.graphics.lineStyle(1, 0xAAAAAA, 0);
 			_range.graphics.drawCircle(x, y, _radius);
 			addChild(_range);
 			_timer = new Timer(bulletInterval);
@@ -63,6 +63,7 @@
 				_canShoot = false;
 			}
 			else {
+				_timer.stop();
 				_enemy = null;
 			}
 		}

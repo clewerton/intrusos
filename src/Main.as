@@ -27,7 +27,11 @@
 		public static const DEFEAT_MATCH:int = 8;			// partida perdida
 		public static const VICTORY_MATCH:int = 9;		// partida ganha
 		public static const RESTART_GAME:int = 10;		// recomeçando jogo
-		public static const CONFIG_CONVOY:int = 11;		// configurando o comboio	
+		public static const CONFIG_CONVOY:int = 11;		// configurando o comboio
+		public static const BACK_TO_MENU:int = 12;		// de volta ao menu
+		public static const INFO_INPUT:int = 13;			// mostrando informações sobre comandos e teclas
+		public static const INFO_PATH:int = 14;				// mostrando informações sobre como configurar o caminho
+		public static const INFO_PLAY:int = 15;				// mostrando informações sobre como jogar
 
 		private var _convoyConfigContext:GameContext;
 		private var _currentLevelContext:GameContext;
@@ -58,6 +62,25 @@
 				switchContext(GameContextFactory.MAIN_MENU); 
 			});
 
+			addState(BACK_TO_MENU, function() { 
+				switchContext(GameContextFactory.MAIN_MENU, true, true); 
+			});
+
+			addState(INFO_INPUT, function() { 
+				addGameContext(GameContextFactory.INFO_INPUT);
+				switchContext(GameContextFactory.INFO_INPUT);
+			});
+
+			addState(INFO_PATH, function() { 
+				addGameContext(GameContextFactory.INFO_PATH);
+				switchContext(GameContextFactory.INFO_PATH);
+			});
+
+			addState(INFO_PLAY, function() { 
+				addGameContext(GameContextFactory.INFO_PLAY);
+				switchContext(GameContextFactory.INFO_PLAY);
+			});
+			
 			addState(PAUSED, function() { 
 				switchContext(GameContextFactory.PAUSE_MENU, false); 
 			});

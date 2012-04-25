@@ -15,6 +15,9 @@
 		public static const DEFEAT_GAME_MENU:int = -3;
 		public static const VICTORY_GAME_MENU:int = -4;
 		public static const CONVOY_CONFIG:int = -5;
+		public static const INFO_INPUT:int = -6;
+		public static const INFO_PATH:int = -7;
+		public static const INFO_PLAY:int = -8;
 		
 		// Contextos a serem salvos
 		private static var _menuContext:MainMenuContext;
@@ -51,6 +54,15 @@
 					break;
 				case CONVOY_CONFIG: 
 					ctx = new ConvoyConfigContext(gameApp);
+					break;
+				case INFO_INPUT: 
+					ctx = new InputInfoContext(gameApp);
+					break;
+				case INFO_PATH: 
+					ctx = new PathInfoContext(gameApp);
+					break;
+				case INFO_PLAY: 
+					ctx = new GamePlayInfoContext(gameApp);
 					break;
 				default:
 					// Aqui carrega o contexto do level corrente

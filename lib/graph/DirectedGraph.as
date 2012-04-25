@@ -5,18 +5,18 @@
 	import lib.graph.event.NodeEvent;
 	
 	public class DirectedGraph extends GameObject {
-
-		//private var _nodes: Vector.<Node>;
+		
+		// Map<id:uint -> node:Node>
 		private var _nodes: Dictionary;
+		
 		private var _edges:Vector.<Edge>;
 
 		public function DirectedGraph() {
-			//_nodes = new Vector.<Node>;
 			_nodes = new Dictionary();
 			_edges = new Vector.<Edge>;
 		}
 
-		public function getNodeAt(index:uint):Node {
+		public function getNodeById(index:uint):Node {
 			return _nodes[index];
 		}
 
@@ -25,7 +25,6 @@
 		}
 
 		public function addNode(node:Node):void {
-			//_nodes.push(node);
 			_nodes[node.id] = node;
 			addChild(node);
 			dispatchEvent(new NodeEvent(EventChannel.NODE_ADDED, node));

@@ -2,6 +2,7 @@
 {
 	import src.app.level.level1.World1;
 	import src.app.level.level2.World2;
+	import src.app.level.level3.World3;
 
 	/**
 	 * ...
@@ -22,6 +23,9 @@
 					break;
 				case 2: 
 					obj = new World2(gameLevel);
+					break;
+				case 3: 
+					obj = new World3(gameLevel);
 					break;
 				default:
 					throw new Error("Id do mundo nao identificado");

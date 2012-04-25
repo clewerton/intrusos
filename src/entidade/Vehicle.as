@@ -21,7 +21,7 @@
 			_linearSpeed = linearSpeed;
 			_cannon = cannon;
 			_range = new Shape();
-			_range.graphics.lineStyle(1, 0xAAAAAA, 0.4);
+			_range.graphics.lineStyle(1, 0xAAAAAA, 0);
 			_range.graphics.drawCircle(x, y, cannon.radius);
 			addChild(_range);
 		}
@@ -49,6 +49,7 @@
 				}
 			} 
 			else {
+				_cannon.deactivate();
 				_enemy = null;
 			}
 		}

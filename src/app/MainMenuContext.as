@@ -24,7 +24,7 @@
 					gameApp.activeState = Main.START_GAME;
 			});
 			menuVar.x = 400;
-			menuVar.y = 350;
+			menuVar.y = 250;
 			addChild(menuVar);
 			
 			menuVar = new GameMenuItem("Iniciar fase 2", 0xFFFF00, function() {
@@ -32,9 +32,37 @@
 					gameApp.activeState = Main.START_GAME;
 			});
 			menuVar.x = 400
-			menuVar.y = 400;
+			menuVar.y = 300;
 			addChild(menuVar);
 		
+			menuVar = new GameMenuItem("Iniciar fase 3", 0xFFFF00, function() {
+					gameApp.levelIndex = 3;
+					gameApp.activeState = Main.START_GAME;
+			});
+			menuVar.x = 400
+			menuVar.y = 350;
+			addChild(menuVar);
+
+			menuVar = new GameMenuItem("Como Jogar", 0xFFFF00, function() {
+					gameApp.activeState = Main.INFO_PLAY;
+			});
+			menuVar.x = 400
+			menuVar.y = 400;
+			addChild(menuVar);
+			
+			menuVar = new GameMenuItem("Teclado e mouse", 0xFFFF00, function() {
+					gameApp.activeState = Main.INFO_INPUT;
+			});
+			menuVar.x = 400
+			menuVar.y = 450;
+			addChild(menuVar);
+
+			menuVar = new GameMenuItem("Selecao do caminho", 0xFFFF00, function() {
+					gameApp.activeState = Main.INFO_PATH;
+			});
+			menuVar.x = 400
+			menuVar.y = 500;
+			addChild(menuVar);
 		}
 	
 	}

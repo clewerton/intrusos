@@ -7,7 +7,7 @@
 	public class NeonLaser extends Bullet {
 		
 		public function NeonLaser(world:BaseWorld) {
-			super(world, 1, 10, 30);
+			super(world, 1, 7, 45);
 		}
 	}
 	

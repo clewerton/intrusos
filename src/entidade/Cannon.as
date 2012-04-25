@@ -39,6 +39,10 @@
 			_canShoot = false;
 		}
 		
+		public function deactivate():void {
+			_timer.stop();
+		}
+		
 		protected function getNewBullet():void {
 			throw new Error("Metodo Abstrato!");
 		}
