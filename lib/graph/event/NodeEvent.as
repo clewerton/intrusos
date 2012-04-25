@@ -3,6 +3,12 @@
 	import flash.events.Event;
 	import lib.graph.Node;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um evento de Nó.
+	 */
+	
 	public class NodeEvent extends Event {
 
     //public static const EDGE_CLICKED:String = "EdgeEvent:EdgeClicked";

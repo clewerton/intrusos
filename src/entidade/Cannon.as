@@ -8,6 +8,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Classe base para um canhão.
 	 */
 	public class Cannon extends DestroyableObject
 	{

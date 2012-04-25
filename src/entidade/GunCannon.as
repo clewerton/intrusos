@@ -8,6 +8,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Uma tipo de arma de fogo.
 	 */
 	public class GunCannon extends Cannon {
 

@@ -5,6 +5,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Mapeador de eventos em comandos básicos (não suporta combinações de teclas).
 	 */
 	public class InputManager 
 	{

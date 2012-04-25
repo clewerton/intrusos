@@ -3,7 +3,11 @@
 	import flash.display.DisplayObject;
 	import lib.engine.GameObject;
 	
-	// A connection between 2 nodes.
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa uma aresta, relacionando 2 nós.
+	 */
 	public class Edge extends GameObject {
 
 		private var _target: Node;

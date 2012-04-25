@@ -5,6 +5,11 @@
 	import lib.engine.GameApp;
 	import lib.engine.GameContext;
 	import src.Main;
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Tela de vitória na fase.
+	 */
 	
 	public class VictoryContext extends GameContext
 	{

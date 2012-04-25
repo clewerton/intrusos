@@ -3,6 +3,11 @@
 	import flash.display.MovieClip;
 	import src.app.BaseWorld;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Um laser baseado num mundo pós-guerra.
+	 */
 	
 	public class NukaBeam extends Bullet {
 		

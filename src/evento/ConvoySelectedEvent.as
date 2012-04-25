@@ -4,7 +4,8 @@
 
 	/**
 	 * ...
-	 * @author ...
+	 * @author Clewerton Coelho
+	 * Representa um evento de Seleção de comboio.
 	 */
 	public class ConvoySelectedEvent extends Event {
 

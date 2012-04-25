@@ -2,6 +2,12 @@
 	
 	import flash.events.EventDispatcher;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Dveria ser um canal de eventos, mas se limitou a definir constantes de eventos...
+	 */
+	
 	public class EventChannel extends EventDispatcher {
 
 		private static var _instance:EventChannel;

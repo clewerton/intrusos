@@ -13,6 +13,12 @@
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getDefinitionByName;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Tela de configuração do comboio.
+	 */
+	
 	public class ConvoyConfigContext extends GameContext
 	{
 		private var availableChoices:Vector.<VechicleChoice> = new Vector.<VechicleChoice>();

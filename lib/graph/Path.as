@@ -2,6 +2,11 @@
 	import lib.graph.event.PathEvent;
 	import src.evento.EventChannel;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um caminho. Além disso gerencia a configuração do mesmo.
+	 */
 	
 	public class Path extends Edge {
 

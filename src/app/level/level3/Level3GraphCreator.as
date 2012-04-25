@@ -10,7 +10,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
-	 * Criador do grafo da fase 3
+	 * Contém as informações do grafo da fase 3.
 	 */
 	public class Level3GraphCreator
 	{

@@ -5,6 +5,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Repositório de gameObjects
 	 */
 	public class GameContainer extends GameObject
 	{

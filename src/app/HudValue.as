@@ -4,6 +4,11 @@
 	import lib.engine.GameObject;
 	import flash.text.TextFieldAutoSize;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Encapsula um valor a ser exibido no HUD.
+	 */
 	
 	public class HudValue extends GameObject {
 		

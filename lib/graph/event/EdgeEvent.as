@@ -3,6 +3,12 @@
 	import flash.events.Event;
 	import lib.graph.Edge;
 	
+		/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um evento de Aresta.
+	 */
+
 	public class EdgeEvent extends Event {
 
     //public static const EDGE_CLICKED:String = "EdgeEvent:EdgeClicked";

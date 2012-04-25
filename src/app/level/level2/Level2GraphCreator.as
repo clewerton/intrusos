@@ -10,6 +10,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Contém as informações do grafo da fase 2.
 	 */
 	public class Level2GraphCreator
 	{

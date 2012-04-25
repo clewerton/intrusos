@@ -5,6 +5,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Representa o motor da engine
 	 */
 	public class GameApp extends GameObject
 	{

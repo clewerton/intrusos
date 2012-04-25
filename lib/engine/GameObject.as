@@ -5,6 +5,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Unidade fundamental da engine. Representa uma entidade que pode manipulada pela engine.
 	 */
 	public class GameObject extends MovieClip
 	{

@@ -4,6 +4,11 @@
 	import lib.engine.GameObject;
 	import src.app.BaseWorld;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Power-up de resistência.
+	 */
 	
 	public class EndurancePack extends PowerUp {
 		

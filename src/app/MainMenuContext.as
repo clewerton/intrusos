@@ -6,6 +6,12 @@
 	import lib.engine.GameContext;
 	import src.Main;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Tela inicial (tela do menu).
+	 */
+	
 	public class MainMenuContext extends GameContext
 	{
 		

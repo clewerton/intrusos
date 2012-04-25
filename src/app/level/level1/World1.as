@@ -74,8 +74,14 @@
 		private function createTowers():void
 		{
 			configureTower(new StandardTower(this), 170, 325);
+			configureTower(new StandardTower(this), 170, 475);
 			configureTower(new StandardTower(this), 335, 160);
-			configureTower(new StandardTower(this), 635, 165);
+			configureTower(new StandardTower(this), 450, 160);
+			configureTower(new StandardTower(this), 350, 635);
+			configureTower(new StandardTower(this), 635, 160);
+			configureTower(new StandardTower(this), 635, 350);
+			configureTower(new StandardTower(this), 475, 635);
+			configureTower(new StandardTower(this), 635, 475);
 			configureTower(new BigTower(this), 625, 625);
 			configureTower(new BigTower(this), 400, 400);
 			configureTower(new StandardTower(this), 170, 630);

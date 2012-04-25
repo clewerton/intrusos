@@ -5,6 +5,11 @@
 	import src.Main;
 	import lib.engine.GameContext;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Tela com informação sobre construção do caminho.
+	 */
 	
 	public class PathInfoContext extends GameContext {
 		

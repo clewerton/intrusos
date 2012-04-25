@@ -4,6 +4,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Representa um contexto para a engine. Geralmente se traduz em uma tela.
 	 */
 	public class GameContext extends GameContainer
 	{

@@ -4,7 +4,11 @@
 	import flash.geom.Point;
 	import lib.utils.Utils;
 	
-	// Arco de círculo que conecta 2 nodes.
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa uma aresta que cobre um quadrante de um círculo.
+	 */
 	public class QuadrantEdge extends Edge {
 
 		private var _center:Point;

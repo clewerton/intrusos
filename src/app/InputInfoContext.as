@@ -5,6 +5,11 @@
 	import lib.engine.GameContext;
 	import src.Main;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Tela de informação de input.
+	 */
 	
 	public class InputInfoContext extends GameContext
 	{

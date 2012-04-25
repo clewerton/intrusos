@@ -3,11 +3,14 @@
 	
 	import flash.events.Event;
 	import src.entidade.DestroyableObject;
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um evento de destruição de um item destrutítel.
+	 */
 	
 	public class DestroyableEvent extends Event
 	{
-		
-		//public const DESTROIED:String = "DestructableEvent:DESTROIED";
 		
 		private var _gameObject:DestroyableObject;
 		

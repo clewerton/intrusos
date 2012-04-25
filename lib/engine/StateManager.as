@@ -7,6 +7,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Gerencia os estados de um gameObject. Usado intensivamente pelo GameApp.
 	 */
 	public class StateManager extends EventDispatcher
 	{

@@ -6,6 +6,7 @@ package lib.graph
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Representa um nó do grafo.
 	 */
 	public class Node extends Shape
 	{

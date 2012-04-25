@@ -5,7 +5,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
-	 * Classe interna reponsável por gerenciar os contextos.
+	 * Registra e gerencia os contextos.
 	 */
 	internal class GameContextManager
 	{
