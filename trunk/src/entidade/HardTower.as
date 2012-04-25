@@ -1,22 +1,22 @@
 ﻿package src.entidade {
 	import src.app.BaseWorld;
 	
-	public class StandardTower extends Tower {
+	public class HardTower extends Tower {
 		
-		public function StandardTower(world:BaseWorld) {
-			super(world, 400, 100, 600);
+		public function HardTower(world:BaseWorld) {
+			super(world, 2000, 150, 2000);
 			
 			_hitRegion.graphics.beginFill(0xCCCCCC, 0);
-			_hitRegion.graphics.drawRect( -8, -8, 16, 16);
+			_hitRegion.graphics.drawRect( -13, -13, 26, 26);
 			_hitRegion.graphics.endFill();
 		}
 		
 		public override function scoreValue():uint {
-			return 150;
+			return 250;
 		}
 		
 		protected override function getNewBullet():void {
-			gameWorld.newBullet(NeonLaser, this, enemy);
+			gameWorld.newBullet(NukaBeam, this, enemy);
 		}
 	}
 	

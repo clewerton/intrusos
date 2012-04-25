@@ -59,7 +59,7 @@
 			availableChoices.push(availableChoice);
 			addChildAt(availableChoice, 2);
 			var choiceX = (counter + 1) * 250;
-			var choiceY = 220;
+			var choiceY = 270;
 			
 			availableChoice.x = choiceX;
 			availableChoice.y = choiceY;

@@ -26,45 +26,101 @@
 		}
 
 		private function createNodes():void {
-			_grafo.addNode(new Node(0, 50, 250));	//	0
-			_grafo.addNode(new Node(1, 150, 250));	//	1
-			
-			_grafo.addNode(new Node(2, 230, 250));	//	2
-			
-			_grafo.addNode(new Node(3, 70, 150));	//	3
-			_grafo.addNode(new Node(4, 150, 150));	//	4
-			_grafo.addNode(new Node(5, 250, 150));	//	5
-			_grafo.addNode(new Node(6, 50, 50));		//	6
-			_grafo.addNode(new Node(7, 250, 110));	//	7
-			
-			_grafo.addNode(new Node(8, 250, 230));	//	8
-			_grafo.addNode(new Node(9, 50, 130));	//	9
-			_grafo.addNode(new Node(10, 50, 170));	//	10
-			_grafo.addNode(new Node(11, 190, 50));	//	11
+			_grafo.addNode(new Node(51, 350, 456));
+			_grafo.addNode(new Node(52, 350, 680));
+			_grafo.addNode(new Node(53, 460, 570));
+			_grafo.addNode(new Node(54, 240, 570));
+			_grafo.addNode(new Node(55, 350, 320));
+			_grafo.addNode(new Node(56, 350, 830));
+			_grafo.addNode(new Node(57, 610, 570));
+			_grafo.addNode(new Node(58, 90, 570));
+			_grafo.addNode(new Node(71, 865, 460));
+			_grafo.addNode(new Node(72, 865, 680));
+			_grafo.addNode(new Node(73, 970, 570));
+			_grafo.addNode(new Node(74, 755, 570));
+			_grafo.addNode(new Node(75, 865, 315));
+			_grafo.addNode(new Node(76, 865, 830));
+			_grafo.addNode(new Node(77, 1120, 570));
+			_grafo.addNode(new Node(107, 610, 720));
+			_grafo.addNode(new Node(109, 715, 830));
+			_grafo.addNode(new Node(111, 610, 940));
+			_grafo.addNode(new Node(113, 500, 830));
+			_grafo.addNode(new Node(120, 610, 210));
+			_grafo.addNode(new Node(122, 715, 315));
+			_grafo.addNode(new Node(124, 610, 425));
+			_grafo.addNode(new Node(126, 500, 320));
+			_grafo.addNode(new Node(140, 610, 1080));
+			_grafo.addNode(new Node(149, 610, 65));
+			_grafo.addNode(new Node(171, 660, 180));
+			_grafo.addNode(new Node(173, 540, 435));
+			_grafo.addNode(new Node(175, 725, 500));
+			_grafo.addNode(new Node(177, 990, 620));
+			_grafo.addNode(new Node(179, 660, 690));
+			_grafo.addNode(new Node(181, 540, 955));
+			_grafo.addNode(new Node(184, 470, 620));
+			_grafo.addNode(new Node(186, 200, 510));
+			_grafo.addNode(new Node(187, 605, 310));
+			_grafo.addNode(new Node(188, 865, 565));
+			_grafo.addNode(new Node(189, 350, 565));
+			_grafo.addNode(new Node(190, 605, 825));
+			_grafo.addNode(new Node(192, 930, 435));
+			_grafo.addNode(new Node(193, 800, 700));
+			_grafo.addNode(new Node(194, 735, 880));
+			_grafo.addNode(new Node(195, 470, 770));
+			_grafo.addNode(new Node(196, 400, 420));
+			_grafo.addNode(new Node(197, 300, 715));
+			_grafo.addNode(new Node(198, 740, 370));
+			_grafo.addNode(new Node(199, 470, 260));
 			
 		}
 		
 		private function creatGraph():void {
 			createNodes();
 			
-			_grafo.connect(0, 1, new StandardLinearEdge()).name = "0-1";
-			_grafo.connect(0, 10, new StandardLinearEdge()).name = "0-10";
-			_grafo.connect(10, 3, new StandardQuadrantEdge()).name = "10-3";
-			_grafo.connect(9, 3, new StandardQuadrantEdge(false)).name = "9-3";
-			
-			_grafo.connect(1, 2, new StandardLinearEdge()).name = "1-2";
-			_grafo.connect(8, 5, new StandardLinearEdge()).name = "8-5";
-			
-			_grafo.connect(2, 3, new StandardLinearEdge()).name = "2-3";
-			_grafo.connect(1, 4, new StandardLinearEdge()).name = "1-4";
-			_grafo.connect(8, 5, new StandardLinearEdge()).name = "8-5";
-			_grafo.connect(3, 4, new StandardLinearEdge()).name = "3-4";
-			_grafo.connect(6, 9, new StandardLinearEdge()).name = "6-9";
-			_grafo.connect(4, 5, new StandardLinearEdge()).name = "4-5";
-			_grafo.connect(5, 7, new StandardLinearEdge()).name = "5-7";
-			_grafo.connect(11, 6, new StandardLinearEdge()).name = "11-6";
-			_grafo.connect(7, 11, new StandardQuadrantEdge(false)).name = "7-11";
-			_grafo.connect(2, 8, new StandardQuadrantEdge(false)).name = "2-8";
+			_grafo.connect(54, 51, new StandardQuadrantEdge());
+			_grafo.connect(51, 53, new StandardQuadrantEdge());
+			_grafo.connect(53, 52, new StandardQuadrantEdge());
+			_grafo.connect(52, 54, new StandardQuadrantEdge());
+			_grafo.connect(51, 55, new StandardLinearEdge());
+			_grafo.connect(54, 58, new StandardLinearEdge());
+			_grafo.connect(57, 55, new StandardLinearEdge());
+			_grafo.connect(55, 58, new StandardLinearEdge());
+			_grafo.connect(58, 56, new StandardLinearEdge());
+			_grafo.connect(56, 57, new StandardLinearEdge());
+			_grafo.connect(75, 71, new StandardLinearEdge());
+			_grafo.connect(57, 74, new StandardLinearEdge());
+			_grafo.connect(124, 57, new StandardLinearEdge());
+			_grafo.connect(56, 52, new StandardLinearEdge());
+			_grafo.connect(57, 53, new StandardLinearEdge());
+			_grafo.connect(73, 77, new StandardLinearEdge());
+			_grafo.connect(72, 76, new StandardLinearEdge());
+			_grafo.connect(107, 57, new StandardLinearEdge());
+			_grafo.connect(122, 120, new StandardQuadrantEdge(false));
+			_grafo.connect(120, 126, new StandardQuadrantEdge(false));
+			_grafo.connect(126, 124, new StandardQuadrantEdge(false));
+			_grafo.connect(124, 122, new StandardQuadrantEdge(false));
+			_grafo.connect(57, 76, new StandardLinearEdge());
+			_grafo.connect(75, 57, new StandardLinearEdge());
+			_grafo.connect(76, 140, new StandardLinearEdge());
+			_grafo.connect(140, 56, new StandardLinearEdge());
+			_grafo.connect(76, 77, new StandardLinearEdge());
+			_grafo.connect(77, 75, new StandardLinearEdge());
+			_grafo.connect(55, 149, new StandardLinearEdge());
+			_grafo.connect(149, 75, new StandardLinearEdge());
+			_grafo.connect(71, 73, new StandardQuadrantEdge());
+			_grafo.connect(73, 72, new StandardQuadrantEdge());
+			_grafo.connect(72, 74, new StandardQuadrantEdge());
+			_grafo.connect(74, 71, new StandardQuadrantEdge());
+			_grafo.connect(109, 107, new StandardQuadrantEdge(false));
+			_grafo.connect(111, 109, new StandardQuadrantEdge(false));
+			_grafo.connect(107, 113, new StandardQuadrantEdge(false));
+			_grafo.connect(113, 111, new StandardQuadrantEdge(false));
+			_grafo.connect(76, 109, new StandardLinearEdge());
+			_grafo.connect(113, 56, new StandardLinearEdge());
+			_grafo.connect(55, 126, new StandardLinearEdge());
+			_grafo.connect(122, 75, new StandardLinearEdge());
+			_grafo.connect(149, 120, new StandardLinearEdge());
+			_grafo.connect(140, 111, new StandardLinearEdge());
 			
 		}
 		
