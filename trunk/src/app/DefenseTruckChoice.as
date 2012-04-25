@@ -5,6 +5,11 @@
 	import src.entidade.DefenseTruck;
 	import src.entidade.Vehicle;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa a opção de veículo de defesa.
+	 */
 	
 	public class DefenseTruckChoice extends VechicleChoice {
 		

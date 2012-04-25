@@ -4,6 +4,11 @@
 	import src.entidade.Convoy;
 	import src.entidade.Vehicle;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Classe base de opções de veículos.
+	 */
 	
 	public class VechicleChoice extends MovieClip {
 		

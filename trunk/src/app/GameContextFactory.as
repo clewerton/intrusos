@@ -6,6 +6,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Fábrica resposável por criar os contextos.
 	 */
 	public class GameContextFactory
 	{

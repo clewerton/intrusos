@@ -8,6 +8,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Representação visual de uma aresta reta.
 	 */
 	public class StandardLinearEdge extends LinearEdge
 	{

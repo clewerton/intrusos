@@ -3,6 +3,12 @@
 	import src.app.BaseWorld;
 	import lib.utils.Utils;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Classe base para munição.
+	 */
+	
 	public class Bullet extends DestroyableObject {
 
 		private var _speed:uint;

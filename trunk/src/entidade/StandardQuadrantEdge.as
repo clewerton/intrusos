@@ -9,6 +9,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Representação visual de uma aresta em forma de quadrante de círculo.
 	 */
 	public class StandardQuadrantEdge extends QuadrantEdge
 	{

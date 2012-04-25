@@ -5,6 +5,11 @@
 	import src.entidade.Convoy;
 	import src.entidade.Vehicle;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa a opção de veículo de ataque.
+	 */
 	
 	public class AttackTruckChoice extends VechicleChoice {
 		

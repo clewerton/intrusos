@@ -9,6 +9,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Classe base para criação de levels.
 	 */
 	public class GameLevel extends GameContext
 	{

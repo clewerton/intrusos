@@ -1,6 +1,12 @@
 ﻿package src.entidade {
 	import src.app.BaseWorld;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Veículo de defesa.
+	 */
+	
 	public class DefenseTruck extends Vehicle {
 		
 		public function DefenseTruck(world:BaseWorld) {

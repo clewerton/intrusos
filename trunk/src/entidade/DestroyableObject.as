@@ -6,6 +6,12 @@
 	import src.evento.DestroyableEvent;
 	import src.evento.EventChannel;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Um objeto que pode ser destruído/consumido.
+	 */
+	
 	public class DestroyableObject extends GameObject {
 
 		private var _world:BaseWorld;

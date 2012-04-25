@@ -19,6 +19,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Representa o comboio. Mantém a consitência entre os veículos componentes.
 	 */
 	public class Convoy extends GameContainer
 	{

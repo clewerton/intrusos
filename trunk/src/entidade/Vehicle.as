@@ -4,7 +4,13 @@
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	import src.app.BaseWorld;
-	
+
+		/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Classe base para veículos.
+	 */
+
 	public class Vehicle extends DestroyableObject {
 
 		private var _linearSpeed:uint;

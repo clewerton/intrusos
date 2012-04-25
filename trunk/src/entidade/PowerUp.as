@@ -4,6 +4,11 @@
 	import lib.engine.GameObject;
 	import src.app.BaseWorld;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um power-up.
+	 */
 	
 	public class PowerUp extends DestroyableObject {
 		

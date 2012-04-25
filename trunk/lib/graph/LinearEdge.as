@@ -3,6 +3,12 @@
 	import flash.display.DisplayObject;
 	import lib.utils.Utils;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um aresta reta.
+	 */
+	
 	public class LinearEdge extends Edge {
 
 		public override function connect(source: Node, target: Node):void {

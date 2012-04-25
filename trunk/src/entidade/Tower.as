@@ -5,6 +5,12 @@
 	import flash.utils.Timer;
 	import src.app.BaseWorld;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Classe base para torres.
+	 */
+	
 	public class Tower extends DestroyableObject {
 
 		private var _radius:uint;

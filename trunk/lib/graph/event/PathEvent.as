@@ -5,7 +5,7 @@
 
 	/**
 	 *
-	 * Classe que representa os eventos de Path.
+	 * Representa eventos de Path.
 	 *
 	 */
 

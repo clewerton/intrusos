@@ -1,5 +1,10 @@
 ﻿package src.app
 {
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Tela de derrota no jogo.
+	 */
 	
 	import flash.events.Event;
 	import lib.engine.GameApp;

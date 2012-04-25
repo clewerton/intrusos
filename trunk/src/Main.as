@@ -13,6 +13,8 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Uma instanciação da engine. 
+	 * Orquestra as ações entre os gerenciadores de recursos de forma a manter um mínimo de ordem na casa :O
 	 */
 	public class Main extends GameApp
 	{

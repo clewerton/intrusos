@@ -5,6 +5,12 @@
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um item de menu.
+	 */
+	
 	public class GameMenuItem extends MovieClip
 	{
 		

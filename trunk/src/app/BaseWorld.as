@@ -16,6 +16,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Classe base para criar mundos.
 	 */
 	public class BaseWorld extends GameContainer
 	{

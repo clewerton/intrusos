@@ -1,6 +1,12 @@
 ﻿package src.entidade {
 	import src.app.BaseWorld;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Um tipo de torre.
+	 */
+	
 	public class HardTower extends Tower {
 		
 		public function HardTower(world:BaseWorld) {

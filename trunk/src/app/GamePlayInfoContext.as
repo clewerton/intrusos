@@ -6,6 +6,11 @@
 	import src.Main;
 	import lib.engine.GameApp;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Tela de informação sobre como jogar.
+	 */
 	
 	public class GamePlayInfoContext extends GameContext {
 		

@@ -4,7 +4,8 @@
 
 	/**
 	 * ...
-	 * @author ...
+	 * @author Clewerton Coelho
+	 * Representa um evento de Munição.
 	 */
 	public class BulletEvent extends Event {
 

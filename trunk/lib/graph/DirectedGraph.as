@@ -4,6 +4,12 @@
 	import src.evento.EventChannel;
 	import lib.graph.event.NodeEvent;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um grafo direcionado. Usado para armazenar informações sobre os possíveis caminhos.
+	 */
+	
 	public class DirectedGraph extends GameObject {
 		
 		// Map<id:uint -> node:Node>

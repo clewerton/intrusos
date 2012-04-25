@@ -3,6 +3,11 @@
 	import flash.display.MovieClip;
 	import src.app.BaseWorld;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Hmmm...feixe de plasma? :D
+	 */
 	
 	public class PlasmaBeam extends Bullet {
 		

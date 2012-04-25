@@ -7,6 +7,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Fábrica responsável por criar mundos.
 	 */
 	public class GameWorldFactory 
 	{

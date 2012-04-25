@@ -5,6 +5,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
+	 * Processador de comandos. Habilita a execução de comandos via script.
 	 */
 	public class CommandProcessor 
 	{

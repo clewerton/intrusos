@@ -22,7 +22,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
-	 * Mundo da fase 1
+	 * Mundo da fase 3.
 	 */
 	public class World3 extends BaseWorld
 	{

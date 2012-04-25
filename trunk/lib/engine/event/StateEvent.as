@@ -2,6 +2,12 @@
 	
 	import flash.events.Event;
 	
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Representa um evento de Estado.
+	 */
+	
 	public class StateEvent extends Event {
 
 		private var _state:uint;

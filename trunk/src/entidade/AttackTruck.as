@@ -1,5 +1,10 @@
 ﻿package src.entidade {
 	import src.app.BaseWorld;
+	/**
+	 * ...
+	 * @author Clewerton Coelho
+	 * Veículo de ataque.
+	 */
 	
 	public class AttackTruck extends Vehicle {
 		

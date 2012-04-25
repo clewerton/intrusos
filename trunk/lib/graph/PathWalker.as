@@ -9,7 +9,7 @@
 	/**
 	 * ...
 	 * @author Clewerton Coelho
-	 * Classe que itera sobre um caminho previamente criado
+	 * Classe responsável por conduzir uma veículo por um caminho.
 	 */
 	public class PathWalker extends EventDispatcher {
 
